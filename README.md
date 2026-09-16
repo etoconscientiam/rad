@@ -26,8 +26,12 @@ _source/                  — ИСХОДНИКИ, НЕ РЕДАКТИРОВАТ�
   prototype/              — свежая выгрузка Claude Design (16.09.2026) — рабочий референс
   git-sketch/             — набросок из репозитория Redeace/Rakurs_furniture (07.09.2026)
   *.zip                   — исходные архивы (не в git)
+assets/fonts/             — локальные woff2 (Onest, Manrope, JetBrains Mono, Noto Sans Georgian)
+_inbox/                   — сюда класть новые выгрузки из Claude Design
 tools/
   serve-prototype.sh      — поднять прототип локально на :8777
+.env.example              — шаблон переменных окружения
+.nvmrc                    — версия Node
 .claude/skills/           — скиллы проекта (dale-* + rakurs-router)
 AGENTS.md                 — инженерный контракт: инварианты, автономия, критерии «готово»
 CLAUDE.md                 — правила работы в этом репозитории

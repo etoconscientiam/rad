@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)", "Bash(cat:*)", "Bash(head:*)", "Bash(tail:*)", "Bash(wc:*)",
+      "Bash(find:*)", "Bash(grep:*)", "Bash(rg:*)", "Bash(file:*)", "Bash(du:*)",
+      "Bash(stat:*)", "Bash(sort:*)", "Bash(uniq:*)", "Bash(diff:*)", "Bash(sed -n:*)",
+
+      "Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)", "Bash(git show:*)",
+      "Bash(git branch:*)", "Bash(git remote -v)", "Bash(git ls-files:*)",
+      "Bash(git add:*)", "Bash(git commit:*)",
+
+      "Bash(npm run:*)", "Bash(npm test:*)", "Bash(npm ci:*)", "Bash(npm ls:*)",
+      "Bash(npm audit:*)", "Bash(npm view:*)", "Bash(npm install:*)",
+      "Bash(npx tsc:*)", "Bash(npx vitest:*)", "Bash(npx playwright:*)",
+      "Bash(npx next:*)", "Bash(npx eslint:*)", "Bash(npx prettier:*)",
+
+      "Bash(cwebp:*)", "Bash(sips:*)",
+      "Bash(./tools/serve-prototype.sh)",
+
+      "Read(//Applications/RKRS/**)",
+      "mcp__nimbalyst-browser__browser_navigate",
+      "mcp__nimbalyst-browser__browser_screenshot",
+      "mcp__nimbalyst-browser__browser_evaluate",
+      "mcp__nimbalyst-browser__browser_open_session",
+      "mcp__nimbalyst-browser__browser_close_session"
+    ],
+    "deny": [
+      "Read(//Applications/RKRS/.env)",
+      "Read(//Applications/RKRS/.env.*)",
+      "Write(//Applications/RKRS/_source/**)",
+      "Edit(//Applications/RKRS/_source/**)"
+    ]
+  }
+}
