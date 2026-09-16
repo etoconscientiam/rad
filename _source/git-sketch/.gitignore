@@ -1,0 +1,18 @@
+# Секреты — никогда в git
+.env
+.env.*
+*.pem
+secrets/
+
+# Папка для новых выгрузок из Claude Design.
+# Кладите zip сюда — он не попадёт в историю, я распакую в design/
+_inbox/*
+!_inbox/.gitkeep
+
+# Системное
+node_modules/
+dist/
+build/
+.DS_Store
+Thumbs.db
+desktop.ini

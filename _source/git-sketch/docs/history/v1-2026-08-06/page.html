@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="887fc5fe-44aa-44ab-8165-8e4b72c0e9e4"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("9b425bb4-4360-4d49-87ae-1b3658cb5059") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* georgian */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("4ad5b92d-f27a-4b1f-8d13-46625ba35c73") format('woff2');
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("9760cb80-1033-4988-954d-7594f999f610") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* math */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("155aa0c8-2e8d-4a47-9342-25120b909943") format('woff2');
+  unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0310, U+0312, U+0315, U+031A, U+0326-0327, U+032C, U+032F-0330, U+0332-0333, U+0338, U+033A, U+0346, U+034D, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2016-2017, U+2034-2038, U+203C, U+2040, U+2043, U+2047, U+2050, U+2057, U+205F, U+2070-2071, U+2074-208E, U+2090-209C, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2100-2112, U+2114-2115, U+2117-2121, U+2123-214F, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B7, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+3030, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF;
+}
+/* symbols */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("8925a6de-a747-4c46-8f53-0c878c7ac3dc") format('woff2');
+  unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8BB, U+1F8C0-1F8C1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA89, U+1FA8F-1FAC6, U+1FACE-1FADC, U+1FADF-1FAE9, U+1FAF0-1FAF8, U+1FB00-1FBFF;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("18ced9b3-c49e-4641-8d90-ec1c1528137a") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("186b1a3a-5a93-451f-bc4d-191c298100f5") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("9b425bb4-4360-4d49-87ae-1b3658cb5059") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* georgian */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("4ad5b92d-f27a-4b1f-8d13-46625ba35c73") format('woff2');
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("9760cb80-1033-4988-954d-7594f999f610") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* math */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("155aa0c8-2e8d-4a47-9342-25120b909943") format('woff2');
+  unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0310, U+0312, U+0315, U+031A, U+0326-0327, U+032C, U+032F-0330, U+0332-0333, U+0338, U+033A, U+0346, U+034D, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2016-2017, U+2034-2038, U+203C, U+2040, U+2043, U+2047, U+2050, U+2057, U+205F, U+2070-2071, U+2074-208E, U+2090-209C, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2100-2112, U+2114-2115, U+2117-2121, U+2123-214F, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B7, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+3030, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF;
+}
+/* symbols */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("8925a6de-a747-4c46-8f53-0c878c7ac3dc") format('woff2');
+  unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8BB, U+1F8C0-1F8C1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA89, U+1FA8F-1FAC6, U+1FACE-1FADC, U+1FADF-1FAE9, U+1FAF0-1FAF8, U+1FB00-1FBFF;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("18ced9b3-c49e-4641-8d90-ec1c1528137a") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("186b1a3a-5a93-451f-bc4d-191c298100f5") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("9b425bb4-4360-4d49-87ae-1b3658cb5059") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* georgian */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("4ad5b92d-f27a-4b1f-8d13-46625ba35c73") format('woff2');
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("9760cb80-1033-4988-954d-7594f999f610") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* math */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("155aa0c8-2e8d-4a47-9342-25120b909943") format('woff2');
+  unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0310, U+0312, U+0315, U+031A, U+0326-0327, U+032C, U+032F-0330, U+0332-0333, U+0338, U+033A, U+0346, U+034D, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2016-2017, U+2034-2038, U+203C, U+2040, U+2043, U+2047, U+2050, U+2057, U+205F, U+2070-2071, U+2074-208E, U+2090-209C, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2100-2112, U+2114-2115, U+2117-2121, U+2123-214F, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B7, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+3030, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF;
+}
+/* symbols */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("8925a6de-a747-4c46-8f53-0c878c7ac3dc") format('woff2');
+  unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8BB, U+1F8C0-1F8C1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA89, U+1FA8F-1FAC6, U+1FACE-1FADC, U+1FADF-1FAE9, U+1FAF0-1FAF8, U+1FB00-1FBFF;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("18ced9b3-c49e-4641-8d90-ec1c1528137a") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Sans Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("186b1a3a-5a93-451f-bc4d-191c298100f5") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* georgian */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("f71c62ce-86ce-433c-8c0b-7b86e277653e") format('woff2');
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("501bc516-5897-4d05-82de-82deb9ca9244") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("00f56f90-1f8f-47a6-83d6-594800801098") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* georgian */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("f71c62ce-86ce-433c-8c0b-7b86e277653e") format('woff2');
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("501bc516-5897-4d05-82de-82deb9ca9244") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("00f56f90-1f8f-47a6-83d6-594800801098") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* georgian */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("f71c62ce-86ce-433c-8c0b-7b86e277653e") format('woff2');
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("501bc516-5897-4d05-82de-82deb9ca9244") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("00f56f90-1f8f-47a6-83d6-594800801098") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* georgian */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("f71c62ce-86ce-433c-8c0b-7b86e277653e") format('woff2');
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("501bc516-5897-4d05-82de-82deb9ca9244") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Serif Georgian';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("00f56f90-1f8f-47a6-83d6-594800801098") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F2EEE6;color:#26221E;font-family:'Noto Sans Georgian',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#B5663F;color:#F2EEE6}
+  @keyframes rkFade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes rkLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes rkTick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes rkPulse{0%,100%{opacity:.35}50%{opacity:.9}}
+</style>
+</helmet>
+
+<div style="position:relative;width:100%;max-width:100vw">
+
+  <!-- ===== HEADER ===== -->
+  <header style="position:sticky;top:0;z-index:40;backdrop-filter:saturate(1.2) blur(10px);background:rgba(242,238,230,.82);border-bottom:1px solid #E0DACD">
+    <div style="max-width:1240px;margin:0 auto;padding:14px clamp(18px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <a href="#top" style="text-decoration:none;color:#26221E;display:flex;align-items:baseline;gap:9px">
+        <span style="font-family:'Noto Serif Georgian',serif;font-weight:600;font-size:1.45rem;letter-spacing:-.01em">Ra-Kurs</span>
+        <span style="font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:#9b9486">ავეჯი</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:clamp(14px,2.4vw,30px);flex-wrap:wrap">
+        <a href="#config" style="text-decoration:none;color:#5a544a;font-size:.95rem">კონფიგურატორი</a>
+        <a href="#catalog" style="text-decoration:none;color:#5a544a;font-size:.95rem">კატალოგი</a>
+        <a href="#workshop" style="text-decoration:none;color:#5a544a;font-size:.95rem">სახელოსნო</a>
+        <a href="#config" style="text-decoration:none;background:#26221E;color:#F2EEE6;padding:10px 18px;border-radius:999px;font-size:.9rem;font-weight:500">შეკვეთა</a>
+      </nav>
+    </div>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ===== HERO ===== -->
+  <section style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(40px,7vw,96px) clamp(18px,4vw,40px) clamp(30px,4vw,56px)">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#e6e0d2 1px,transparent 1px),linear-gradient(90deg,#e6e0d2 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(ellipse 70% 80% at 70% 20%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 80% at 70% 20%,#000,transparent 75%);opacity:.5;pointer-events:none"></div>
+    <div style="position:relative;animation:rkFade .8s ease both">
+      <div style="display:inline-flex;align-items:center;gap:10px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#9b9486;margin-bottom:clamp(20px,3vw,34px)">
+        <span style="width:30px;height:1px;background:#B5663F;transform-origin:left;animation:rkLine .9s .2s ease both;display:inline-block"></span>
+        ავეჯის სახელოსნო — თბილისი
+      </div>
+      <h1 style="font-family:'Noto Serif Georgian',serif;font-weight:600;font-size:clamp(2.5rem,8vw,6rem);line-height:.98;letter-spacing:-.02em;margin:0;max-width:14ch">მარტივი ფორმა.<br><span style="color:#B5663F">შენი ფერი.</span></h1>
+      <p style="font-size:clamp(1.02rem,1.5vw,1.22rem);line-height:1.6;color:#5a544a;max-width:48ch;margin:clamp(22px,3vw,32px) 0 0">სწორკუთხა ავეჯი, აწყობილი შენთვის. შეარჩიე ლამინირებული დაფის ფერი, შეღებე მეტალის კარკასი და მოარგე ქსოვილი — და ნახე შედეგი ყველა კუთხიდან, 360°-ში.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:clamp(28px,4vw,40px)">
+        <a href="#config" style="text-decoration:none;background:#26221E;color:#F2EEE6;padding:15px 28px;border-radius:999px;font-weight:500;font-size:1rem">დაიწყე კონფიგურაცია →</a>
+        <a href="#catalog" style="text-decoration:none;color:#26221E;padding:15px 26px;border-radius:999px;font-weight:500;font-size:1rem;border:1px solid #cfc8b8">ნახე კატალოგი</a>
+      </div>
+      <div style="display:flex;gap:clamp(28px,5vw,64px);flex-wrap:wrap;margin-top:clamp(40px,6vw,72px);padding-top:clamp(24px,3vw,32px);border-top:1px solid #E0DACD">
+        <div><div style="font-family:'Noto Serif Georgian',serif;font-size:clamp(1.7rem,3vw,2.3rem);font-weight:600">4</div><div style="font-size:.85rem;color:#9b9486;margin-top:2px">ბაზური ფორმა</div></div>
+        <div><div style="font-family:'Noto Serif Georgian',serif;font-size:clamp(1.7rem,3vw,2.3rem);font-weight:600">∞</div><div style="font-size:.85rem;color:#9b9486;margin-top:2px">ფერი მეტალზე</div></div>
+        <div><div style="font-family:'Noto Serif Georgian',serif;font-size:clamp(1.7rem,3vw,2.3rem);font-weight:600">360°</div><div style="font-size:.85rem;color:#9b9486;margin-top:2px">ხედვა</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- materials ticker -->
+  <div style="overflow:hidden;border-top:1px solid #E0DACD;border-bottom:1px solid #E0DACD;background:#EBE5D8;padding:13px 0;white-space:nowrap">
+    <div style="display:inline-flex;gap:48px;animation:rkTick 24s linear infinite;font-family:'Noto Serif Georgian',serif;font-size:1.05rem;color:#7a7263">
+      <span>ლამინირებული დაფა · ЛДСП</span><span style="color:#B5663F">✦</span><span>მეტალის კარკასი</span><span style="color:#B5663F">✦</span><span>ქსოვილის გადასაფარებელი</span><span style="color:#B5663F">✦</span><span>ხელნაკეთი თბილისში</span><span style="color:#B5663F">✦</span>
+      <span>ლამინირებული დაფა · ЛДСП</span><span style="color:#B5663F">✦</span><span>მეტალის კარკასი</span><span style="color:#B5663F">✦</span><span>ქსოვილის გადასაფარებელი</span><span style="color:#B5663F">✦</span><span>ხელნაკეთი თბილისში</span><span style="color:#B5663F">✦</span>
+    </div>
+  </div>
+
+  <!-- ===== CONFIGURATOR ===== -->
+  <section id="config" style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(18px,4vw,40px)">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:clamp(26px,4vw,40px)">
+      <div>
+        <div style="font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#9b9486;margin-bottom:10px">კონფიგურატორი</div>
+        <h2 style="font-family:'Noto Serif Georgian',serif;font-weight:600;font-size:clamp(1.9rem,4.4vw,3.2rem);line-height:1.02;letter-spacing:-.02em;margin:0">ააწყვე შენი ავეჯი</h2>
+      </div>
+      <p style="font-size:.98rem;color:#5a544a;max-width:34ch;margin:0">აირჩიე ფორმა და მასალები. დააჭირე და დაატრიალე სცენა, რომ ნახო ნებისმიერი კუთხიდან.</p>
+    </div>
+
+    <div style="display:flex;gap:clamp(16px,2vw,28px);flex-wrap:wrap;align-items:stretch">
+
+      <!-- STAGE -->
+      <div style="flex:2 1 440px;min-width:300px;position:relative;background:radial-gradient(ellipse 90% 70% at 50% 40%,#FBF9F3,#ECE6D8);border:1px solid #E0DACD;border-radius:20px;overflow:hidden;min-height:clamp(360px,48vh,520px);display:flex">
+        <div style="position:absolute;top:16px;left:18px;z-index:3;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#a89f8e">ხედი · 360°</div>
+        <div style="position:absolute;inset:0;perspective:1300px;perspective-origin:50% 42%">
+          <div ref="{{ setSceneRef }}" sc-camel-on-pointer-down="{{ onDown }}" sc-camel-on-pointer-move="{{ onMove }}" sc-camel-on-pointer-up="{{ onUp }}" sc-camel-on-pointer-leave="{{ onUp }}" style="position:absolute;inset:0;transform-style:preserve-3d;cursor:grab;touch-action:none">{{ model }}</div>
+        </div>
+        <div style="position:absolute;left:50%;bottom:13%;transform:translateX(-50%);width:56%;height:34px;background:radial-gradient(ellipse closest-side,rgba(38,34,30,.22),transparent);filter:blur(7px);border-radius:50%;pointer-events:none"></div>
+        <div style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:8px;font-size:.82rem;color:#a89f8e;pointer-events:none">
+          <span style="display:inline-block;animation:rkPulse 2s ease infinite">↻</span> დააჭირე და დაატრიალე
+        </div>
+      </div>
+
+      <!-- CONTROLS -->
+      <div style="flex:1 1 300px;min-width:280px;background:#FBF9F3;border:1px solid #E0DACD;border-radius:20px;padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column;gap:clamp(20px,2.4vw,26px)">
+
+        <div>
+          <div style="font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#9b9486;margin-bottom:12px">ფორმა</div>
+          {{ typeButtons }}
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+            <span style="font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#9b9486">დაფის ფერი · ЛДСП</span>
+            <span style="font-size:.8rem;color:#5a544a">{{ ldspLabel }}</span>
+          </div>
+          {{ ldspSwatches }}
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+            <span style="font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#9b9486">კარკასის ფერი</span>
+            <span style="font-size:.8rem;color:#5a544a">{{ metalLabel }}</span>
+          </div>
+          {{ metalSwatches }}
+        </div>
+
+        <sc-if value="{{ showFabric }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+              <span style="font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#9b9486">ქსოვილი</span>
+              <span style="font-size:.8rem;color:#5a544a">{{ fabricLabel }}</span>
+            </div>
+            {{ fabricSwatches }}
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+            <span style="font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#9b9486">ზომა · სიგანე</span>
+            <span style="font-size:.8rem;color:#5a544a">{{ sizeLabel }}</span>
+          </div>
+          <input type="range" min="0.7" max="1.45" step="0.01" value="{{ size }}" sc-camel-on-change="{{ setSize }}" sc-camel-on-input="{{ setSize }}" style="width:100%;accent-color:#B5663F;cursor:pointer">
+        </div>
+
+        <div style="display:flex;gap:9px">
+          <button sc-camel-on-click="{{ toggleAuto }}" style="{{ autoStyle }}">ავტო-ბრუნვა</button>
+          <button sc-camel-on-click="{{ resetView }}" style="flex:1;padding:11px;border-radius:10px;font-family:'Noto Sans Georgian',sans-serif;font-size:.88rem;cursor:pointer;background:#fff;color:#26221E;border:1px solid #d8d0bf">საწყისი ხედი</button>
+        </div>
+
+        <div style="margin-top:auto;padding-top:18px;border-top:1px solid #E0DACD;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div>
+            <div style="font-size:.78rem;color:#9b9486">სავარაუდო ფასი</div>
+            <div style="font-family:'Noto Serif Georgian',serif;font-size:1.7rem;font-weight:600">{{ priceText }}</div>
+          </div>
+          <button style="background:#B5663F;color:#fff;border:none;padding:13px 22px;border-radius:999px;font-family:'Noto Sans Georgian',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer">შეკვეთა →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CATALOG ===== -->
+  <section id="catalog" style="background:#EBE5D8;border-top:1px solid #E0DACD;border-bottom:1px solid #E0DACD">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(18px,4vw,40px)">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,44px)">
+        <div>
+          <div style="font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#9b9486;margin-bottom:10px">კატალოგი</div>
+          <h2 style="font-family:'Noto Serif Georgian',serif;font-weight:600;font-size:clamp(1.9rem,4.4vw,3.2rem);line-height:1.02;letter-spacing:-.02em;margin:0">მზა მოდელები</h2>
+        </div>
+        <a href="#config" style="text-decoration:none;color:#26221E;font-size:.95rem;border-bottom:1px solid #B5663F;padding-bottom:3px">ან აწყვე საკუთარი →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:clamp(14px,1.6vw,22px)">
+        <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
+          <div style="background:#FBF9F3;border:1px solid #E0DACD;border-radius:16px;overflow:hidden;transition:transform .25s,box-shadow .25s" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -22px rgba(38,34,30,.4)">
+            <div style="position:relative;height:190px;background:radial-gradient(ellipse 80% 70% at 50% 45%,#fff,#ECE6D8);border-bottom:1px solid #E0DACD">
+              {{ p.icon }}
+              <span style="position:absolute;top:12px;left:12px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#a89f8e;background:rgba(251,249,243,.8);padding:4px 9px;border-radius:999px">{{ p.tag }}</span>
+            </div>
+            <div style="padding:18px 18px 20px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                <h3 style="font-family:'Noto Serif Georgian',serif;font-weight:600;font-size:1.25rem;margin:0">{{ p.name }}</h3>
+                <span style="font-family:'Noto Serif Georgian',serif;font-weight:600;font-size:1.1rem;color:#B5663F;white-space:nowrap">{{ p.price }}</span>
+              </div>
+              <p style="font-size:.88rem;color:#7a7263;margin:8px 0 0;line-height:1.5">{{ p.sub }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WORKSHOP / FOOTER ===== -->
+  <footer id="workshop" style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,90px) clamp(18px,4vw,40px) clamp(30px,4vw,48px)">
+    <div style="display:flex;gap:clamp(28px,5vw,80px);flex-wrap:wrap;justify-content:space-between">
+      <div style="flex:1 1 320px;max-width:46ch">
+        <div style="font-family:'Noto Serif Georgian',serif;font-weight:600;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.01em">Ra-Kurs</div>
+        <p style="font-size:1rem;color:#5a544a;line-height:1.6;margin:14px 0 0">ვქმნით მარტივ, სწორკუთხა ავეჯს ლამინირებული დაფის, მეტალის კარკასისა და ქსოვილის ნებისმიერი კომბინაციით. ყველა ნივთი იკვრება შენი ფერებით.</p>
+      </div>
+      <div style="display:flex;gap:clamp(28px,5vw,64px);flex-wrap:wrap">
+        <div>
+          <div style="font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#9b9486;margin-bottom:14px">სახელოსნო</div>
+          <div style="font-size:.95rem;color:#5a544a;line-height:2">თბილისი, საქართველო<br>დ. აღმაშენებლის 120<br>ორშ–შაბ · 10:00–19:00</div>
+        </div>
+        <div>
+          <div style="font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#9b9486;margin-bottom:14px">კონტაქტი</div>
+          <div style="font-size:.95rem;color:#5a544a;line-height:2">+995 555 00 00 00<br>hello@ra-kurs.ge<br>@rakurs.furniture</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:clamp(36px,5vw,60px);padding-top:22px;border-top:1px solid #E0DACD;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.84rem;color:#9b9486">
+      <span>© 2026 Ra-Kurs furniture</span>
+      <span>ხელნაკეთი თბილისში</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  state = {
+    type: 'table',
+    ldsp: '#C9A36A',
+    metal: '#1E1E1E',
+    fabric: '#D8C8AE',
+    size: 1,
+    auto: true,
+  };
+
+  rotY = -32; rotX = -16; dragging = false; lastX = 0; lastY = 0;
+
+  componentDidMount() {
+    this.applyRot();
+    const loop = () => {
+      if (this.state.auto && !this.dragging) { this.rotY += 0.18; this.applyRot(); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+
+  setSceneRef = (el) => { this.sceneEl = el; if (el) this.applyRot(); };
+  applyRot() { if (this.sceneEl) this.sceneEl.style.transform = `rotateX(${this.rotX}deg) rotateY(${this.rotY}deg)`; }
+
+  onDown = (e) => { this.dragging = true; this.lastX = e.clientX; this.lastY = e.clientY; if (this.sceneEl) this.sceneEl.style.cursor = 'grabbing'; try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} };
+  onMove = (e) => {
+    if (!this.dragging) return;
+    const dx = e.clientX - this.lastX, dy = e.clientY - this.lastY;
+    this.lastX = e.clientX; this.lastY = e.clientY;
+    this.rotY += dx * 0.5;
+    this.rotX = Math.max(-46, Math.min(8, this.rotX - dy * 0.3));
+    this.applyRot();
+  };
+  onUp = () => { this.dragging = false; if (this.sceneEl) this.sceneEl.style.cursor = 'grab'; };
+  resetView = () => { this.rotY = -32; this.rotX = -16; this.applyRot(); };
+  toggleAuto = () => this.setState(s => ({ auto: !s.auto }));
+
+  // ---- color util ----
+  shade(hex, amt) {
+    const c = hex.replace('#', '');
+    let r = parseInt(c.slice(0, 2), 16), g = parseInt(c.slice(2, 4), 16), b = parseInt(c.slice(4, 6), 16);
+    const f = amt < 0 ? 0 : 255, t = Math.abs(amt);
+    r = Math.round(r + (f - r) * t); g = Math.round(g + (f - g) * t); b = Math.round(b + (f - b) * t);
+    return `rgb(${r},${g},${b})`;
+  }
+
+  // ---- 3D cuboid ----
+  box(o) {
+    const { w, h, d, x = 0, y = 0, z = 0, color } = o;
+    const top = this.shade(color, 0.17), front = this.shade(color, -0.02), back = this.shade(color, -0.08),
+          right = this.shade(color, -0.16), left = this.shade(color, -0.11), bottom = this.shade(color, -0.26);
+    const face = (fw, fh, t, bg) => React.createElement('div', { style: { position: 'absolute', left: '50%', top: '50%', width: fw, height: fh, marginLeft: -fw / 2, marginTop: -fh / 2, transform: t, background: bg, backfaceVisibility: 'hidden' } });
+    return React.createElement('div', { key: o.key, style: { position: 'absolute', left: '50%', top: '50%', width: 0, height: 0, transformStyle: 'preserve-3d', transform: `translate3d(${x}px,${y}px,${z}px)` } },
+      face(w, h, `translateZ(${d / 2}px)`, front),
+      face(w, h, `rotateY(180deg) translateZ(${d / 2}px)`, back),
+      face(d, h, `rotateY(90deg) translateZ(${w / 2}px)`, right),
+      face(d, h, `rotateY(-90deg) translateZ(${w / 2}px)`, left),
+      face(w, d, `rotateX(90deg) translateZ(${h / 2}px)`, top),
+      face(w, d, `rotateX(-90deg) translateZ(${h / 2}px)`, bottom)
+    );
+  }
+  group(children) { return React.createElement('div', { style: { position: 'absolute', left: '50%', top: '50%', width: 0, height: 0, transformStyle: 'preserve-3d' } }, children); }
+
+  buildModel() {
+    const s = this.state.size, L = this.state.ldsp, M = this.state.metal, F = this.state.fabric;
+    const b = []; let i = 0; const add = (o) => { o.key = i++; b.push(this.box(o)); };
+
+    if (this.state.type === 'table') {
+      const lt = 16, legH = 150, W = 300 * s, D = 170, topH = 16, H = legH + topH, fl = H / 2;
+      const lx = W / 2 - lt / 2 - 8, lz = D / 2 - lt / 2 - 8;
+      add({ w: W, h: topH, d: D, y: fl - legH - topH / 2, color: L });
+      [[lx, lz], [-lx, lz], [lx, -lz], [-lx, -lz]].forEach(([px, pz]) => add({ w: lt, h: legH, d: lt, x: px, z: pz, y: fl - legH / 2, color: M }));
+
+    } else if (this.state.type === 'chair') {
+      const lt = 12, legH = 132, W = 168 * s, D = 158, seatH = 14, H = 268, fl = H / 2;
+      const lx = W / 2 - lt / 2 - 7, lz = D / 2 - lt / 2 - 7;
+      [[lx, lz], [-lx, lz], [lx, -lz], [-lx, -lz]].forEach(([px, pz]) => add({ w: lt, h: legH, d: lt, x: px, z: pz, y: fl - legH / 2, color: M }));
+      add({ w: W, h: seatH, d: D, y: fl - legH - seatH / 2, color: L });
+      add({ w: W - 18, h: 14, d: D - 18, y: fl - legH - seatH - 7, color: F });
+      // back posts
+      add({ w: lt, h: 118, d: lt, x: lx, z: -lz, y: fl - legH - seatH - 59, color: M });
+      add({ w: lt, h: 118, d: lt, x: -lx, z: -lz, y: fl - legH - seatH - 59, color: M });
+      // back panel + cushion
+      add({ w: W, h: 96, d: 13, z: -lz, y: fl - legH - seatH - 60, color: L });
+      add({ w: W - 24, h: 84, d: 13, z: -lz + 13, y: fl - legH - seatH - 60, color: F });
+
+    } else if (this.state.type === 'sofa') {
+      const lt = 16, legH = 66, W = 420 * s, D = 188, baseH = 22, H = 226, fl = H / 2, armW = 36;
+      const lx = W / 2 - lt / 2 - 10, lz = D / 2 - lt / 2 - 10;
+      [[lx, lz], [-lx, lz], [lx, -lz], [-lx, -lz]].forEach(([px, pz]) => add({ w: lt, h: legH, d: lt, x: px, z: pz, y: fl - legH / 2, color: M }));
+      add({ w: W, h: baseH, d: D, y: fl - legH - baseH / 2, color: L });
+      const seatTop = fl - legH - baseH;
+      add({ w: W - armW * 2 - 6, h: 46, d: D - 34, z: 14, y: seatTop - 23, color: F });
+      add({ w: W - armW * 2 - 6, h: 116, d: 30, z: -D / 2 + 22, y: seatTop - 16 - 58, color: F });
+      add({ w: armW, h: 122, d: D, x: lx + lt / 2 + 2, y: seatTop - 61 + 16, color: F });
+      add({ w: armW, h: 122, d: D, x: -(lx + lt / 2 + 2), y: seatTop - 61 + 16, color: F });
+
+    } else { // cabinet
+      const lt = 16, legH = 58, W = 240 * s, D = 120, bodyH = 300, H = legH + bodyH, fl = H / 2;
+      const lx = W / 2 - lt / 2 - 10, lz = D / 2 - lt / 2 - 10;
+      [[lx, lz], [-lx, lz], [lx, -lz], [-lx, -lz]].forEach(([px, pz]) => add({ w: lt, h: legH, d: lt, x: px, z: pz, y: fl - legH / 2, color: M }));
+      const bodyCy = fl - legH - bodyH / 2;
+      add({ w: W, h: bodyH, d: D, y: bodyCy, color: L });
+      // center seam + handles (metal)
+      add({ w: 4, h: bodyH - 16, d: 3, z: D / 2 + 1, y: bodyCy, color: M });
+      add({ w: 7, h: 56, d: 6, x: -22, z: D / 2 + 2, y: bodyCy, color: M });
+      add({ w: 7, h: 56, d: 6, x: 22, z: D / 2 + 2, y: bodyCy, color: M });
+      add({ w: W - 14, h: 4, d: 3, z: D / 2 + 1, y: bodyCy - 40, color: M });
+    }
+    return this.group(b);
+  }
+
+  // ---- flat 2D catalog icon ----
+  flatIcon(cat, c1, c2, c3) {
+    const r = (st) => React.createElement('div', { style: Object.assign({ position: 'absolute' }, st) });
+    const wrap = (kids) => React.createElement('div', { style: { position: 'absolute', inset: 0 } }, kids);
+    if (cat === 'table') return wrap([
+      r({ key: 1, left: '14%', right: '14%', top: '42%', height: '8%', background: c1, borderRadius: '2px' }),
+      r({ key: 2, left: '20%', top: '50%', width: '4%', height: '34%', background: c2 }),
+      r({ key: 3, right: '20%', top: '50%', width: '4%', height: '34%', background: c2 }),
+    ]);
+    if (cat === 'chair') return wrap([
+      r({ key: 1, left: '40%', width: '10%', top: '22%', height: '40%', background: c1, borderRadius: '2px' }),
+      r({ key: 2, left: '34%', right: '30%', top: '56%', height: '7%', background: c1, borderRadius: '2px' }),
+      r({ key: 3, left: '36%', right: '32%', top: '54%', height: '3%', background: c3 }),
+      r({ key: 4, left: '36%', top: '63%', width: '3.5%', height: '22%', background: c2 }),
+      r({ key: 5, right: '32%', top: '63%', width: '3.5%', height: '22%', background: c2 }),
+    ]);
+    if (cat === 'sofa') return wrap([
+      r({ key: 1, left: '16%', right: '16%', top: '50%', height: '24%', background: c3, borderRadius: '6px' }),
+      r({ key: 2, left: '16%', right: '16%', top: '36%', height: '16%', background: c3, borderRadius: '6px 6px 0 0' }),
+      r({ key: 3, left: '14%', top: '44%', width: '8%', height: '30%', background: c1, borderRadius: '6px' }),
+      r({ key: 4, right: '14%', top: '44%', width: '8%', height: '30%', background: c1, borderRadius: '6px' }),
+      r({ key: 5, left: '24%', top: '74%', width: '3.5%', height: '12%', background: c2 }),
+      r({ key: 6, right: '24%', top: '74%', width: '3.5%', height: '12%', background: c2 }),
+    ]);
+    return wrap([
+      r({ key: 1, left: '30%', right: '30%', top: '18%', height: '60%', background: c1, borderRadius: '3px' }),
+      r({ key: 2, left: '49.5%', top: '20%', width: '1%', height: '56%', background: c2 }),
+      r({ key: 3, left: '44%', top: '44%', width: '2.5%', height: '8%', background: c2 }),
+      r({ key: 4, right: '44%', top: '44%', width: '2.5%', height: '8%', background: c2 }),
+      r({ key: 5, left: '33%', top: '78%', width: '3%', height: '8%', background: c2 }),
+      r({ key: 6, right: '33%', top: '78%', width: '3%', height: '8%', background: c2 }),
+    ]);
+  }
+
+  renderVals() {
+    const st = this.state;
+    const ldspList = [
+      { v: '#ECE8E1', l: 'თეთრი' }, { v: '#C9A36A', l: 'მუხა' }, { v: '#6E4A2E', l: 'კაკალი' },
+      { v: '#B3AFA6', l: 'ნაცარა' }, { v: '#3C3F44', l: 'ანთრაციტი' }, { v: '#8B9A7B', l: 'ზღვისფერი' },
+    ];
+    const metalList = [
+      { v: '#1E1E1E', l: 'შავი' }, { v: '#E2DFD7', l: 'თეთრი' }, { v: '#B9BCC0', l: 'ქრომი' },
+      { v: '#B08D57', l: 'სპილენძი' }, { v: '#B5663F', l: 'ტერაკოტა' }, { v: '#3E5C76', l: 'ლურჯი' },
+    ];
+    const fabricList = [
+      { v: '#D8C8AE', l: 'ქვიშა' }, { v: '#B5663F', l: 'ტერაკოტა' }, { v: '#8B8A5B', l: 'ზეთისხილი' },
+      { v: '#9A968F', l: 'ნაცრისფერი' }, { v: '#44423E', l: 'ანთრაციტი' }, { v: '#6E3B3B', l: 'ღვინისფერი' },
+    ];
+    const lbl = (list, v) => (list.find(o => o.v === v) || {}).l || '';
+
+    const h = React.createElement;
+    const typeButtons = h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '9px' } },
+      [{ v: 'table', l: 'მაგიდა' }, { v: 'chair', l: 'სკამი' }, { v: 'sofa', l: 'დივანი' }, { v: 'cabinet', l: 'კარადა' }].map(t =>
+        h('button', { key: t.v, onClick: () => this.setState({ type: t.v }), style: {
+          padding: '13px 12px', borderRadius: '12px', fontFamily: "'Noto Sans Georgian',sans-serif",
+          fontSize: '.96rem', fontWeight: 500, cursor: 'pointer', transition: 'all .2s', textAlign: 'left',
+          background: st.type === t.v ? '#26221E' : '#fff', color: st.type === t.v ? '#F2EEE6' : '#26221E',
+          border: '1px solid ' + (st.type === t.v ? '#26221E' : '#d8d0bf'),
+        } }, t.l)));
+
+    const swatchGroup = (list, current, setter, round) => h('div', { style: { display: 'flex', gap: '9px', flexWrap: 'wrap' } },
+      list.map(o => h('button', { key: o.v, title: o.l, onClick: () => setter(o.v), style: {
+        width: '36px', height: '36px', borderRadius: round ? '50%' : '9px', cursor: 'pointer',
+        border: '1px solid rgba(38,34,30,.16)', background: o.v,
+        outline: current === o.v ? '2px solid #26221E' : '2px solid transparent', outlineOffset: '2px', transition: 'outline .15s',
+      } })));
+
+    const base = { table: 480, chair: 280, sofa: 1280, cabinet: 760 }[st.type];
+    const price = Math.round(base * (0.7 + st.size * 0.42) / 10) * 10;
+
+    const products = [
+      { cat: 'table', tag: 'მაგიდა', name: 'კუბი', sub: 'მუხის დაფა · შავი კარკასი', price: '₾ 540', c1: '#C9A36A', c2: '#1E1E1E', c3: '#D8C8AE' },
+      { cat: 'table', tag: 'მაგიდა', name: 'ხაზი', sub: 'თეთრი დაფა · ქრომის კარკასი', price: '₾ 620', c1: '#ECE8E1', c2: '#B9BCC0', c3: '#D8C8AE' },
+      { cat: 'chair', tag: 'სკამი', name: 'ფორმა', sub: 'ქვიშისფერი ქსოვილი · შავი', price: '₾ 280', c1: '#3C3F44', c2: '#1E1E1E', c3: '#D8C8AE' },
+      { cat: 'sofa', tag: 'დივანი', name: 'ბლოკი', sub: 'ტერაკოტა ქსოვილი · სპილენძი', price: '₾ 1480', c1: '#6E4A2E', c2: '#B08D57', c3: '#B5663F' },
+      { cat: 'cabinet', tag: 'კარადა', name: 'ბადე', sub: 'ანთრაციტი · სპილენძის სახელური', price: '₾ 820', c1: '#3C3F44', c2: '#B08D57', c3: '#D8C8AE' },
+      { cat: 'cabinet', tag: 'თარო', name: 'რიგი', sub: 'მუხა · თეთრი კარკასი', price: '₾ 360', c1: '#C9A36A', c2: '#E2DFD7', c3: '#D8C8AE' },
+    ].map(p => ({ tag: p.tag, name: p.name, sub: p.sub, price: p.price, icon: this.flatIcon(p.cat, p.c1, p.c2, p.c3) }));
+
+    return {
+      model: this.buildModel(),
+      setSceneRef: this.setSceneRef, onDown: this.onDown, onMove: this.onMove, onUp: this.onUp,
+      typeButtons,
+      ldspSwatches: swatchGroup(ldspList, st.ldsp, v => this.setState({ ldsp: v }), false),
+      metalSwatches: swatchGroup(metalList, st.metal, v => this.setState({ metal: v }), true),
+      fabricSwatches: swatchGroup(fabricList, st.fabric, v => this.setState({ fabric: v }), false),
+      ldspLabel: lbl(ldspList, st.ldsp), metalLabel: lbl(metalList, st.metal), fabricLabel: lbl(fabricList, st.fabric),
+      showFabric: st.type === 'chair' || st.type === 'sofa',
+      size: st.size, setSize: (e) => this.setState({ size: +e.target.value }),
+      sizeLabel: Math.round(st.size * 100) + '%',
+      toggleAuto: this.toggleAuto, resetView: this.resetView,
+      autoStyle: {
+        flex: 1, padding: '11px', borderRadius: '10px', fontFamily: "'Noto Sans Georgian',sans-serif",
+        fontSize: '.88rem', cursor: 'pointer', border: '1px solid #d8d0bf',
+        background: st.auto ? '#26221E' : '#fff', color: st.auto ? '#F2EEE6' : '#26221E',
+      },
+      priceText: '₾ ' + price.toLocaleString('en-US'),
+      products,
+    };
+  }
+}
+</script>
+
+
+<div id="__claude_design_branding"><style>#__claude_design_branding{position:fixed;right:16px;bottom:16px;z-index:2147483646;display:flex;align-items:center;gap:7px;height:30px;padding:0 5px 0 10px;border-radius:999px;font-family:"Anthropic Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:12.5px;font-weight:400;line-height:1;letter-spacing:normal;text-transform:none;color:#141413;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 0 0 .5px rgba(31,30,29,.14),0 2px 10px rgba(0,0,0,.09)}
+#__claude_design_branding *{box-sizing:border-box;margin:0}
+#__claude_design_branding a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+#__claude_design_branding a:hover span{text-decoration:underline}
+#__claude_design_branding svg{flex:none}
+#__claude_design_branding a svg{color:#D97757}
+#__claude_design_branding button{width:20px;height:20px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:currentColor;opacity:.55;border:0;background:none;cursor:pointer;flex:none;font:inherit;transition:opacity .14s}
+#__claude_design_branding button:hover{opacity:1;background:rgba(127,127,127,.22)}
+@media print{#__claude_design_branding{display:none}}</style><a href="https://claude.com/product/design" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 20 21" fill="none" aria-hidden="true"><path fill="currentColor" d="M9.99902 0C15.5258 0.000170936 19.999 4.50643 19.999 10.0547C19.999 11.7656 19.5863 12.9976 18.7861 13.8203C17.9924 14.6362 16.9465 14.9138 15.9854 15.0078C15.05 15.0993 14.0097 15.0262 13.2549 15.0186C12.8524 15.0145 12.5177 15.0267 12.2441 15.0703C11.9682 15.1144 11.8143 15.1813 11.7305 15.2432C11.4745 15.4322 11.3353 15.7121 11.2656 16.1602C11.2303 16.3875 11.2168 16.6362 11.209 16.9131C11.2017 17.1715 11.1986 17.4893 11.1807 17.7705C11.1469 18.2975 11.0495 19.0865 10.4199 19.5908C9.7846 20.0996 8.88652 20.1057 7.85449 19.877C7.36399 19.7682 6.88652 19.6232 6.42578 19.4453C2.66989 17.9949 0.000187748 14.3414 0 10.0547C0 4.50643 4.47223 0.000171048 9.99902 0ZM9.99902 1.60547C5.36781 1.60564 1.60547 5.38391 1.60547 10.0547C1.60566 13.6582 3.84823 16.7296 7.00391 17.9482C7.39027 18.0974 7.79085 18.2184 8.20215 18.3096C9.1375 18.5169 9.384 18.3633 9.41602 18.3379C9.4524 18.3087 9.54558 18.1915 9.5791 17.668C9.5947 17.4239 9.59473 17.1786 9.60352 16.8672C9.61179 16.5742 9.62831 16.2435 9.67969 15.9131C9.78359 15.2455 10.0474 14.4906 10.7764 13.9521C11.1479 13.6778 11.5842 13.5493 11.9912 13.4844C12.4007 13.4191 12.8434 13.4088 13.2705 13.4131C14.1753 13.4222 15.0071 13.4905 15.8291 13.4102C16.6257 13.3322 17.2249 13.1235 17.6357 12.7012C18.0401 12.2855 18.3935 11.5261 18.3936 10.0547C18.3936 5.38391 14.6302 1.60564 9.99902 1.60547ZM5.11621 9.86719C5.86386 9.91468 6.45486 10.5348 6.45508 11.2939C6.45506 12.0838 5.81519 12.7245 5.02539 12.7246C4.28481 12.7246 3.67573 12.1617 3.60254 11.4404L3.59473 11.2939L3.60156 11.1533C3.66942 10.4596 4.23282 9.91186 4.93359 9.86719H5.11621ZM14.9814 7.19141C15.729 7.23889 16.3199 7.85919 16.3203 8.61816C16.3203 9.40801 15.6804 10.0487 14.8906 10.0488C14.1501 10.0487 13.5409 9.48586 13.4678 8.76465L13.46 8.61816L13.4668 8.47754C13.5348 7.78403 14.0983 7.23618 14.7988 7.19141H14.9814ZM6.4541 4.93457C7.20161 4.9822 7.79275 5.60231 7.79297 6.36133C7.79288 7.151 7.15291 7.7917 6.36328 7.79199C5.62274 7.79199 5.01369 7.22903 4.94043 6.50781L4.93262 6.36133L4.93945 6.2207C5.00731 5.52698 5.5707 4.97922 6.27148 4.93457H6.4541ZM11.3867 3.59668C12.1343 3.64419 12.7253 4.26436 12.7256 5.02344C12.7256 5.81326 12.0857 6.45393 11.2959 6.4541C10.5553 6.4541 9.94622 5.89123 9.87305 5.16992L9.86523 5.02344L9.87207 4.88281C9.93996 4.18912 10.5033 3.64133 11.2041 3.59668H11.3867Z"></path></svg><span>Made with Claude Design</span></a><button type="button" aria-label="Dismiss" onclick="this.parentElement.remove()"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></button></div></body></html>

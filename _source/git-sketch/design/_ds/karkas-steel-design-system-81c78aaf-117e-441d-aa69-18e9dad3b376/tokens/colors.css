@@ -1,0 +1,30 @@
+:root{
+/* Нейтральные — тёплые серо-бежевые */
+--bg:#F4F3F0;
+--surface:#FCFBF9;
+--surface-sunken:#EBEAE6;
+--border:#DBD9D3;
+--border-strong:#B8B5AD;
+--ink:#1C1B19;
+--ink-secondary:#57554F;
+--ink-muted:#8B887F;
+--graphite:#26251F;
+/* Акцент — красный = действие */
+--accent:#C2372B;
+--accent-hover:#A82E24;
+--accent-subtle:#F6E4E1;
+--accent-on:#FFFFFF;
+/* Семантические */
+--success:#4A7C59;
+--success-subtle:#E3EDE6;
+--warning:#B98A2F;
+--danger:#C2372B;
+/* Цвета изделия (свотчи конфигуратора) — зарезервированы за продуктом */
+--product-black:#17171A;
+--product-gray:#8E9094;
+--product-white:#F2F1EE;
+/* Тёмные зоны (graphite hero / футер / сайдбар админки) */
+--dark-text:#F4F3F0;
+--dark-text-secondary:#A5A29A;
+--accent-on-dark:#D4483A;
+}

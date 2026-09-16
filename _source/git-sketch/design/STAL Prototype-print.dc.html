@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="omelette-print-source" content="v1786872222785392 STAL Prototype.dc.html">
+<title>RAKURS furniture — прототип</title>
+<link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/colors.css">
+<link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/typography.css">
+<link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/spacing.css">
+<style>
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  * { animation-delay: -99s !important; animation-duration: .001s !important;
+      animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+      animation-play-state: running !important; transition-duration: 0s !important; }
+  doc-page:not(:defined){visibility:hidden}
+  body{margin:0;font-family:var(--font-ui);color:var(--ink);font-size:14px;line-height:1.55}
+  a{color:var(--ink);text-decoration:none}
+  h1,h2,h3{line-height:1.2;margin:0}
+  .screen{break-before:page;margin-top:0}
+  .kicker{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:8px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;break-inside:avoid}
+  .mono{font-family:var(--font-mono);font-weight:500}
+  .row{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:3px 0}
+  .row .k{color:var(--ink-muted)}
+  .row .v{font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)}
+  .label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-secondary)}
+  .price{font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--accent)}
+  .pill{display:inline-flex;align-items:center;height:30px;padding:0 14px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface);font-size:12px;font-weight:600}
+  .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:8px;background:var(--accent);color:#fff;font-size:15px;font-weight:600}
+  .btn.sec{background:var(--surface);color:var(--ink);border:1px solid var(--border-strong)}
+</style>
+<script src="./doc-page.js"></script>
+</head>
+<body>
+<doc-page margin="0.75in">
+
+  <div class="kicker">Интерактивный прототип · демо-распечатка</div>
+  <h1 style="font-size:34px;font-weight:800;letter-spacing:-0.02em">RAKURS furniture</h1>
+  <p style="color:var(--ink-secondary);max-width:480px;margin:10px 0 0">Сайт производства кастомной стальной мебели в Тбилиси: конфигуратор каркаса с живой 3D-моделью, корзина, оплата и трекинг заказа. Пять экранов прототипа — ниже, по одному на страницу.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+    <span class="pill">1 · Главная</span><span class="pill">2 · Конфигуратор</span><span class="pill">3 · Корзина и оформление</span><span class="pill">4 · Оплата</span><span class="pill">5 · Трекинг</span>
+  </div>
+
+  <section class="screen" style="margin-top:32px">
+    <div class="kicker">Экран 1 · Главная</div>
+    <div style="background:var(--graphite);color:var(--dark-text);border-radius:12px;padding:32px 28px">
+      <div class="mono" style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dark-text-secondary)">Мастерская стальной мебели · Тбилиси</div>
+      <h1 style="font-size:40px;font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-top:12px;max-width:480px">Стальная мебель по твоим размерам</h1>
+      <p style="color:var(--dark-text-secondary);max-width:400px;margin:14px 0 0">Варим каркасы, стеллажи и столы из стального профиля в мастерской в Тбилиси. Сталь 2 мм, красим краскопультом нитрокраской.</p>
+      <div style="margin-top:20px"><span class="btn" style="background:var(--accent-on-dark)">Собери свой каркас</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:24px;break-inside:avoid">
+      <div style="border-top:1px solid var(--border-strong);padding-top:12px">
+        <span class="mono" style="font-size:12px;color:var(--ink-muted)">01</span>
+        <h3 style="font-size:16px;font-weight:600;margin:6px 0 4px">Настрой</h3>
+        <p style="font-size:13px;color:var(--ink-secondary);margin:0">Задайте размеры, сечение профиля и цвет — модель и цена обновляются сразу.</p>
+      </div>
+      <div style="border-top:1px solid var(--border-strong);padding-top:12px">
+        <span class="mono" style="font-size:12px;color:var(--ink-muted)">02</span>
+        <h3 style="font-size:16px;font-weight:600;margin:6px 0 4px">Оплати</h3>
+        <p style="font-size:13px;color:var(--ink-secondary);margin:0">Подтвердите заказ и оплатите онлайн. Предоплата фиксирует место в очереди.</p>
+      </div>
+      <div style="border-top:1px solid var(--border-strong);padding-top:12px">
+        <span class="mono" style="font-size:12px;color:var(--ink-muted)">03</span>
+        <h3 style="font-size:16px;font-weight:600;margin:6px 0 4px">Получи</h3>
+        <p style="font-size:13px;color:var(--ink-secondary);margin:0">Сварим и покрасим за 7–10 дней. Самовывоз или доставка по Тбилиси.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:24px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div>
+        <div style="font-weight:800;font-size:15px">RAKURS furniture</div>
+        <div style="font-size:12px;color:var(--ink-secondary)">Мастерская стальной мебели · Тбилиси</div>
+      </div>
+      <div class="mono" style="font-size:12px;color:var(--ink-secondary);text-align:right">
+        +995 551 23 45 67<br>hi@rakurs.ge<br>ул. Бахтриони 5 · пн–сб 10:00–19:00
+      </div>
+    </div>
+  </section>
+
+  <section class="screen">
+    <div class="kicker">Экран 2 · Конфигуратор</div>
+    <h2 style="font-size:22px;font-weight:700">Конфигуратор</h2>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:16px;break-inside:avoid">
+      <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:12px;min-height:280px;position:relative;display:flex;align-items:center;justify-content:center">
+        <span class="mono" style="position:absolute;left:12px;top:12px;font-size:11px;color:var(--ink-secondary);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 10px">1200×450×750 мм</span>
+        <span style="font-size:12px;color:var(--ink-muted);text-align:center;max-width:220px">Живая 3D-модель каркаса<br>(вращение и зум — в интерактивной версии)</span>
+        <span class="mono" style="position:absolute;left:12px;bottom:12px;font-size:10px;color:var(--ink-muted)">фон #EBEAE6 · студийный свет · тень-контакт</span>
+      </div>
+      <div>
+        <div class="row"><span class="k label" style="color:var(--ink-secondary)">Высота, мм</span><span class="v">750</span></div>
+        <div class="row"><span class="k label" style="color:var(--ink-secondary)">Ширина, мм</span><span class="v">450</span></div>
+        <div class="row"><span class="k label" style="color:var(--ink-secondary)">Длина, мм</span><span class="v">1200</span></div>
+        <div class="row"><span class="k label" style="color:var(--ink-secondary)">Сечение профиля</span><span class="v">30×30 (20×20 / 40×40)</span></div>
+        <div class="row"><span class="k label" style="color:var(--ink-secondary)">Цвет</span><span class="v">Чёрный · Серый · Белый</span></div>
+        <div class="row"><span class="k label" style="color:var(--ink-secondary)">Количество, шт</span><span class="v">1</span></div>
+        <div class="card" style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-size:15px;font-weight:600">Итого</span>
+            <span class="price">350 ₾</span>
+          </div>
+          <div style="height:1px;background:var(--border);margin:8px 0"></div>
+          <div class="row"><span class="k">Метраж профиля</span><span class="v">9,6 м</span></div>
+          <div class="row"><span class="k">Вес</span><span class="v">≈ 13,4 кг</span></div>
+          <div class="row"><span class="k">Срок</span><span class="v">7–10 дней</span></div>
+          <div style="font-size:12px;color:var(--ink-muted);margin-top:6px">Покраска 40 ₾ и работа 60 ₾ включены. Тарифы: 20×20 — 18 ₾/м, 30×30 — 26 ₾/м, 40×40 — 36 ₾/м.</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:16px;break-inside:avoid">
+      <span class="btn sec" style="flex:1">Добавить в корзину</span>
+      <span class="btn" style="flex:1">Заказать сразу · 350 ₾</span>
+    </div>
+    <p style="font-size:12px;color:var(--ink-muted);margin-top:12px">Валидация: профиль 20×20 при любой стороне больше 1500 мм — подсказка «Для таких размеров рекомендуем профиль 30×30».</p>
+  </section>
+
+  <section class="screen">
+    <div class="kicker">Экран 3 · Корзина и оформление</div>
+    <h2 style="font-size:22px;font-weight:700">Оформление заказа</h2>
+    <div class="card" style="margin-top:16px;display:flex;gap:16px;align-items:center">
+      <div style="width:72px;height:72px;flex-shrink:0;border-radius:8px;background:var(--surface-sunken);border:1px solid var(--border)"></div>
+      <div style="flex:1">
+        <div class="mono" style="font-size:14px">1200×450×750 мм</div>
+        <div style="font-size:12px;color:var(--ink-secondary)">Профиль 30×30 · Чёрный</div>
+        <div class="mono" style="font-size:12px;color:var(--ink-secondary)">1 шт × 350 ₾ = 350 ₾</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <span class="pill">Изменить</span><span class="pill" style="color:var(--ink-secondary)">Удалить</span>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="label" style="margin-bottom:8px">Форма</div>
+      <div class="row"><span class="k">Имя</span><span class="v">—</span></div>
+      <div class="row"><span class="k">Телефон (обязательное)</span><span class="v">+995 5__ ___ ___</span></div>
+      <div class="row"><span class="k">Email</span><span class="v">—</span></div>
+      <div class="row"><span class="k">Получение</span><span class="v">Самовывоз / Доставка +30 ₾ (с адресом)</span></div>
+      <div class="row"><span class="k">Комментарий</span><span class="v">—</span></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="row"><span class="k">Товары · 1 шт</span><span class="v">350 ₾</span></div>
+      <div style="height:1px;background:var(--border);margin:8px 0"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+        <span style="font-size:15px;font-weight:600">К оплате</span>
+        <span class="price">350 ₾</span>
+      </div>
+      <span class="btn" style="width:100%;box-sizing:border-box">Перейти к оплате</span>
+    </div>
+  </section>
+
+  <section class="screen">
+    <div class="kicker">Экран 4 · Результат оплаты</div>
+    <div class="card" style="text-align:center;padding:32px">
+      <div style="width:56px;height:56px;border-radius:50%;border:2px solid var(--success);color:var(--success);display:inline-flex;align-items:center;justify-content:center;font-size:26px">✓</div>
+      <h2 style="font-size:20px;font-weight:700;margin-top:12px">Заказ <span class="mono">№ 1042</span> принят</h2>
+      <div class="mono" style="font-size:14px;color:var(--ink-secondary);margin-top:6px">Оплачено · 350 ₾</div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:16px">
+        <span class="btn">Отслеживать заказ</span>
+        <span class="btn sec">Получать статусы в Telegram</span>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--ink-muted);margin-top:12px">Демо: фейковая загрузка «Переход в банк…» 1,5 сек; тумблер ошибки оплаты показывает экран неудачи с кнопкой «Повторить».</p>
+  </section>
+
+  <section class="screen">
+    <div class="kicker">Экран 5 · Трекинг заказа</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <h2 style="font-size:22px;font-weight:700">Заказ <span class="mono">№ 1042</span></h2>
+      <span class="pill" style="border-color:var(--border)">В производстве</span>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:50%;background:var(--success);margin-top:3px"></span><span style="width:1px;height:28px;background:var(--border-strong)"></span></div>
+          <div><div style="font-size:14px;font-weight:600">Заказ получен</div><div class="mono" style="font-size:11px;color:var(--ink-muted)">28.07.2026</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:50%;border:3px solid var(--accent);background:var(--surface);box-sizing:content-box;margin-top:3px"></span><span style="width:1px;height:28px;background:var(--border)"></span></div>
+          <div><div style="font-size:14px;font-weight:700">В производстве</div><div class="mono" style="font-size:11px;color:var(--ink-secondary)">30.07.2026 · текущий статус</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:50%;border:1px solid var(--border-strong);background:var(--surface);margin-top:3px"></span><span style="width:1px;height:28px;background:var(--border)"></span></div>
+          <div style="color:var(--ink-muted)"><div style="font-size:14px;font-weight:600">Готов</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:50%;border:1px solid var(--border-strong);background:var(--surface);margin-top:3px"></span><span style="width:1px;height:28px;background:var(--border)"></span></div>
+          <div style="color:var(--ink-muted)"><div style="font-size:14px;font-weight:600">Доставка</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:50%;border:1px solid var(--border-strong);background:var(--surface);margin-top:3px"></span></div>
+          <div style="color:var(--ink-muted)"><div style="font-size:14px;font-weight:600">Завершён</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;display:flex;gap:16px;align-items:center">
+      <div style="width:64px;height:64px;flex-shrink:0;border-radius:8px;background:var(--surface-sunken);border:1px solid var(--border)"></div>
+      <div>
+        <div class="mono" style="font-size:12px">1200×450×750 мм · 30×30 · Чёрный · 1 шт</div>
+        <div class="mono" style="font-size:12px;color:var(--ink-secondary)">350 ₾ · оплачен</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h3 style="font-size:15px;font-weight:600">Мастерская RAKURS furniture</h3>
+      <div style="font-size:12px;color:var(--ink-secondary);margin-top:4px">Вопросы по заказу — звоните или пишите.</div>
+      <div class="mono" style="font-size:12px;margin-top:8px">+995 551 23 45 67 · hi@rakurs.ge<br><span style="color:var(--ink-muted)">ул. Бахтриони 5, Тбилиси · пн–сб 10:00–19:00</span></div>
+    </div>
+  </section>
+
+</doc-page>
+</body>
+</html>

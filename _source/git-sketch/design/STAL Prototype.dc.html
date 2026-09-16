@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#26251F"/><g stroke="#C2372B" stroke-width="4" fill="none"><rect x="32" y="34" width="36" height="26"/><line x1="32" y1="60" x2="32" y2="70"/><line x1="68" y1="60" x2="68" y2="70"/></g><rect x="30" y="30" width="40" height="5" fill="#C6893B"/></svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/tokens/base.css">
+  <link rel="stylesheet" href="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/styles.css">
+  <script src="_ds/karkas-steel-design-system-81c78aaf-117e-441d-aa69-18e9dad3b376/_ds_bundle.js"></script>
+  <script src="./image-slot.js"></script>
+  <style>
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased}
+    a{color:var(--ink)}a:hover{color:var(--accent)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+  <div style="position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--border)">
+    <div style="max-width:1200px;margin:0 auto;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <span onClick="{{goHome}}" style="font-weight:800;font-size:20px;letter-spacing:-0.01em;cursor:pointer;color:var(--ink)">RAKURS furniture</span>
+      <nav style="display:flex;gap:4px;align-self:stretch">
+        <span onClick="{{goHome}}" style="display:inline-flex;align-items:center;padding:0 10px;font-size:14px;font-weight:600;cursor:pointer;color:{{navHome}};box-shadow:inset 0 -2px 0 {{lineHome}}">Главная</span>
+        <span onClick="{{goConfig}}" style="display:inline-flex;align-items:center;padding:0 10px;font-size:14px;font-weight:600;cursor:pointer;color:{{navConfig}};box-shadow:inset 0 -2px 0 {{lineConfig}}">Конфигуратор</span>
+        <span onClick="{{goCheckout}}" style="display:inline-flex;align-items:center;gap:6px;padding:0 10px;font-size:14px;font-weight:600;cursor:pointer;color:{{navCart}};box-shadow:inset 0 -2px 0 {{lineCart}}">Корзина<sc-if value="{{hasCart}}" hint-placeholder-val="{{ false }}"><span style="font-family:var(--font-mono);font-size:11px;font-weight:600;background:var(--ink);color:var(--surface);border-radius:999px;padding:3px 7px;line-height:1">{{cartCount}}</span></sc-if></span>
+        <span onClick="{{goTracking}}" style="display:inline-flex;align-items:center;padding:0 10px;font-size:14px;font-weight:600;cursor:pointer;color:{{navTrack}};box-shadow:inset 0 -2px 0 {{lineTrack}}">Трекинг</span>
+      </nav>
+    </div>
+  </div>
+
+  <sc-if value="{{toastVisible}}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:40;background:var(--graphite);color:var(--dark-text);padding:12px 20px;border-radius:8px;font-size:14px;white-space:nowrap;display:flex;align-items:center;gap:10px">
+      <span style="color:var(--success)">✓</span>
+      <span>Добавлено в корзину · <span style="font-family:var(--font-mono)">{{cartCount}} шт</span></span>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Главная" style="flex:1;display:flex;flex-direction:column">
+      <div style="background:var(--graphite);color:var(--dark-text)">
+        <div style="max-width:1200px;margin:0 auto;padding:64px 16px 56px">
+          <div style="font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--dark-text-secondary)">Мастерская стальной мебели · Тбилиси</div>
+          <h1 style="font-size:clamp(44px,7vw,64px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:16px 0 0;max-width:640px;text-wrap:pretty">Стальная мебель по твоим размерам</h1>
+          <p style="font-size:16px;line-height:1.55;color:var(--dark-text-secondary);max-width:440px;margin:20px 0 0">Варим каркасы, стеллажи и столы из стального профиля в мастерской в Тбилиси. Сталь 2 мм, красим краскопультом нитрокраской.</p>
+          <div style="margin-top:32px">
+            <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" onClick="{{goConfig}}" dc-props="{{heroBtnProps}}" hint-size="240px,48px">Собери свой каркас</x-import>
+          </div>
+        </div>
+      </div>
+      <div id="cfg" data-screen-label="Конфигуратор">
+        <div style="max-width:1200px;width:100%;box-sizing:border-box;margin:0 auto;padding:40px 16px 0">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px">
+            <h2 style="font-size:24px;font-weight:700;line-height:1.2;margin:0">Конфигуратор</h2>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <div style="width:340px;max-width:100%"><x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SegmentControl" mono="{{ false }}" options="{{groupOptions}}" value="{{groupName}}" onChange="{{setGroup}}" hint-size="340px,48px"></x-import></div>
+              <sc-if value="{{showSub}}" hint-placeholder-val="{{ false }}">
+                <div style="width:340px;max-width:100%"><x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SegmentControl" mono="{{ false }}" options="{{subOptions}}" value="{{modelName}}" onChange="{{setModel}}" hint-size="340px,44px"></x-import></div>
+              </sc-if>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:stretch">
+            <div style="flex:2 1 480px;min-height:380px;position:relative;border-radius:12px;overflow:hidden;background:var(--surface-sunken);border:1px solid var(--border)">
+              <x-import component="Frame3D" from="./Frame3D.js" model="{{model3d}}" wood="{{woodHex}}" drawer-off="{{drawerOff}}" gap="{{gap}}" h="{{h}}" w="{{w}}" l="{{l}}" profile="{{profileMm}}" color="{{colorHex}}" style="position:absolute;left:0;top:0;width:100%;height:100%" hint-size="100%,380px"></x-import>
+              <span style="position:absolute;left:12px;top:12px;pointer-events:none;font-family:var(--font-mono);font-size:12px;font-weight:500;color:var(--ink-secondary);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 10px">{{dims}} мм</span>
+              <span style="position:absolute;left:12px;bottom:12px;pointer-events:none;font-family:var(--font-mono);font-size:11px;color:var(--ink-muted)">вращение — палец или мышь · масштаб — колесо</span>
+            </div>
+            <div style="flex:1 1 320px;min-width:280px;display:flex;flex-direction:column;gap:20px">
+              <sc-if value="{{notStella}}" hint-placeholder-val="{{ true }}">
+                <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SizeSlider" label="Высота, мм" min="{{hMin}}" max="{{hMax}}" value="{{h}}" onChange="{{setH}}" hint-size="100%,92px"></x-import>
+              </sc-if>
+              <sc-if value="{{isStella}}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SizeSlider" label="Расстояние между полками, мм" min="{{ 280 }}" max="{{ 350 }}" value="{{gap}}" onChange="{{setGap}}" hint-size="100%,92px"></x-import>
+              </sc-if>
+              <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SizeSlider" label="{{wLabel}}" min="{{wMin}}" max="{{wMax}}" value="{{w}}" onChange="{{setW}}" hint-size="100%,92px"></x-import>
+              <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SizeSlider" label="{{lLabel}}" min="{{lMin}}" max="{{lMax}}" value="{{l}}" onChange="{{setL}}" hint-size="100%,92px"></x-import>
+              <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SegmentControl" label="Сечение профиля, мм" options="{{profileOptions}}" value="{{profile}}" onChange="{{setProfile}}" hint-size="100%,72px"></x-import>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-secondary)">Цвет металла</span>
+                <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.ColorSwatches" options="{{colorOptions}}" value="{{colorValue}}" onChange="{{setColor}}" ring-offset-color="var(--bg)" hint-size="100%,72px"></x-import>
+              </div>
+              <sc-if value="{{isDeska}}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <span style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-secondary)">{{woodLabel}}</span>
+                  <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.ColorSwatches" options="{{woodOptions}}" value="{{woodValue}}" onChange="{{setWood}}" ring-offset-color="var(--bg)" hint-size="100%,72px"></x-import>
+                </div>
+              </sc-if>
+              <sc-if value="{{isChest}}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SizeSlider" label="Расширение ящика, мм" min="{{ 0 }}" max="{{oMax}}" value="{{drawerOff}}" onChange="{{setDrawerOff}}" hint-size="100%,92px"></x-import>
+              </sc-if>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-secondary)">Количество, шт</span>
+                <div style="display:flex;align-items:center;gap:16px">
+                  <span onClick="{{decQty}}" style="width:44px;height:44px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:var(--ink);user-select:none" style-hover="background:var(--surface-sunken)">−</span>
+                  <span style="font-family:var(--font-mono);font-size:18px;font-weight:500;min-width:36px;text-align:center">{{qty}}</span>
+                  <span onClick="{{incQty}}" style="width:44px;height:44px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:var(--ink);user-select:none" style-hover="background:var(--surface-sunken)">+</span>
+                </div>
+              </div>
+              <sc-if value="{{showWarn}}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1px solid var(--warning);border-radius:8px;background:color-mix(in srgb, var(--warning) 8%, var(--surface));font-size:13px;line-height:1.4;color:var(--ink-secondary)">
+                  <span style="font-family:var(--font-mono);font-weight:600;color:var(--warning)">!</span>
+                  <span>Для таких размеров рекомендуем профиль 30×30</span>
+                </div>
+              </sc-if>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                  <span style="font-size:16px;font-weight:600">Итого</span>
+                  <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Price" value="{{orderTotal}}" hint-size="auto,32px"></x-import>
+                </div>
+                <div style="height:1px;background:var(--border)"></div>
+                <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+                  <span style="color:var(--ink-muted)">Количество</span>
+                  <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{qty}} шт × {{price}} ₾</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+                  <span style="color:var(--ink-muted)">Метраж профиля</span>
+                  <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{metrage}} м</span>
+                </div>
+                <sc-if value="{{isStella}}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+                    <span style="color:var(--ink-muted)">Высота · 5 полок</span>
+                    <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{h}} мм</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{isDeska}}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+                    <span style="color:var(--ink-muted)">{{ldspLabel}}</span>
+                    <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{area}} м²</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{isChest}}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+                    <span style="color:var(--ink-muted)">Ящик · каркас 15×15 + ЛДСП</span>
+                    <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{drawerCost}} ₾</span>
+                  </div>
+                </sc-if>
+                <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+                  <span style="color:var(--ink-muted)">Вес</span>
+                  <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">≈ {{weight}} кг</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+                  <span style="color:var(--ink-muted)">Срок</span>
+                  <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{leadTime}}</span>
+                </div>
+                <div style="font-size:13px;line-height:1.4;color:var(--ink-muted)">Покраска 40 ₾ и работа 60 ₾ включены.<sc-if value="{{isDeska}}" hint-placeholder-val="{{ false }}"> ЛДСП — 55 ₾/м².</sc-if></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position:sticky;bottom:0;z-index:10;margin-top:24px;background:var(--surface);box-shadow:var(--shadow-sticky);padding:12px 16px">
+          <div style="max-width:1200px;margin:0 auto;display:flex;gap:12px">
+            <div style="flex:1"><x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" variant="secondary" fullWidth="{{ true }}" onClick="{{addOnly}}" hint-size="100%,48px">{{addCta}}</x-import></div>
+            <div style="flex:1"><x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" fullWidth="{{ true }}" price="{{orderTotal}}" onClick="{{addToCart}}" hint-size="100%,48px">{{orderCta}}</x-import></div>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1200px;width:100%;box-sizing:border-box;margin:0 auto;padding:48px 16px">
+        <h2 style="font-size:24px;font-weight:700;line-height:1.2;margin:0">Как это работает</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:24px">
+          <div style="border-top:1px solid var(--border-strong);padding-top:16px;display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-muted)">01</span>
+            <h3 style="font-size:18px;font-weight:600;margin:0">Настрой</h3>
+            <p style="font-size:16px;line-height:1.55;color:var(--ink-secondary);margin:0">Задайте размеры, сечение профиля и цвет — модель и цена обновляются сразу.</p>
+          </div>
+          <div style="border-top:1px solid var(--border-strong);padding-top:16px;display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-muted)">02</span>
+            <h3 style="font-size:18px;font-weight:600;margin:0">Оплати</h3>
+            <p style="font-size:16px;line-height:1.55;color:var(--ink-secondary);margin:0">Подтвердите заказ и оплатите онлайн. Предоплата фиксирует место в очереди.</p>
+          </div>
+          <div style="border-top:1px solid var(--border-strong);padding-top:16px;display:flex;flex-direction:column;gap:8px">
+            <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-muted)">03</span>
+            <h3 style="font-size:18px;font-weight:600;margin:0">Получи</h3>
+            <p style="font-size:16px;line-height:1.55;color:var(--ink-secondary);margin:0">Сварим и покрасим за 7–10 дней. Самовывоз или доставка по Тбилиси.</p>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1200px;width:100%;box-sizing:border-box;margin:0 auto;padding:0 16px 56px">
+        <h2 style="font-size:24px;font-weight:700;line-height:1.2;margin:0">Наши работы</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:24px">
+          <div style="aspect-ratio:4/3"><image-slot id="work-1" shape="rounded" radius="12" placeholder="Фото работы"></image-slot></div>
+          <div style="aspect-ratio:4/3"><image-slot id="work-2" shape="rounded" radius="12" placeholder="Фото работы"></image-slot></div>
+          <div style="aspect-ratio:4/3"><image-slot id="work-3" shape="rounded" radius="12" placeholder="Фото работы"></image-slot></div>
+          <div style="aspect-ratio:4/3"><image-slot id="work-4" shape="rounded" radius="12" placeholder="Фото работы"></image-slot></div>
+        </div>
+      </div>
+      <div style="background:var(--graphite);color:var(--dark-text);margin-top:auto">
+        <div style="max-width:1200px;margin:0 auto;padding:40px 16px;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-weight:800;font-size:18px">RAKURS furniture</span>
+            <span style="font-size:13px;color:var(--dark-text-secondary)">Мастерская стальной мебели · Тбилиси</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-family:var(--font-mono);font-size:13px">
+            <a href="tel:+995551234567" style="color:var(--dark-text);text-decoration:none">+995 551 23 45 67</a>
+            <a href="mailto:hi@rakurs.ge" style="color:var(--dark-text);text-decoration:none">hi@rakurs.ge</a>
+            <span style="color:var(--dark-text-secondary)">ул. Бахтриони 5 · пн–сб 10:00–19:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isCheckout}}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Оформление заказа" style="max-width:680px;width:100%;box-sizing:border-box;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:20px">
+      <h1 style="font-size:32px;font-weight:700;line-height:1.15;margin:0">Оформление заказа</h1>
+      <sc-if value="{{cartEmpty}}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+          <span style="font-size:16px;color:var(--ink-secondary)">Корзина пуста</span>
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" variant="secondary" onClick="{{goConfig}}" hint-size="180px,48px">В конфигуратор</x-import>
+        </div>
+      </sc-if>
+      <sc-if value="{{cartFilled}}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{cartItems}}" as="it" hint-placeholder-count="1">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+            <div style="width:88px;height:88px;flex-shrink:0;border-radius:8px;overflow:hidden">
+              <x-import component="Frame3D" from="./Frame3D.js" model="{{it.model}}" wood="{{it.woodHex}}" drawer-off="{{it.drawerOff}}" gap="{{it.gap}}" h="{{it.h}}" w="{{it.w}}" l="{{it.l}}" profile="{{it.profileMm}}" color="{{it.colorHex}}" interactive="{{ false }}" autorotate="{{ true }}" hint-size="88px,88px"></x-import>
+            </div>
+            <div style="flex:1;min-width:160px;display:flex;flex-direction:column;gap:4px">
+              <span style="font-family:var(--font-mono);font-size:15px;font-weight:500">{{it.modelName}} · {{it.dims}} мм</span>
+              <span style="font-size:13px;color:var(--ink-secondary)">Профиль {{it.profile}} · {{it.colorName}}</span>
+              <span style="font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--ink-secondary)">{{it.qty}} шт × {{it.unit}} ₾ = {{it.subtotal}} ₾</span>
+            </div>
+            <div style="display:flex;gap:8px">
+              <span onClick="{{it.edit}}" style="display:inline-flex;align-items:center;height:40px;padding:0 18px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface);font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;user-select:none" style-hover="background:var(--surface-sunken)">Изменить</span>
+              <span onClick="{{it.remove}}" style="display:inline-flex;align-items:center;height:40px;padding:0 18px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface);font-size:13px;font-weight:600;color:var(--ink-secondary);cursor:pointer;user-select:none" style-hover="background:var(--surface-sunken)">Удалить</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:16px">
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Input" label="Имя" value="{{name}}" onChange="{{setName}}" placeholder="Как к вам обращаться" hint-size="100%,80px"></x-import>
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Input" label="Телефон *" type="tel" mono="{{ true }}" value="{{phone}}" onChange="{{setPhone}}" error="{{phoneError}}" placeholder="+995 5__ ___ ___" hint-size="100%,80px"></x-import>
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Input" label="Email" type="email" value="{{email}}" onChange="{{setEmail}}" placeholder="you@example.com" hint-size="100%,80px"></x-import>
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.SegmentControl" label="Получение" mono="{{ false }}" options="{{deliveryOptions}}" value="{{delivery}}" onChange="{{setDelivery}}" hint-size="100%,72px"></x-import>
+        <sc-if value="{{isDelivery}}" hint-placeholder-val="{{ false }}">
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Input" label="Адрес доставки" value="{{address}}" onChange="{{setAddress}}" placeholder="Улица, дом, подъезд — Тбилиси" hint-size="100%,80px"></x-import>
+        </sc-if>
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Input" label="Комментарий" value="{{comment}}" onChange="{{setComment}}" placeholder="Пожелания к заказу" hint-size="100%,80px"></x-import>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+          <span style="color:var(--ink-muted)">Товары · {{cartCount}} шт</span>
+          <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{cartTotal}} ₾</span>
+        </div>
+        <sc-if value="{{isDelivery}}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px">
+            <span style="color:var(--ink-muted)">Доставка по Тбилиси</span>
+            <span style="font-family:var(--font-mono);font-weight:500;color:var(--ink-secondary)">{{deliveryFee}} ₾</span>
+          </div>
+        </sc-if>
+        <div style="height:1px;background:var(--border)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+          <span style="font-size:16px;font-weight:600">К оплате</span>
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Price" value="{{total}}" hint-size="auto,32px"></x-import>
+        </div>
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" fullWidth="{{ true }}" onClick="{{goPay}}" hint-size="100%,48px">Перейти к оплате</x-import>
+      </div>
+      <div onClick="{{togglePayFail}}" style="display:flex;align-items:center;gap:12px;justify-content:center;cursor:pointer;min-height:44px">
+        <span style="{{toggleTrack}}"><span style="{{toggleKnob}}"></span></span>
+        <span style="font-size:13px;color:var(--ink-muted)">Демо: показать ошибку оплаты</span>
+      </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isPay}}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Результат оплаты" style="max-width:480px;width:100%;box-sizing:border-box;margin:0 auto;padding:64px 16px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+      <sc-if value="{{payLoading}}" hint-placeholder-val="{{ false }}">
+        <div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--accent);animation:spin 0.8s linear infinite"></div>
+        <span style="font-size:16px;color:var(--ink-secondary)">Переход в банк…</span>
+      </sc-if>
+      <sc-if value="{{paySuccess}}" hint-placeholder-val="{{ false }}">
+        <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--success);display:flex;align-items:center;justify-content:center;color:var(--success)">
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Icon" name="check" size="{{ 30 }}" hint-size="30px,30px"></x-import>
+        </div>
+        <h1 style="font-size:24px;font-weight:700;line-height:1.2;margin:8px 0 0">Заказ <span style="font-family:var(--font-mono)">№ 1042</span> принят</h1>
+        <span style="font-family:var(--font-mono);font-size:15px;font-weight:500;color:var(--ink-secondary)">Оплачено · {{total}} ₾</span>
+        <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;margin-top:12px">
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" fullWidth="{{ true }}" onClick="{{goTracking}}" hint-size="100%,48px">Отслеживать заказ</x-import>
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" variant="secondary" fullWidth="{{ true }}" hint-size="100%,48px">Получать статусы в Telegram</x-import>
+        </div>
+      </sc-if>
+      <sc-if value="{{payFailed}}" hint-placeholder-val="{{ false }}">
+        <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--danger);display:flex;align-items:center;justify-content:center;color:var(--danger)">
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Icon" name="x" size="{{ 30 }}" hint-size="30px,30px"></x-import>
+        </div>
+        <h1 style="font-size:24px;font-weight:700;line-height:1.2;margin:8px 0 0">Оплата не прошла</h1>
+        <span style="font-size:14px;line-height:1.55;color:var(--ink-secondary)">Банк отклонил операцию. Проверьте карту и попробуйте ещё раз.</span>
+        <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;margin-top:12px">
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" fullWidth="{{ true }}" onClick="{{retryPay}}" hint-size="100%,48px">Повторить</x-import>
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" variant="ghost" fullWidth="{{ true }}" onClick="{{goCheckout}}" hint-size="100%,48px">Вернуться к оформлению</x-import>
+        </div>
+        <div onClick="{{togglePayFail}}" style="display:flex;align-items:center;gap:12px;justify-content:center;cursor:pointer;min-height:44px;margin-top:8px">
+          <span style="{{toggleTrack}}"><span style="{{toggleKnob}}"></span></span>
+          <span style="font-size:13px;color:var(--ink-muted)">Демо: показать ошибку оплаты</span>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isTracking}}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Трекинг заказа" style="max-width:680px;width:100%;box-sizing:border-box;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h1 style="font-size:32px;font-weight:700;line-height:1.15;margin:0">Заказ <span style="font-family:var(--font-mono)">№ 1042</span></h1>
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.StatusChip" status="{{chipStatus}}" hint-size="auto,28px"></x-import>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:16px">
+        <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.OrderTimeline" steps="{{timelineSteps}}" hint-size="100%,240px"></x-import>
+        <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-muted);margin-right:auto">Демо статуса</span>
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" variant="secondary" size="sm" onClick="{{prevStatus}}" dc-props="{{nowrapBtnProps}}" hint-size="90px,40px">← Назад</x-import>
+          <x-import component-from-global-scope="KarkasSteelDesignSystem_81c78a.Button" variant="secondary" size="sm" onClick="{{nextStatus}}" dc-props="{{nowrapBtnProps}}" hint-size="90px,40px">Вперёд →</x-import>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;gap:16px;align-items:center">
+        <div style="width:88px;height:88px;flex-shrink:0;border-radius:8px;overflow:hidden">
+          <x-import component="Frame3D" from="./Frame3D.js" model="{{trackModel}}" wood="{{trackWoodHex}}" drawer-off="{{trackDrawerOff}}" gap="{{trackGap}}" h="{{trackH}}" w="{{trackW}}" l="{{trackL}}" profile="{{trackProfileMm}}" color="{{trackColorHex}}" interactive="{{ false }}" autorotate="{{ true }}" hint-size="88px,88px"></x-import>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+          <sc-for list="{{trackLines}}" as="t" hint-placeholder-count="1">
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:500">{{t.line}}</span>
+          </sc-for>
+          <span style="font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--ink-secondary)">{{total}} ₾ · оплачен</span>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:8px">
+        <h3 style="font-size:18px;font-weight:600;margin:0">Мастерская RAKURS furniture</h3>
+        <span style="font-size:13px;line-height:1.4;color:var(--ink-secondary)">Вопросы по заказу — звоните или пишите.</span>
+        <div style="display:flex;flex-direction:column;gap:6px;font-family:var(--font-mono);font-size:13px;margin-top:4px">
+          <a href="tel:+995551234567" style="color:var(--ink);text-decoration:none">+995 551 23 45 67</a>
+          <a href="mailto:hi@rakurs.ge" style="color:var(--ink);text-decoration:none">hi@rakurs.ge</a>
+          <span style="color:var(--ink-muted)">ул. Бахтриони 5, Тбилиси · пн–сб 10:00–19:00</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;config&quot;,&quot;checkout&quot;,&quot;tracking&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Демо&quot;},&quot;deliveryFee&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:30,&quot;min&quot;:0,&quot;max&quot;:200,&quot;unit&quot;:&quot;₾&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Тарифы&quot;},&quot;leadTime&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;7–10 дней&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Тарифы&quot;}}">
+const COLORS = [
+  { value: 'black', name: 'Чёрный', hex: '#17171A' },
+  { value: 'gray', name: 'Серый', hex: '#8E9094' },
+  { value: 'white', name: 'Белый', hex: '#F2F1EE' },
+];
+const WOODS = [
+  { value: 'oak', name: 'Дуб', hex: '#C6893B' },
+  { value: 'walnut', name: 'Орех', hex: '#6B4A2F' },
+  { value: 'white', name: 'Белый', hex: '#F2F1EE' },
+];
+const MODELS = {
+  cube: { name: 'Cube', ranges: { h: [200, 2000], w: [200, 2000], l: [200, 2000] } },
+  deska: { name: 'Deska', ranges: { h: [400, 1100], w: [500, 1000], l: [800, 2200] } },
+  pats: { name: 'Pats', ranges: { h: [400, 1100], w: [500, 1000], l: [800, 2200] } },
+  chestable: { name: 'Chestable', ranges: { h: [600, 1100], w: [500, 1000], l: [800, 2200] } },
+  stella: { name: 'Stella', ranges: { h: [0, 0], w: [250, 500], l: [600, 1400] } },
+};
+const RATES = { '20×20': [18, 0.9], '30×30': [26, 1.4], '40×40': [36, 2.0] };
+const LDSP_RATE = 55, LDSP_KG = 11.7;
+const STATUSES = ['Заказ получен', 'В производстве', 'Готов', 'Доставка', 'Завершён'];
+const DATES = ['28.07.2026', '30.07.2026', '06.08.2026', '08.08.2026', '10.08.2026'];
+const CHIP = ['received', 'production', 'ready', 'delivery', 'done'];
+
+class Component extends DCLogic {
+  state = {
+    screen: this.props.startScreen ?? 'home',
+    model: 'cube',
+    cube: { h: 750, w: 450, l: 1200, profile: '30×30', color: 'black', wood: 'oak' },
+    deska: { h: 730, w: 600, l: 1400, profile: '20×20', color: 'black', wood: 'oak' },
+    pats: { h: 730, w: 600, l: 1400, profile: '20×20', color: 'black', wood: 'oak' },
+    chestable: { h: 730, w: 600, l: 1400, profile: '20×20', color: 'black', wood: 'oak', drawerOff: 0 },
+    stella: { gap: 300, w: 350, l: 900, profile: '20×20', color: 'black', wood: 'oak' },
+    name: '', phone: '', email: '', delivery: 'Самовывоз', address: '', comment: '', phoneError: '',
+    qty: 1, cart: [], editId: null, cfgActive: false, toastOn: false,
+    payFail: false, payState: 'loading', statusIdx: 1,
+  };
+  componentDidMount() {
+    this._onScroll = () => {
+      let active = false;
+      if (this.state.screen === 'home') {
+        const el = document.getElementById('cfg');
+        if (el) { const r = el.getBoundingClientRect(); active = r.top < 140 && r.bottom > 240; }
+      }
+      if (active !== this.state.cfgActive) this.setState({ cfgActive: active });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentDidUpdate(pp, ps) {
+    if (ps && ps.screen !== this.state.screen) {
+      if (this._toCfg) { this._toCfg = false; this.scrollCfg(); } else window.scrollTo(0, 0);
+    }
+  }
+  setCfg(patch) {
+    const m = this.state.model;
+    this.setState({ [m]: Object.assign({}, this.state[m], patch) });
+  }
+  priceOf(cfg, model) {
+    const [rate, kgm] = RATES[cfg.profile];
+    if (model === 'stella') {
+      const H = 5 * (parseInt(cfg.profile, 10) + 20) + 4 * cfg.gap; // 5 полок + 4 промежутка
+      const m = (4 * H + 10 * (cfg.w + cfg.l)) / 1000;
+      const area = 5 * cfg.w * cfg.l / 1e6;
+      return { m, area, H, price: Math.round(m * rate + area * LDSP_RATE + 40 + 60), kg: m * kgm + area * LDSP_KG };
+    }
+    if (model !== 'cube') {
+      const m = (4 * cfg.h + 2 * (cfg.w + cfg.l) + (model !== 'deska' ? 2 * cfg.w : 0)) / 1000;
+      const area = cfg.w * cfg.l / 1e6;
+      let drawer = 0, drawerKg = 0;
+      if (model === 'chestable') {
+        const cw = Math.max(cfg.w / 1000 * 0.7, 0.3), cd = 0.45 + Math.min(cfg.drawerOff || 0, 200) / 1000;
+        const cageM = 4 * 0.41 + 2 * (cw + cd);            // каркас ящика 15×15
+        const boxArea = 2 * 0.4 * (cw + cd) + cw * cd;      // ЛДСП ящика
+        drawer = Math.round(cageM * 14 + boxArea * LDSP_RATE + 25);
+        drawerKg = cageM * 0.6 + boxArea * LDSP_KG;
+      }
+      return { m, area, drawer, price: Math.round(m * rate + area * LDSP_RATE + 40 + 60) + drawer, kg: m * kgm + area * LDSP_KG + drawerKg };
+    }
+    const m = 4 * (cfg.h + cfg.w + cfg.l) / 1000;
+    return { m, area: 0, price: Math.round(m * rate + 40 + 60), kg: m * kgm };
+  }
+  commitItem(goCheckout) {
+    const s = this.state;
+    const cfg = s[s.model];
+    const item = { id: s.editId ?? Date.now(), model: s.model, h: cfg.h ?? this.priceOf(cfg, s.model).H, gap: cfg.gap, w: cfg.w, l: cfg.l, profile: cfg.profile, color: cfg.color, wood: cfg.wood, drawerOff: cfg.drawerOff, qty: s.qty, unit: this._unit };
+    const cart = s.editId ? s.cart.map(x => x.id === s.editId ? item : x) : [...s.cart, item];
+    this.setState(Object.assign({ cart, editId: null, qty: 1 }, goCheckout ? { screen: 'checkout' } : { toastOn: true }));
+    if (!goCheckout) { clearTimeout(this._tt); this._tt = setTimeout(() => this.setState({ toastOn: false }), 2200); }
+  }
+  scrollCfg() {
+    const el = document.getElementById('cfg');
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56, behavior: 'smooth' });
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._tt); window.removeEventListener('scroll', this._onScroll); }
+  startPay() {
+    this.setState({ screen: 'pay', payState: 'loading', phoneError: '' });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ payState: this.state.payFail ? 'fail' : 'success' }), 1500);
+  }
+  renderVals() {
+    const s = this.state;
+    const go = screen => () => this.setState({ screen });
+    const cfg = s[s.model];
+    const ranges = MODELS[s.model].ranges;
+    const calc = this.priceOf(cfg, s.model);
+    const m = calc.m, price = calc.price;
+    const isStella = s.model === 'stella';
+    const dispH = isStella ? calc.H : cfg.h;
+    const deliveryFee = this.props.deliveryFee ?? 30;
+    const isDelivery = s.delivery !== 'Самовывоз';
+    const color = COLORS.find(c => c.value === cfg.color);
+    const wood = WOODS.find(c => c.value === cfg.wood);
+    this._unit = price;
+    const orderTotal = price * s.qty;
+    const cartItems = s.cart.map(it => {
+      const mdl = it.model || 'cube';
+      const c = COLORS.find(x => x.value === it.color);
+      const wd = WOODS.find(x => x.value === it.wood) || WOODS[0];
+      return {
+        ...it, model: mdl, modelName: MODELS[mdl].name, dims: `${it.l}×${it.w}×${it.h}`, profileMm: parseInt(it.profile, 10),
+        colorHex: c.hex, woodHex: wd.hex, colorName: mdl !== 'cube' ? `${c.name} / ${wd.name}` : c.name, subtotal: it.unit * it.qty,
+        edit: () => {
+          this._toCfg = true;
+          this.setState({ screen: 'home', model: mdl, [mdl]: { h: it.h, w: it.w, l: it.l, profile: it.profile, color: it.color, wood: it.wood || 'oak', drawerOff: it.drawerOff ?? 0, gap: it.gap ?? 300 }, qty: it.qty, editId: it.id });
+        },
+        remove: () => this.setState({ cart: this.state.cart.filter(x => x.id !== it.id) }),
+      };
+    });
+    const cartTotal = cartItems.reduce((a, it) => a + it.subtotal, 0);
+    const cartCount = cartItems.reduce((a, it) => a + it.qty, 0);
+    const total = cartTotal + (isDelivery && cartItems.length ? deliveryFee : 0);
+    const trackSrc = cartItems.length ? cartItems : [{ model: s.model, modelName: MODELS[s.model].name, h: cfg.h, w: cfg.w, l: cfg.l, dims: `${cfg.l}×${cfg.w}×${cfg.h}`, profile: cfg.profile, profileMm: parseInt(cfg.profile, 10), colorHex: color.hex, woodHex: wood.hex, colorName: color.name, gap: cfg.gap, qty: 1 }];
+    const onHomeTop = s.screen === 'home' && !s.cfgActive;
+    const onCfg = s.screen === 'home' && s.cfgActive;
+    const navc = a => a ? 'var(--ink)' : 'var(--ink-secondary)';
+    const line = a => a ? 'var(--accent)' : 'transparent';
+    return {
+      isHome: s.screen === 'home', isConfig: s.screen === 'config', isCheckout: s.screen === 'checkout',
+      isPay: s.screen === 'pay', isTracking: s.screen === 'tracking',
+      goHome: go('home'),
+      goConfig: () => {
+        if (this.state.screen === 'home') this.scrollCfg();
+        else { this._toCfg = true; this.setState({ screen: 'home' }); }
+      },
+      goCheckout: go('checkout'), goTracking: go('tracking'),
+      navHome: navc(onHomeTop), navConfig: navc(onCfg), navTrack: navc(s.screen === 'tracking'),
+      lineHome: line(onHomeTop), lineConfig: line(onCfg), lineTrack: line(s.screen === 'tracking'),
+      navCart: navc(s.screen === 'checkout'), lineCart: line(s.screen === 'checkout'),
+      hasCart: cartCount > 0, toastVisible: s.toastOn,
+      h: dispH, w: cfg.w, l: cfg.l,
+      setH: v => this.setCfg({ h: v }), setW: v => this.setCfg({ w: v }), setL: v => this.setCfg({ l: v }),
+      hMin: ranges.h[0], hMax: ranges.h[1], wMin: ranges.w[0], wMax: ranges.w[1], lMin: ranges.l[0], lMax: ranges.l[1],
+      model3d: s.model, isDeska: s.model !== 'cube',
+      isChest: s.model === 'chestable', drawerCost: calc.drawer || 0,
+      drawerOff: cfg.drawerOff ?? 0, setDrawerOff: v => this.setCfg({ drawerOff: v }), oMax: 200,
+      modelName: MODELS[s.model].name,
+      groupOptions: ['Cube', 'Столы', 'Стеллажи'],
+      groupName: s.model === 'cube' ? 'Cube' : isStella ? 'Стеллажи' : 'Столы',
+      setGroup: g2 => this.setState({ model: g2 === 'Cube' ? 'cube' : g2 === 'Стеллажи' ? 'stella' : 'deska', editId: null, qty: 1 }),
+      showSub: s.model !== 'cube', subOptions: isStella ? ['Stella'] : ['Deska', 'Pats', 'Chestable'],
+      isStella, notStella: !isStella, gap: cfg.gap ?? 300, setGap: v => this.setCfg({ gap: v }),
+      wLabel: isStella ? 'Глубина, мм' : 'Ширина, мм', lLabel: isStella ? 'Ширина, мм' : 'Длина, мм',
+      woodLabel: isStella ? 'Полки, ЛДСП' : 'Столешница, ЛДСП', ldspLabel: isStella ? 'Полки ЛДСП · 5 шт' : 'Столешница ЛДСП',
+      setModel: name => this.setState({ model: Object.keys(MODELS).find(k => MODELS[k].name === name) || 'cube', editId: null, qty: 1 }),
+      woodValue: cfg.wood, woodOptions: WOODS, setWood: v => this.setCfg({ wood: v }), woodHex: wood.hex,
+      area: calc.area ? calc.area.toFixed(2).replace('.', ',') : '',
+      profile: cfg.profile, profileOptions: ['20×20', '30×30', '40×40'],
+      setProfile: v => this.setCfg({ profile: v }), profileMm: parseInt(cfg.profile, 10),
+      colorValue: cfg.color, colorOptions: COLORS, setColor: v => this.setCfg({ color: v }),
+      colorHex: color.hex, colorName: color.name,
+      dims: `${cfg.l}×${cfg.w}×${dispH}`,
+      qty: s.qty, incQty: () => this.setState({ qty: Math.min(99, s.qty + 1) }), decQty: () => this.setState({ qty: Math.max(1, s.qty - 1) }),
+      orderTotal, orderCta: s.editId ? 'Обновить' : 'Заказать сразу',
+      addCta: s.editId ? 'Обновить в корзине' : 'Добавить в корзину',
+      addToCart: () => this.commitItem(true),
+      addOnly: () => this.commitItem(false),
+      cartItems, cartTotal, cartCount, cartEmpty: !cartItems.length, cartFilled: !!cartItems.length,
+      trackH: trackSrc[0].h, trackW: trackSrc[0].w, trackL: trackSrc[0].l, trackModel: trackSrc[0].model, trackWoodHex: trackSrc[0].woodHex, trackDrawerOff: trackSrc[0].drawerOff ?? 0, trackGap: trackSrc[0].gap ?? 300,
+      trackProfileMm: trackSrc[0].profileMm, trackColorHex: trackSrc[0].colorHex,
+      trackLines: trackSrc.map(it => ({ line: `${it.modelName} · ${it.dims} мм · ${it.profile} · ${it.colorName} · ${it.qty} шт` })),
+      metrage: m.toFixed(1).replace('.', ','), weight: calc.kg.toFixed(1).replace('.', ','),
+      price, total, deliveryFee,
+      leadTime: this.props.leadTime ?? '7–10 дней',
+      showWarn: cfg.profile === '20×20' && Math.max(cfg.h || 0, cfg.w, cfg.l) > 1500,
+      name: s.name, setName: v => this.setState({ name: v }),
+      phone: s.phone, setPhone: v => this.setState({ phone: v, phoneError: '' }), phoneError: s.phoneError,
+      email: s.email, setEmail: v => this.setState({ email: v }),
+      address: s.address, setAddress: v => this.setState({ address: v }),
+      comment: s.comment, setComment: v => this.setState({ comment: v }),
+      delivery: s.delivery, deliveryOptions: ['Самовывоз', 'Доставка +30 ₾'],
+      setDelivery: v => this.setState({ delivery: v }), isDelivery,
+      goPay: () => {
+        if (!s.cart.length) return;
+        if (!s.phone.trim()) { this.setState({ phoneError: 'Укажите номер телефона' }); return; }
+        this.startPay();
+      },
+      retryPay: () => this.startPay(),
+      payLoading: s.screen === 'pay' && s.payState === 'loading',
+      paySuccess: s.screen === 'pay' && s.payState === 'success',
+      payFailed: s.screen === 'pay' && s.payState === 'fail',
+      togglePayFail: () => this.setState({ payFail: !s.payFail }),
+      toggleTrack: { width: 40, height: 24, borderRadius: 999, background: s.payFail ? 'var(--accent)' : 'var(--border-strong)', position: 'relative', flexShrink: 0, display: 'inline-block', transition: 'background 150ms ease-out' },
+      toggleKnob: { position: 'absolute', top: 2, left: s.payFail ? 18 : 2, width: 20, height: 20, borderRadius: '50%', background: '#fff', transition: 'left 150ms ease-out' },
+      timelineSteps: STATUSES.map((label, i) => ({
+        label, date: i <= s.statusIdx ? DATES[i] : null,
+        state: i < s.statusIdx ? 'done' : i === s.statusIdx ? 'current' : 'future',
+      })),
+      chipStatus: CHIP[s.statusIdx],
+      prevStatus: () => this.setState({ statusIdx: Math.max(0, s.statusIdx - 1) }),
+      nextStatus: () => this.setState({ statusIdx: Math.min(4, s.statusIdx + 1) }),
+      heroBtnProps: { style: { background: 'var(--accent-on-dark)', whiteSpace: 'nowrap' } },
+      nowrapBtnProps: { style: { whiteSpace: 'nowrap', flexShrink: 0 } },
+    };
+  }
+}
+</script>
+</body>
+</html>
