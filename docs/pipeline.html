@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAKURS — пайплайн разработки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* ========== Токены дизайн-системы «Каркас» — перенесены без изменений значений ========== */
+:root{
+  --bg:#F4F3F0; --surface:#FCFBF9; --surface-sunken:#EBEAE6;
+  --border:#DBD9D3; --border-strong:#B8B5AD;
+  --ink:#1C1B19; --ink-secondary:#57554F; --ink-muted:#8B887F;
+  --graphite:#26251F;
+  --accent:#C2372B; --accent-hover:#A82E24; --accent-subtle:#F6E4E1; --accent-on:#FFFFFF;
+  --success:#4A7C59; --success-subtle:#E3EDE6; --warning:#B98A2F; --danger:#C2372B;
+  --dark-text:#F4F3F0; --dark-text-secondary:#A5A29A; --accent-on-dark:#D4483A;
+
+  --font-ui:'Onest',-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+  --container:1200px; --gutter:24px; --gutter-mobile:16px;
+  --radius-control:8px; --radius-card:12px; --radius-full:999px;
+  --border-w:1px; --border-active:2px;
+  --shadow-sticky:0 -1px 0 var(--border),0 -8px 24px rgb(0 0 0 / 0.06);
+  --touch-min:44px; --control-h:48px;
+}
+
+/* ========== База ========== */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  margin:0;font-family:var(--font-ui);font-size:16px;line-height:1.55;
+  color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{margin:0;line-height:1.2;font-weight:700;letter-spacing:-0.01em}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+a{color:var(--ink);text-decoration:none}
+:focus-visible{outline:var(--border-active) solid var(--accent);outline-offset:2px}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter-mobile)}
+@media(min-width:768px){.wrap{padding:0 var(--gutter)}}
+
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.micro{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-muted);
+}
+
+/* ========== Шапка ========== */
+.top{
+  position:sticky;top:0;z-index:40;background:var(--surface);
+  border-bottom:var(--border-w) solid var(--border);
+}
+.top__in{
+  max-width:var(--container);margin:0 auto;padding:0 var(--gutter-mobile);
+  height:56px;display:flex;align-items:center;gap:var(--space-4);
+}
+.top__brand{font-weight:800;font-size:18px;letter-spacing:-0.02em;white-space:nowrap}
+.top__brand span{color:var(--ink-muted);font-weight:500;font-size:13px;margin-left:8px}
+.top__nav{
+  display:flex;gap:2px;margin-left:auto;align-self:stretch;
+  overflow-x:auto;scrollbar-width:none;
+}
+.top__nav::-webkit-scrollbar{display:none}
+.top__nav a{
+  display:inline-flex;align-items:center;padding:0 10px;font-size:13px;font-weight:600;
+  color:var(--ink-secondary);white-space:nowrap;box-shadow:inset 0 -2px 0 transparent;
+  transition:color .15s ease-out,box-shadow .15s ease-out;
+}
+.top__nav a:hover{color:var(--ink)}
+.top__nav a.is-active{color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
+@media(min-width:768px){.top__in{padding:0 var(--gutter)}}
+
+/* ========== Прогресс-полоса чтения ========== */
+.readbar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:50;width:0}
+
+/* ========== Hero ========== */
+.hero{background:var(--graphite);color:var(--dark-text)}
+.hero__in{max-width:var(--container);margin:0 auto;padding:var(--space-16) var(--gutter-mobile) var(--space-12)}
+.hero .micro{color:var(--dark-text-secondary)}
+.hero h1{
+  font-size:clamp(34px,6vw,60px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;
+  margin:var(--space-4) 0 0;max-width:760px;text-wrap:balance;
+}
+.hero p{
+  font-size:17px;line-height:1.55;color:var(--dark-text-secondary);
+  max-width:600px;margin:var(--space-6) 0 0;
+}
+.hero__stats{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  margin-top:var(--space-12);background:rgb(255 255 255 / 0.10);
+  border:1px solid rgb(255 255 255 / 0.10);border-radius:var(--radius-card);overflow:hidden;
+}
+.stat{background:var(--graphite);padding:var(--space-6) var(--space-4)}
+.stat__v{font-family:var(--font-mono);font-size:30px;font-weight:600;line-height:1;color:var(--dark-text)}
+.stat__v em{font-style:normal;color:var(--accent-on-dark)}
+.stat__k{font-size:12px;color:var(--dark-text-secondary);margin-top:var(--space-2);line-height:1.35}
+@media(min-width:768px){
+  .hero__in{padding:var(--space-16) var(--gutter) var(--space-12)}
+  .hero__stats{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ========== Секции ========== */
+.sec{padding:var(--space-16) 0 0}
+.sec__head{display:flex;align-items:baseline;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6)}
+.sec__head h2{font-size:clamp(24px,3.2vw,32px)}
+.sec__lead{color:var(--ink-secondary);max-width:720px;margin-bottom:var(--space-8)}
+
+/* ========== Фазы: рельс ========== */
+.rail{position:relative;padding-left:0}
+.phase{
+  position:relative;border:var(--border-w) solid var(--border);border-radius:var(--radius-card);
+  background:var(--surface);margin-bottom:var(--space-6);overflow:hidden;
+}
+.phase--mvp{border-color:var(--border-strong)}
+.phase__bar{height:3px;background:var(--border-strong)}
+.phase--mvp .phase__bar{background:var(--accent)}
+.phase--now .phase__bar{background:var(--success)}
+.phase__head{
+  display:flex;align-items:flex-start;gap:var(--space-4);
+  padding:var(--space-6) var(--space-4);border-bottom:var(--border-w) solid var(--border);
+  flex-wrap:wrap;
+}
+.phase__no{
+  font-family:var(--font-mono);font-size:13px;font-weight:600;
+  width:var(--touch-min);height:32px;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-full);
+  color:var(--ink-secondary);
+}
+.phase--mvp .phase__no{border-color:var(--accent);color:var(--accent);border-width:var(--border-active)}
+.phase__title{flex:1 1 260px;min-width:0}
+.phase__title h3{font-size:20px}
+.phase__title p{color:var(--ink-secondary);font-size:14px;margin-top:var(--space-1)}
+.phase__meta{display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2);margin-left:auto}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;
+  border-radius:var(--radius-full);border:var(--border-w) solid var(--border-strong);
+  font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--ink-secondary);
+  background:var(--surface);white-space:nowrap;
+}
+.chip--accent{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
+.chip--ok{border-color:var(--success);color:var(--success);background:var(--success-subtle)}
+.phase__body{padding:var(--space-4)}
+@media(min-width:768px){
+  .phase__head{padding:var(--space-6)}
+  .phase__body{padding:var(--space-6)}
+}
+
+/* ========== Треки ========== */
+.track{
+  border:var(--border-w) solid var(--border);border-radius:var(--radius-control);
+  background:var(--bg);margin-bottom:var(--space-3);
+}
+.track:last-child{margin-bottom:0}
+.track__head{
+  display:flex;align-items:center;gap:var(--space-3);width:100%;
+  min-height:var(--touch-min);padding:var(--space-3) var(--space-4);
+  background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;
+}
+.track__head:hover{background:var(--surface-sunken)}
+.track__code{
+  font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--accent);
+  flex-shrink:0;width:32px;
+}
+.track__name{font-weight:600;font-size:15px;flex:1 1 auto;min-width:0}
+.track__days{font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);white-space:nowrap}
+.track__prog{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--ink-muted);
+  min-width:48px;text-align:right;
+}
+.track__caret{
+  width:16px;height:16px;flex-shrink:0;position:relative;transition:transform .15s ease-out;
+}
+.track__caret::before,.track__caret::after{
+  content:'';position:absolute;top:7px;width:9px;height:1.5px;background:var(--ink-secondary);
+}
+.track__caret::before{left:0;transform:rotate(45deg)}
+.track__caret::after{right:0;transform:rotate(-45deg)}
+.track.is-open .track__caret{transform:rotate(180deg)}
+.track__panel{display:none;padding:0 var(--space-4) var(--space-4);border-top:var(--border-w) solid var(--border)}
+.track.is-open .track__panel{display:block}
+.track__meter{height:2px;background:var(--surface-sunken);margin:0 var(--space-4) 0}
+.track__meter i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s ease-out}
+
+/* ========== Задачи ========== */
+.tasks{margin-top:var(--space-4)}
+.task{display:flex;gap:var(--space-3);align-items:flex-start;padding:var(--space-2) 0;min-height:var(--touch-min)}
+.task input{
+  appearance:none;width:18px;height:18px;margin:6px 0 0;flex-shrink:0;cursor:pointer;
+  border:var(--border-w) solid var(--border-strong);border-radius:4px;
+  background:var(--surface);position:relative;transition:border-color .15s ease-out,background .15s ease-out;
+}
+.task input:hover{border-color:var(--ink-secondary)}
+.task input:checked{background:var(--accent);border-color:var(--accent)}
+.task input:checked::after{
+  content:'';position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid var(--accent-on);border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+.task label{flex:1;cursor:pointer;font-size:14.5px;line-height:1.5;padding-top:3px}
+.task input:checked + label{color:var(--ink-muted);text-decoration:line-through;text-decoration-color:var(--border-strong)}
+.task code{
+  font-family:var(--font-mono);font-size:12.5px;background:var(--surface-sunken);
+  border:var(--border-w) solid var(--border);border-radius:4px;padding:1px 5px;
+}
+
+/* ========== Блок «готово когда» ========== */
+.done{
+  margin-top:var(--space-4);padding:var(--space-4);
+  border:var(--border-w) solid var(--border);border-left:3px solid var(--success);
+  border-radius:var(--radius-control);background:var(--surface);
+}
+.done .micro{color:var(--success)}
+.done ul{margin-top:var(--space-2)}
+.done li{font-size:14px;line-height:1.5;padding-left:16px;position:relative;margin-top:var(--space-1)}
+.done li::before{content:'—';position:absolute;left:0;color:var(--ink-muted)}
+
+/* ========== Таблицы ========== */
+.tablewrap{overflow-x:auto;border:var(--border-w) solid var(--border);border-radius:var(--radius-card);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;padding:var(--space-3) var(--space-4);border-bottom:var(--border-w) solid var(--border);vertical-align:top}
+th{font-size:11px;font-family:var(--font-mono);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-muted);background:var(--surface-sunken)}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface-sunken)}
+td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary)}
+
+/* ========== Паритет ========== */
+.parity{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:var(--border-w) solid var(--border);border-radius:var(--radius-card);overflow:hidden}
+.pitem{background:var(--surface);padding:var(--space-3) var(--space-4);display:flex;gap:var(--space-3);align-items:flex-start;min-height:var(--touch-min)}
+.pitem input{
+  appearance:none;width:18px;height:18px;margin:4px 0 0;flex-shrink:0;cursor:pointer;
+  border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-full);background:var(--surface);position:relative;
+}
+.pitem input:checked{background:var(--success);border-color:var(--success)}
+.pitem input:checked::after{content:'';position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.pitem label{font-size:14px;line-height:1.45;cursor:pointer;flex:1}
+.pitem .micro{display:block;margin-bottom:2px;color:var(--ink-muted)}
+@media(min-width:640px){.parity{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.parity{grid-template-columns:repeat(3,1fr)}}
+
+/* ========== Открытые вопросы ========== */
+.q{border:var(--border-w) solid var(--border);border-left:3px solid var(--warning);border-radius:var(--radius-control);background:var(--surface);padding:var(--space-4);margin-bottom:var(--space-3)}
+.q--block{border-left-color:var(--accent)}
+.q h4{font-size:15px;margin-bottom:var(--space-1)}
+.q p{font-size:14px;color:var(--ink-secondary)}
+.q__tag{float:right;margin-left:var(--space-3)}
+
+/* ========== Панель прогресса ========== */
+.dash{
+  position:sticky;bottom:0;z-index:30;background:var(--surface);
+  border-top:var(--border-w) solid var(--border);box-shadow:var(--shadow-sticky);margin-top:var(--space-16);
+}
+.dash__in{
+  max-width:var(--container);margin:0 auto;padding:var(--space-3) var(--gutter-mobile);
+  display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;
+}
+.dash__meter{flex:1 1 200px;min-width:160px;height:6px;background:var(--surface-sunken);border-radius:var(--radius-full);overflow:hidden}
+.dash__meter i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s ease-out}
+.dash__n{font-family:var(--font-mono);font-size:14px;font-weight:600;white-space:nowrap}
+.btn{
+  min-height:var(--touch-min);padding:0 var(--space-4);border-radius:var(--radius-control);
+  border:var(--border-w) solid var(--border-strong);background:var(--surface);
+  font:inherit;font-size:14px;font-weight:600;color:var(--ink-secondary);cursor:pointer;
+  transition:background .15s ease-out,border-color .15s ease-out,color .15s ease-out;
+}
+.btn:hover{background:var(--surface-sunken);border-color:var(--ink-secondary);color:var(--ink)}
+@media(min-width:768px){.dash__in{padding:var(--space-3) var(--gutter)}}
+
+/* ========== Футер ========== */
+.foot{background:var(--graphite);color:var(--dark-text-secondary);padding:var(--space-12) 0;font-size:14px}
+.foot strong{color:var(--dark-text);display:block;font-size:16px;margin-bottom:var(--space-2)}
+.foot a{color:var(--accent-on-dark)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.001s!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="readbar" id="readbar"></div>
+
+<header class="top">
+  <div class="top__in">
+    <div class="top__brand">Ракурс<span>пайплайн</span></div>
+    <nav class="top__nav" id="nav">
+      <a href="#phase0">Фундамент</a>
+      <a href="#mvp">MVP</a>
+      <a href="#parity">Паритет</a>
+      <a href="#full">Полная версия</a>
+      <a href="#risks">Риски</a>
+      <a href="#questions">Вопросы</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__in">
+    <div class="micro">План разработки · сентябрь 2026</div>
+    <h1>От прототипа Claude&nbsp;Design до работающего магазина стальной мебели</h1>
+    <p>Три фазы. Ключевая — MVP: сайт, который делает всё, что делает прототип, только по-настоящему — с базой, серверной проверкой цены и заказом, который доезжает до мастерской. Полная версия добавляет админку, реальную оплату и оповещения.</p>
+    <div class="hero__stats">
+      <div class="stat"><div class="stat__v">3</div><div class="stat__k">фазы, MVP — вторая и ключевая</div></div>
+      <div class="stat"><div class="stat__v">5</div><div class="stat__k">треков внутри MVP</div></div>
+      <div class="stat"><div class="stat__v"><em>21</em></div><div class="stat__k">пункт паритета с прототипом</div></div>
+      <div class="stat"><div class="stat__v">~7<em>н</em></div><div class="stat__k">до MVP при работе по вечерам</div></div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+<!-- ================= ФАЗА 0 ================= -->
+<section class="sec" id="phase0">
+  <div class="sec__head">
+    <h2>Фаза 0 — Фундамент</h2>
+    <span class="chip chip--ok">3–5 дней</span>
+  </div>
+  <p class="sec__lead">Ничего видимого пользователю. Задача — снять неопределённость и поставить рельсы, чтобы MVP не переписывался на середине. Самое дорогое здесь — не код, а семь расхождений между прототипом и ТЗ, которые надо развести с владельцем.</p>
+
+  <div class="rail">
+    <article class="phase phase--now">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">00</span>
+        <div class="phase__title">
+          <h3>Рельсы и решения</h3>
+          <p>Разведённые требования, пустой, но правильно собранный Next.js, перенесённая дизайн-система.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">4 трека</span></div>
+      </div>
+      <div class="phase__body">
+
+        <div class="track" data-track="F0-1">
+          <button class="track__head" type="button">
+            <span class="track__code">0.1</span>
+            <span class="track__name">Развести открытые вопросы</span>
+            <span class="track__days mono">1 д</span>
+            <span class="track__prog">0/5</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F0-1-1"><label for="t-F0-1-1">Языки: прототип даёт <code>ka/en/ru</code> с грузинским по умолчанию, ТЗ требует <code>ru/ka/hy</code>. Зафиксировать набор и язык по умолчанию</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-1-2"><label for="t-F0-1-2">Типы изделий: 4 по ТЗ против 5 в прототипе. Подтвердить, что Deska и Pats — разные товары</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-1-3"><label for="t-F0-1-3">Шрифт: Manrope из бренд-спеки или Onest из прототипа</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-1-4"><label for="t-F0-1-4">Контакты мастерской и способ покраски (порошковая или нитрокраска) — тексты идут на сайт</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-1-5"><label for="t-F0-1-5">Подтвердить прайс: тарифы профиля, ЛДСП 55 ₾/м², покраска 40 ₾, работа 60 ₾, тарифы доставки</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>все пять решений записаны в <code>docs/02-domain-model.md</code> и <code>docs/04-repo-review.md</code>;</li>
+                <li>ни один пункт не остаётся в формулировке «решим позже» — иначе он блокирует конкретный трек MVP.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="track" data-track="F0-2">
+          <button class="track__head" type="button">
+            <span class="track__code">0.2</span>
+            <span class="track__name">Каркас приложения</span>
+            <span class="track__days mono">1 д</span>
+            <span class="track__prog">0/5</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F0-2-1"><label for="t-F0-2-1">Next.js + TypeScript, App Router, строгий <code>tsconfig</code></label></li>
+              <li class="task"><input type="checkbox" id="t-F0-2-2"><label for="t-F0-2-2">Tailwind: токены «Каркас» переносятся в тему <strong>без изменения значений</strong>, никаких произвольных цветов</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-2-3"><label for="t-F0-2-3">Шрифты локально (woff2, <code>next/font</code>), включая грузинское начертание — не через CDN</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-2-4"><label for="t-F0-2-4">Каркас <code>next-intl</code>: маршруты с локалью, пустые словари ka/en/ru</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-2-5"><label for="t-F0-2-5">Vitest + Playwright + lint/typecheck, всё в одну команду проверки</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>пустая главная рисуется в цветах и типографике ДС, три языка переключаются;</li>
+                <li>смоук-тест Playwright зелёный, превью на Vercel открывается по ссылке.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="track" data-track="F0-3">
+          <button class="track__head" type="button">
+            <span class="track__code">0.3</span>
+            <span class="track__name">Перенос дизайн-системы</span>
+            <span class="track__days mono">1–2 д</span>
+            <span class="track__prog">0/4</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F0-3-1"><label for="t-F0-3-1">Восстановить 13 компонентов из <code>_ds_bundle.js</code> в React: Button, IconButton, Card, Price, StatusChip, OrderTimeline, Toast, ColorSwatches, Input, SegmentControl, SizeSlider, Icon, OrdersTable</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-3-2"><label for="t-F0-3-2">Иконки Lucide как npm-пакет, stroke 1.5px. Своих SVG не рисовать</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-3-3"><label for="t-F0-3-3">Витрина компонентов на отдельном маршруте — визуальная сверка с прототипом</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-3-4"><label for="t-F0-3-4">Запросить у владельца полную папку ДС (<code>ui_kits/</code>, <code>guidelines/</code>, исходные <code>.jsx</code>) — в архив она не попала</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>каждый компонент витрины визуально совпадает с прототипом;</li>
+                <li>в компонентах нет ни одного цвета или размера мимо токенов.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="track" data-track="F0-4">
+          <button class="track__head" type="button">
+            <span class="track__code">0.4</span>
+            <span class="track__name">Инфраструктура</span>
+            <span class="track__days mono">0.5 д</span>
+            <span class="track__prog">0/3</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F0-4-1"><label for="t-F0-4-1">Проект Supabase, ключи в <code>.env</code> локально и в переменных Vercel</label></li>
+              <li class="task"><input type="checkbox" id="t-F0-4-2"><label for="t-F0-4-2">Перепривязать Vercel к правильному репозиторию — сейчас он смотрит на <code>Redeace/Claude_test</code></label></li>
+              <li class="task"><input type="checkbox" id="t-F0-4-3"><label for="t-F0-4-3">Доступ агента к репозиторию: пригласить аккаунт или договориться о передаче архивами</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>пуш в <code>main</code> выкатывает превью автоматически;</li>
+                <li>ни одного секрета в git.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= MVP ================= -->
+<section class="sec" id="mvp">
+  <div class="sec__head">
+    <h2>Фаза 1 — MVP</h2>
+    <span class="chip chip--accent">ключевой этап</span>
+    <span class="chip">~5–7 недель</span>
+  </div>
+  <p class="sec__lead">Граница MVP проведена по прототипу: всё, что Claude Design показал на экране, работает по-настоящему. Клиент собирает изделие в 3D, видит честную цену, оформляет заказ на трёх языках и следит за статусом. Заказ ложится в базу и доезжает до мастера. Единственное, что остаётся имитацией, — списание денег: реальный эквайринг зависит от банка, а его сроки мы не контролируем, поэтому он вынесен в следующую фазу.</p>
+
+  <div class="rail">
+    <article class="phase phase--mvp">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">M1</span>
+        <div class="phase__title">
+          <h3>Витрина</h3>
+          <p>Главная страница один в один с прототипом, адаптив, три языка в разметке.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">4–6 дней</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="M1">
+          <button class="track__head" type="button">
+            <span class="track__code">M1</span>
+            <span class="track__name">Главная, шапка, футер</span>
+            <span class="track__days mono">4–6 д</span>
+            <span class="track__prog">0/6</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-M1-1"><label for="t-M1-1">Sticky-шапка: логотип текстом, навигация с подчёркиванием активного, счётчик корзины, переключатель KA/EN/RU</label></li>
+              <li class="task"><input type="checkbox" id="t-M1-2"><label for="t-M1-2">Hero на graphite: кикер, заголовок, подзаголовок, одна красная кнопка</label></li>
+              <li class="task"><input type="checkbox" id="t-M1-3"><label for="t-M1-3">Блок «Как это работает» — три шага</label></li>
+              <li class="task"><input type="checkbox" id="t-M1-4"><label for="t-M1-4">«Наши работы» — 4 фото из <code>_source/prototype/works/</code>, запросить оригиналы в нормальном разрешении</label></li>
+              <li class="task"><input type="checkbox" id="t-M1-5"><label for="t-M1-5">Футер: адрес, часы, контакты</label></li>
+              <li class="task"><input type="checkbox" id="t-M1-6"><label for="t-M1-6">Адаптив 360 / 768 / 1200, guard от горизонтального скролла</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>скриншот-сверка с прототипом на трёх брейкпоинтах: отличия только в контенте-плейсхолдерах;</li>
+                <li>ни одной строки текста в коде — всё в словарях;</li>
+                <li>на грузинском вёрстка не ломается: заголовок там длиннее, для него в прототипе отдельный размер.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase phase--mvp">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">M2</span>
+        <div class="phase__title">
+          <h3>3D-конфигуратор</h3>
+          <p>Ядро продукта и самый рискованный трек. Геометрия перестраивается под размеры в реальном времени.</p>
+        </div>
+        <div class="phase__meta"><span class="chip chip--accent">7–10 дней</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="M2">
+          <button class="track__head" type="button">
+            <span class="track__code">M2</span>
+            <span class="track__name">Модель, управление, производительность</span>
+            <span class="track__days mono">7–10 д</span>
+            <span class="track__prog">0/8</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-M2-1"><label for="t-M2-1">Порт <code>Frame3D.js</code> на react-three-fiber, three как локальная зависимость вместо импорта с unpkg</label></li>
+              <li class="task"><input type="checkbox" id="t-M2-2"><label for="t-M2-2">Геометрия пяти моделей: Cube (12 рёбер), Deska и Pats (ноги + царги + столешница), Chestable (тумба на 2 ящика с ручками), Stella (5 полок)</label></li>
+              <li class="task"><input type="checkbox" id="t-M2-3"><label for="t-M2-3">Текстуры ЛДСП: 3.7 МБ PNG пережать в webp, один квадратный размер, корректный тайлинг под габариты</label></li>
+              <li class="task"><input type="checkbox" id="t-M2-4"><label for="t-M2-4">Орбита пальцем и мышью, зум колесом и щипком, тень-контакт у пола, размерный бейдж</label></li>
+              <li class="task"><input type="checkbox" id="t-M2-5"><label for="t-M2-5">Панель параметров: слайдеры с числовым вводом, сегменты профиля, свотчи металла и ЛДСП, расширение ящика, количество</label></li>
+              <li class="task"><input type="checkbox" id="t-M2-6"><label for="t-M2-6">Предупреждение «для таких размеров рекомендуем 30×30» с кнопкой применения</label></li>
+              <li class="task"><input type="checkbox" id="t-M2-7"><label for="t-M2-7">Деградация: нет WebGL или слабое устройство — статичный рендер вместо чёрного экрана</label></li>
+              <li class="task"><input type="checkbox" id="t-M2-8"><label for="t-M2-8">Замер на реальном среднем Android, а не в эмуляторе</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>все пять моделей строятся во всех крайних точках диапазонов без разъехавшейся геометрии;</li>
+                <li>на среднем Android не ниже 30 fps при перетаскивании слайдера;</li>
+                <li>вес страницы конфигуратора вместе с текстурами укладывается в бюджет, зафиксированный до начала трека.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase phase--mvp">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">M3</span>
+        <div class="phase__title">
+          <h3>Деньги</h3>
+          <p>Цена считается один раз — в общем модуле, который выполняется и на клиенте, и на сервере.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">3–4 дня</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="M3">
+          <button class="track__head" type="button">
+            <span class="track__code">M3</span>
+            <span class="track__name">Расчёт, проверка, корзина</span>
+            <span class="track__days mono">3–4 д</span>
+            <span class="track__prog">0/6</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-M3-1"><label for="t-M3-1">Модуль чистых функций по формулам из <code>docs/02-domain-model.md</code>: метраж, площадь, вес, цена ящика</label></li>
+              <li class="task"><input type="checkbox" id="t-M3-2"><label for="t-M3-2">Тарифы, диапазоны и сроки — в конфиге или БД. Ни одного числа в компоненте</label></li>
+              <li class="task"><input type="checkbox" id="t-M3-3"><label for="t-M3-3">Тесты <strong>до</strong> кода: юнит на каждую формулу плюс прогон по всей сетке диапазонов</label></li>
+              <li class="task"><input type="checkbox" id="t-M3-4"><label for="t-M3-4">Серверный пересчёт при создании заказа: расхождение с присланной ценой — отказ, а не молчаливое доверие</label></li>
+              <li class="task"><input type="checkbox" id="t-M3-5"><label for="t-M3-5">Корзина: добавить, изменить позицию, удалить, тариф доставки по количеству, срок по количеству</label></li>
+              <li class="task"><input type="checkbox" id="t-M3-6"><label for="t-M3-6">Вес и метраж показываем клиенту — они уже считаются</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>клиент и сервер дают одинаковую цену на всей сетке конфигураций;</li>
+                <li>есть тест, который подделывает цену в запросе и получает отказ;</li>
+                <li>смена тарифа в конфиге меняет цену на сайте без правки компонентов.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase phase--mvp">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">M4</span>
+        <div class="phase__title">
+          <h3>Заказ и трекинг</h3>
+          <p>Момент, когда сайт перестаёт быть демо: заказ сохраняется и доезжает до мастерской.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">5–7 дней</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="M4">
+          <button class="track__head" type="button">
+            <span class="track__code">M4</span>
+            <span class="track__name">База, оформление, статусы</span>
+            <span class="track__days mono">5–7 д</span>
+            <span class="track__prog">0/7</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-M4-1"><label for="t-M4-1">Схема в Supabase: заказы, позиции, снимок конфигурации, история статусов</label></li>
+              <li class="task"><input type="checkbox" id="t-M4-2"><label for="t-M4-2">Снимок конфигурации хранить целиком — прайс поменяется, а старый заказ должен остаться воспроизводимым</label></li>
+              <li class="task"><input type="checkbox" id="t-M4-3"><label for="t-M4-3">Приём заказа: валидация схемой, пересчёт цены, сохранение, выдача номера. Идемпотентность по ключу запроса</label></li>
+              <li class="task"><input type="checkbox" id="t-M4-4"><label for="t-M4-4">Форма оформления как в прототипе: имя, обязательный телефон, email, самовывоз или доставка, адрес, комментарий</label></li>
+              <li class="task"><input type="checkbox" id="t-M4-5"><label for="t-M4-5">Экран оплаты в поведении прототипа: ожидание, успех с номером заказа, ошибка с повтором. Настоящий провайдер — фаза 2</label></li>
+              <li class="task"><input type="checkbox" id="t-M4-6"><label for="t-M4-6">Трекинг по номеру: таймлайн из пяти статусов</label></li>
+              <li class="task"><input type="checkbox" id="t-M4-7"><label for="t-M4-7">Канал до мастера: перенести приём в Todoist из наброска — временно, до админки</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>заказ, оформленный на сайте, виден в базе со всеми параметрами и суммой;</li>
+                <li>номер заказа открывает страницу трекинга, смена статуса в базе отражается на ней;</li>
+                <li>мастер получает заказ, не заходя в базу;</li>
+                <li>двойная отправка формы не создаёт двух заказов.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase phase--mvp">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">M5</span>
+        <div class="phase__title">
+          <h3>Языки, полировка, релиз</h3>
+          <p>Приведение к паритету и выкатка. Здесь закрывается чек-лист соответствия прототипу.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">4–5 дней</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="M5">
+          <button class="track__head" type="button">
+            <span class="track__code">M5</span>
+            <span class="track__name">i18n, SEO, доступность, выкатка</span>
+            <span class="track__days mono">4–5 д</span>
+            <span class="track__prog">0/6</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-M5-1"><label for="t-M5-1">Полные словари трёх языков, перенос текстов из прототипа, выбор языка запоминается</label></li>
+              <li class="task"><input type="checkbox" id="t-M5-2"><label for="t-M5-2">SEO: заголовки и описания на трёх языках, <code>hreflang</code>, sitemap, robots, OG, favicon, страница 404</label></li>
+              <li class="task"><input type="checkbox" id="t-M5-3"><label for="t-M5-3">Доступность: фокус 2px, тач-зоны от 44px, контраст, слайдеры с клавиатуры</label></li>
+              <li class="task"><input type="checkbox" id="t-M5-4"><label for="t-M5-4">Сквозной Playwright-сценарий на трёх языках: собрал — в корзину — оформил — трекинг</label></li>
+              <li class="task"><input type="checkbox" id="t-M5-5"><label for="t-M5-5">Пройти чек-лист паритета целиком</label></li>
+              <li class="task"><input type="checkbox" id="t-M5-6"><label for="t-M5-6">Прод на Vercel, платные планы Vercel и Supabase перед приёмом реальных заказов</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>21 пункт паритета закрыт;</li>
+                <li>владелец оформляет тестовый заказ на грузинском с телефона и получает его в Todoist;</li>
+                <li>MVP открыт по рабочему адресу.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= ПАРИТЕТ ================= -->
+<section class="sec" id="parity">
+  <div class="sec__head">
+    <h2>Чек-лист паритета с прототипом</h2>
+    <span class="chip chip--accent">приёмка MVP</span>
+  </div>
+  <p class="sec__lead">Формальный критерий «MVP готов». Каждый пункт проверяется вручную в браузере против прототипа, поднятого рядом через <code>tools/serve-prototype.sh</code>. Пока список не закрыт целиком — фаза 2 не начинается.</p>
+  <div class="parity" id="parity-list">
+    <div class="pitem"><input type="checkbox" id="p1"><label for="p1"><span class="micro">Экраны</span>Главная: hero, конструктор, как это работает, работы, футер</label></div>
+    <div class="pitem"><input type="checkbox" id="p2"><label for="p2"><span class="micro">Экраны</span>Корзина с редактированием и удалением позиций</label></div>
+    <div class="pitem"><input type="checkbox" id="p3"><label for="p3"><span class="micro">Экраны</span>Оформление заказа со всеми полями прототипа</label></div>
+    <div class="pitem"><input type="checkbox" id="p4"><label for="p4"><span class="micro">Экраны</span>Экран оплаты: ожидание, успех, ошибка, повтор</label></div>
+    <div class="pitem"><input type="checkbox" id="p5"><label for="p5"><span class="micro">Экраны</span>Трекинг заказа с таймлайном пяти статусов</label></div>
+    <div class="pitem"><input type="checkbox" id="p6"><label for="p6"><span class="micro">Модели</span>Cube во всём диапазоне 200–2000 мм</label></div>
+    <div class="pitem"><input type="checkbox" id="p7"><label for="p7"><span class="micro">Модели</span>Deska: ноги, царги, столешница ЛДСП</label></div>
+    <div class="pitem"><input type="checkbox" id="p8"><label for="p8"><span class="micro">Модели</span>Pats: замкнутые боковые рамы</label></div>
+    <div class="pitem"><input type="checkbox" id="p9"><label for="p9"><span class="micro">Модели</span>Chestable: тумба, 2 ящика, расширение 0–200 мм</label></div>
+    <div class="pitem"><input type="checkbox" id="p10"><label for="p10"><span class="micro">Модели</span>Stella: 5 полок, шаг 280–350 мм, высота считается</label></div>
+    <div class="pitem"><input type="checkbox" id="p11"><label for="p11"><span class="micro">Управление</span>Слайдеры с моно-вводом числа</label></div>
+    <div class="pitem"><input type="checkbox" id="p12"><label for="p12"><span class="micro">Управление</span>Сечение профиля 20×20 / 30×30 / 40×40</label></div>
+    <div class="pitem"><input type="checkbox" id="p13"><label for="p13"><span class="micro">Управление</span>Цвет металла: чёрный, серый, белый</label></div>
+    <div class="pitem"><input type="checkbox" id="p14"><label for="p14"><span class="micro">Управление</span>ЛДСП с текстурами: орех, серый дуб, тёмный дуб</label></div>
+    <div class="pitem"><input type="checkbox" id="p15"><label for="p15"><span class="micro">Управление</span>Количество до 200 шт</label></div>
+    <div class="pitem"><input type="checkbox" id="p16"><label for="p16"><span class="micro">Управление</span>Подсказка про профиль 30×30 на больших габаритах</label></div>
+    <div class="pitem"><input type="checkbox" id="p17"><label for="p17"><span class="micro">Расчёт</span>Цена совпадает с прототипом на контрольных конфигурациях</label></div>
+    <div class="pitem"><input type="checkbox" id="p18"><label for="p18"><span class="micro">Расчёт</span>Вес, метраж и площадь ЛДСП</label></div>
+    <div class="pitem"><input type="checkbox" id="p19"><label for="p19"><span class="micro">Расчёт</span>Срок по количеству: 7–10 / 9–13 / 14–17 дней</label></div>
+    <div class="pitem"><input type="checkbox" id="p20"><label for="p20"><span class="micro">Расчёт</span>Доставка 30 / 50 / 80 / 120 ₾ или самовывоз</label></div>
+    <div class="pitem"><input type="checkbox" id="p21"><label for="p21"><span class="micro">Языки</span>ka / en / ru с запоминанием выбора</label></div>
+  </div>
+</section>
+
+<!-- ================= ПОЛНАЯ ВЕРСИЯ ================= -->
+<section class="sec" id="full">
+  <div class="sec__head">
+    <h2>Фаза 2 — Полная версия</h2>
+    <span class="chip">после приёмки MVP</span>
+  </div>
+  <p class="sec__lead">Начинается на работающем магазине, а не на макете. Каждый блок самостоятельный и выкатывается отдельно — порядок можно менять под обстоятельства, кроме одного: админка идёт раньше оплаты, иначе оплаченные заказы некуда принимать.</p>
+
+  <div class="rail">
+    <article class="phase">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">F1</span>
+        <div class="phase__title">
+          <h3>Админка и наряды</h3>
+          <p>То, ради чего строится вся цифровая часть: мастер ведёт заказы и печатает задания подрядчикам.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">2 недели</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="F1">
+          <button class="track__head" type="button">
+            <span class="track__code">F1</span>
+            <span class="track__name">Заказы, статусы, печать</span>
+            <span class="track__days mono">2 нед</span>
+            <span class="track__prog">0/5</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F1-1"><label for="t-F1-1">Вход для мастера, тёмный сайдбар, таблица заказов из компонента ДС</label></li>
+              <li class="task"><input type="checkbox" id="t-F1-2"><label for="t-F1-2">Карточка заказа: параметры, клиент, сумма, история статусов</label></li>
+              <li class="task"><input type="checkbox" id="t-F1-3"><label for="t-F1-3"><strong>Наряд сварщикам</strong>: метраж профиля, сечение, размеры, покраска</label></li>
+              <li class="task"><input type="checkbox" id="t-F1-4"><label for="t-F1-4"><strong>Наряд ЛДСПшникам</strong>: площадь, цвет, раскрой. Основа — <code>STAL Prototype-print.dc.html</code></label></li>
+              <li class="task"><input type="checkbox" id="t-F1-5"><label for="t-F1-5">Уточнить у владельца реальные статусы производства — в прототипе их пять, в жизни может быть больше</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>мастер печатает оба наряда с одной кнопки и они читаются на бумаге;</li>
+                <li>смена статуса в админке видна клиенту в трекинге;</li>
+                <li>Todoist как канал больше не нужен.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">F2</span>
+        <div class="phase__title">
+          <h3>Реальная оплата</h3>
+          <p>Сменный модуль: провайдер меняется без переделки заказа. Stripe в регионе недоступен.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">2–4 недели</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="F2">
+          <button class="track__head" type="button">
+            <span class="track__code">F2</span>
+            <span class="track__name">Эквайринг, крипта, вебхуки</span>
+            <span class="track__days mono">2–4 нед</span>
+            <span class="track__prog">0/5</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F2-1"><label for="t-F2-1">Интерфейс платёжного провайдера, стаб из MVP становится одной из реализаций</label></li>
+              <li class="task"><input type="checkbox" id="t-F2-2"><label for="t-F2-2">Эквайринг банка Грузии через официальный SDK. Карточных данных наш сервер не касается</label></li>
+              <li class="task"><input type="checkbox" id="t-F2-3"><label for="t-F2-3">Крипто-шлюз вторым провайдером</label></li>
+              <li class="task"><input type="checkbox" id="t-F2-4"><label for="t-F2-4">Вебхук как источник истины об оплате, проверка подписи, идемпотентность повторных доставок</label></li>
+              <li class="task"><input type="checkbox" id="t-F2-5"><label for="t-F2-5">Сценарии отказа, возврата и двойного списания — разобраны и покрыты тестами</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>боевая оплата проходит и заказ помечается оплаченным только по вебхуку;</li>
+                <li>повторная доставка вебхука не создаёт второй оплаты;</li>
+                <li>смена провайдера не трогает код заказа.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">F3</span>
+        <div class="phase__title">
+          <h3>Оповещения и поддержка</h3>
+          <p>Клиент узнаёт о готовности сам и может задать вопрос по заказу.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">1–2 недели</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="F3">
+          <button class="track__head" type="button">
+            <span class="track__code">F3</span>
+            <span class="track__name">Telegram, почта, SMS</span>
+            <span class="track__days mono">1–2 нед</span>
+            <span class="track__prog">0/4</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F3-1"><label for="t-F3-1">Telegram-бот: привязка к заказу, статусы в чат</label></li>
+              <li class="task"><input type="checkbox" id="t-F3-2"><label for="t-F3-2">Почта и SMS через внешних провайдеров, клиент выбирает канал</label></li>
+              <li class="task"><input type="checkbox" id="t-F3-3"><label for="t-F3-3">Вопрос по заказу и ответ мастера — требование бизнес-процесса</label></li>
+              <li class="task"><input type="checkbox" id="t-F3-4"><label for="t-F3-4">Шаблоны сообщений на трёх языках</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>смена статуса в админке доходит до клиента выбранным каналом;</li>
+                <li>вопрос клиента доходит до мастера и ответ возвращается.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="phase__bar"></div>
+      <div class="phase__head">
+        <span class="phase__no">F4</span>
+        <div class="phase__title">
+          <h3>Развитие</h3>
+          <p>Бэклог из анкеты владельца. Приоритеты появятся, когда анкета будет заполнена.</p>
+        </div>
+        <div class="phase__meta"><span class="chip">не оценено</span></div>
+      </div>
+      <div class="phase__body">
+        <div class="track" data-track="F4">
+          <button class="track__head" type="button">
+            <span class="track__code">F4</span>
+            <span class="track__name">Кандидаты</span>
+            <span class="track__days mono">—</span>
+            <span class="track__prog">0/6</span>
+            <span class="track__caret"></span>
+          </button>
+          <div class="track__meter"><i></i></div>
+          <div class="track__panel">
+            <ul class="tasks">
+              <li class="task"><input type="checkbox" id="t-F4-1"><label for="t-F4-1">Ссылка на конфигурацию: сохранить и переслать</label></li>
+              <li class="task"><input type="checkbox" id="t-F4-2"><label for="t-F4-2">Пресеты как стартовая точка вместо пустого конструктора</label></li>
+              <li class="task"><input type="checkbox" id="t-F4-3"><label for="t-F4-3">Тянуть размеры прямо на модели, а не только слайдерами</label></li>
+              <li class="task"><input type="checkbox" id="t-F4-4"><label for="t-F4-4">Чертёж с размерами рядом с 3D</label></li>
+              <li class="task"><input type="checkbox" id="t-F4-5"><label for="t-F4-5">Каталог готовых изделий помимо конструктора</label></li>
+              <li class="task"><input type="checkbox" id="t-F4-6"><label for="t-F4-6">Армянский язык и выход на второй рынок</label></li>
+            </ul>
+            <div class="done">
+              <div class="micro">Готово когда</div>
+              <ul>
+                <li>заполнен <code>vision.md</code> — без ответов владельца приоритет этого блока определить нечем.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= РИСКИ ================= -->
+<section class="sec" id="risks">
+  <div class="sec__head"><h2>Риски</h2></div>
+  <p class="sec__lead">Отсортированы по тому, насколько они способны сдвинуть дату MVP.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Риск</th><th>Чем грозит</th><th>Что делаем</th><th>Где</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>3D на слабых телефонах</strong></td>
+          <td>Ядро продукта тормозит или не открывается у части клиентов</td>
+          <td>Бюджет веса и кадров фиксируется до начала трека, замер на реальном устройстве, статичный фолбэк</td>
+          <td class="num">M2</td>
+        </tr>
+        <tr>
+          <td><strong>Сроки банка по эквайрингу</strong></td>
+          <td>Оплата тянется неделями и утаскивает за собой весь релиз</td>
+          <td>Оплата вынесена из MVP целиком; MVP живёт со стабом и уже принимает заказы</td>
+          <td class="num">F2</td>
+        </tr>
+        <tr>
+          <td><strong>Прототип — не спецификация</strong></td>
+          <td>Часть поведения нигде не описана, всплывает на приёмке</td>
+          <td>Чек-лист паритета из 21 пункта фиксируется до начала M1 и служит приёмкой</td>
+          <td class="num">M1–M5</td>
+        </tr>
+        <tr>
+          <td><strong>Подделка цены с клиента</strong></td>
+          <td>Заказ на 350 ₾ приходит с суммой 1 ₾</td>
+          <td>Серверный пересчёт — часть M3, гейт приёмки, а не «сделаем потом»</td>
+          <td class="num">M3</td>
+        </tr>
+        <tr>
+          <td><strong>Пустая анкета владельца</strong></td>
+          <td>Админка, наряды и статусы проектируются вслепую и переделываются</td>
+          <td>Собрать ответы до F1; для MVP анкета не блокирующая</td>
+          <td class="num">F1</td>
+        </tr>
+        <tr>
+          <td><strong>Расхождения прототипа и ТЗ</strong></td>
+          <td>Языки и типы изделий переделываются в конце</td>
+          <td>Семь пунктов разводятся в 0.1, до первой строки вёрстки</td>
+          <td class="num">0.1</td>
+        </tr>
+        <tr>
+          <td><strong>Бесплатные планы Vercel и Supabase</strong></td>
+          <td>Hobby-план запрещает коммерческое использование, база засыпает</td>
+          <td>Переход на платные планы — пункт приёмки M5, до первого реального заказа</td>
+          <td class="num">M5</td>
+        </tr>
+        <tr>
+          <td><strong>Доступ к репозиторию</strong></td>
+          <td>Код ходит архивами, история теряется</td>
+          <td>Решается в 0.4: приглашение аккаунта либо осознанный обмен архивами</td>
+          <td class="num">0.4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= ВОПРОСЫ ================= -->
+<section class="sec" id="questions">
+  <div class="sec__head"><h2>Открытые вопросы</h2></div>
+  <p class="sec__lead">Красные блокируют старт разработки. Жёлтые можно закрыть по ходу, но не позже указанного трека.</p>
+
+  <div class="q q--block">
+    <span class="chip chip--accent q__tag">блокирует 0.2</span>
+    <h4>Какие языки и какой по умолчанию</h4>
+    <p>Прототип: грузинский по умолчанию, плюс английский и русский. ТЗ: русский первый, грузинский и армянский следом. Это три разных набора, и от решения зависит структура маршрутов и объём переводов.</p>
+  </div>
+  <div class="q q--block">
+    <span class="chip chip--accent q__tag">блокирует M2</span>
+    <h4>Четыре типа изделий или пять</h4>
+    <p>Бизнес-процесс перечисляет каркас, стеллаж, стол и стол с тумбой. Прототип показывает пять моделей: Deska и Pats — два разных стола, различаются замкнутыми боковыми рамами. Нужно подтвердить, что это отдельные товары, а не вариант одного.</p>
+  </div>
+  <div class="q q--block">
+    <span class="chip chip--accent q__tag">блокирует M3</span>
+    <h4>Прайс подтверждён</h4>
+    <p>Тарифы профиля, ЛДСП 55 ₾/м², покраска 40 ₾, работа 60 ₾, тарифы доставки и сроки взяты из кода прототипа. Между двумя версиями дизайна они не менялись, но письменного подтверждения владельца нет. Перед тем как считать по ним настоящие деньги, нужно его слово.</p>
+  </div>
+  <div class="q">
+    <span class="chip q__tag">до M1</span>
+    <h4>Шрифт и контакты</h4>
+    <p>Бренд-спека предписывает Manrope, прототип переопределяет на Onest. Адрес и часы в разных версиях дизайна отличаются; в свежем прототипе — Бахтриони 5, пн–сб 10:00–19:00. Способ покраски: порошковая или нитрокраска краскопультом.</p>
+  </div>
+  <div class="q">
+    <span class="chip q__tag">до M1</span>
+    <h4>Фотографии работ</h4>
+    <p>Четыре снимка вытащены из прототипа, но разрешение низкое — они были вшиты в base64. Для витрины нужны оригиналы.</p>
+  </div>
+  <div class="q">
+    <span class="chip q__tag">до F1</span>
+    <h4>Реальные статусы производства и содержание нарядов</h4>
+    <p>В прототипе пять статусов. В анкете владельца перечислены возможные: принят, оплачен, металл готов, корпус готов, покраска, сборка, доставка. Что именно пишется в наряде сварщику и ЛДСПшнику — сейчас известно только владельцу, он пишет это от руки.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="dash">
+  <div class="dash__in">
+    <span class="micro">Прогресс</span>
+    <div class="dash__meter"><i id="gmeter"></i></div>
+    <span class="dash__n" id="gnum">0 / 0</span>
+    <button class="btn" id="reset" type="button">Сбросить</button>
+  </div>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <strong>Ракурс · пайплайн разработки</strong>
+    <p>Источники: <code>docs/01-audit-prototype.md</code>, <code>docs/02-domain-model.md</code>, <code>docs/04-repo-review.md</code>. Оценки — ориентир при работе по вечерам, как в исходном ТЗ владельца. Отметки сохраняются только в этом браузере.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var KEY = 'rakurs-pipeline-v1';
+
+  /* ---- состояние ---- */
+  function load(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function save(state){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+  var state = load();
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]'));
+
+  boxes.forEach(function(b){ if (state[b.id]) b.checked = true; });
+
+  /* ---- прогресс ---- */
+  function refresh(){
+    document.querySelectorAll('.track').forEach(function(track){
+      var inputs = track.querySelectorAll('input[type="checkbox"]');
+      if (!inputs.length) return;
+      var done = 0;
+      inputs.forEach(function(i){ if (i.checked) done++; });
+      var pct = Math.round(done / inputs.length * 100);
+      var label = track.querySelector('.track__prog');
+      var meter = track.querySelector('.track__meter i');
+      if (label) label.textContent = done + '/' + inputs.length;
+      if (meter) meter.style.width = pct + '%';
+    });
+
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    document.getElementById('gmeter').style.width = pct + '%';
+    document.getElementById('gnum').textContent = done + ' / ' + boxes.length;
+  }
+
+  boxes.forEach(function(b){
+    b.addEventListener('change', function(){
+      if (b.checked) state[b.id] = 1; else delete state[b.id];
+      save(state);
+      refresh();
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    if (!window.confirm('Снять все отметки?')) return;
+    boxes.forEach(function(b){ b.checked = false; });
+    state = {};
+    save(state);
+    refresh();
+  });
+
+  /* ---- раскрытие треков ---- */
+  document.querySelectorAll('.track__head').forEach(function(head){
+    var track = head.closest('.track');
+    head.setAttribute('aria-expanded', 'false');
+    head.addEventListener('click', function(){
+      var open = track.classList.toggle('is-open');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  /* первый трек каждой фазы открыт — чтобы страница не выглядела пустой */
+  document.querySelectorAll('.phase').forEach(function(ph){
+    var first = ph.querySelector('.track');
+    if (first){ first.classList.add('is-open'); var h = first.querySelector('.track__head'); if (h) h.setAttribute('aria-expanded','true'); }
+  });
+
+  /* ---- полоса чтения ---- */
+  var bar = document.getElementById('readbar');
+  /* ---- подсветка активного раздела ---- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+
+    var pos = h.scrollTop + 100, active = -1;
+    sections.forEach(function(s, i){ if (s && s.offsetTop <= pos) active = i; });
+    links.forEach(function(a, i){ a.classList.toggle('is-active', i === active); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  refresh();
+  onScroll();
+})();
+</script>
+</body>
+</html>
