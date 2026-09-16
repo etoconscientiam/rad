@@ -1,0 +1,14 @@
+:root{
+/* База 4px */
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+--container:1200px;--gutter:24px;--gutter-mobile:16px;
+/* Скругления: без пилюльных кнопок */
+--radius-control:8px;
+--radius-card:12px;
+--radius-full:999px;
+/* Бордеры и единственная тень */
+--border-w:1px;--border-active:2px;
+--shadow-sticky:0 -1px 0 var(--border),0 -8px 24px rgb(0 0 0 / 0.06);
+/* Тач-зоны */
+--touch-min:44px;--control-h:48px;
+}

@@ -1,0 +1,36 @@
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# --- Nimbalyst / agent artifacts ---
+.nimbalyst/
+.claude/settings.local.json
+
+# --- node ---
+node_modules/
+.pnpm-store/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- build output ---
+dist/
+build/
+.next/
+out/
+.turbo/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# --- env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- исходники прототипа: тяжёлые бинарники не тащим в репо ---
+_source/*.zip
