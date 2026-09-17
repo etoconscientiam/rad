@@ -56,7 +56,7 @@ Leave the system clearer, more correct, and easier to trust. Answer in the user'
 
 - Follow the "Karkas" design system (`_source/prototype/_ds/.../readme.md`) and its tokens verbatim; no redesigns unless explicitly asked.
 - Token values are copied without alteration. Need a color or size that does not exist? Ask — do not invent one.
-- BEM, Material Design and Ant Design are out of scope by decision: styling is Tailwind + shadcn/ui adapted to the design system, not the other way round.
+- Styling is Tailwind + shadcn/ui, adapted to the design system rather than the other way round. The stated cost of that choice (`docs/04-repo-review.md`, owner's decision of 06.09.2026) is that BEM, Material Design and Ant Design stay out: one styling approach per codebase, never two side by side. Revisiting the choice is the owner's call — silently mixing approaches is not.
 - Icons: Lucide only, 1.5px stroke. No emoji, no hand-drawn SVG.
 - Shared visual components are closed units (surface, padding, radius, typography belong to the component). Adapt consumers through existing semantic props, then the smallest new semantic prop, then a local wrapper — never visual overrides or ad hoc surfaces.
 - Keep layout rhythm on the shared spacing scale via parent padding and container gap, not ad hoc margins.
