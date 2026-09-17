@@ -277,6 +277,143 @@ td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary
 .foot strong{color:var(--dark-text);display:block;font-size:16px;margin-bottom:var(--space-2)}
 .foot a{color:var(--accent-on-dark)}
 
+
+/* ========== Гант ========== */
+.gantt{border:var(--border-w) solid var(--border);border-radius:var(--radius-card);background:var(--surface);overflow:hidden}
+.gantt__tools{
+  display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;
+  padding:var(--space-3) var(--space-4);border-bottom:var(--border-w) solid var(--border);
+  background:var(--surface-sunken);
+}
+.gseg{display:flex;border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-control);overflow:hidden}
+.gseg button{
+  min-height:36px;padding:0 12px;border:0;border-right:var(--border-w) solid var(--border-strong);
+  background:var(--surface);font:inherit;font-size:13px;font-weight:600;color:var(--ink-secondary);cursor:pointer;
+  transition:background .15s ease-out,color .15s ease-out;
+}
+.gseg button:last-child{border-right:0}
+.gseg button:hover{background:var(--surface-sunken);color:var(--ink)}
+.gseg button.is-on{background:var(--ink);color:var(--surface)}
+.gzoom{display:flex;align-items:center;gap:var(--space-2)}
+.gzoom input[type=range]{width:120px;accent-color:var(--accent)}
+.gtoggle{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-secondary);cursor:pointer;user-select:none;min-height:36px}
+.gtoggle input{accent-color:var(--accent);width:16px;height:16px;cursor:pointer}
+.gdate{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-secondary)}
+.gdate input{
+  font-family:var(--font-mono);font-size:12px;min-height:36px;padding:0 8px;
+  border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-control);background:var(--surface);color:var(--ink);
+}
+
+.gantt__main{display:flex;align-items:stretch}
+.gantt__side{
+  flex:0 0 232px;width:232px;border-right:var(--border-w) solid var(--border);background:var(--surface);
+  position:relative;z-index:2;
+}
+.gantt__scroll{flex:1 1 auto;overflow-x:auto;overflow-y:hidden;position:relative}
+.gantt__canvas{position:relative}
+
+.gaxis{height:44px;border-bottom:var(--border-w) solid var(--border);position:relative;background:var(--surface-sunken)}
+.gaxis__w{
+  position:absolute;top:0;height:22px;border-left:var(--border-w) solid var(--border-strong);
+  font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--ink-muted);
+  padding-left:5px;line-height:22px;white-space:nowrap;overflow:hidden;
+}
+.gaxis__d{
+  position:absolute;top:22px;height:22px;border-left:var(--border-w) solid var(--border);
+  font-family:var(--font-mono);font-size:9px;color:var(--ink-muted);
+  padding-left:3px;line-height:22px;white-space:nowrap;overflow:hidden;
+}
+.gside__sp{height:44px;border-bottom:var(--border-w) solid var(--border);background:var(--surface-sunken)}
+
+.gplot{position:relative}
+.ggrid{position:absolute;inset:0;pointer-events:none}
+.ggrid i{position:absolute;top:0;bottom:0;width:1px;background:var(--border)}
+.ggrid i.w{background:var(--border-strong)}
+.ggrid b{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);opacity:.55}
+.gdeps{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+
+.grow{position:absolute;left:0;right:0;border-bottom:var(--border-w) solid var(--border)}
+.grow.g{background:var(--surface-sunken)}
+.grow.alt{background:rgb(0 0 0 / .012)}
+
+.glab{
+  position:absolute;left:0;right:0;display:flex;align-items:center;gap:6px;
+  padding:0 var(--space-3);border-bottom:var(--border-w) solid var(--border);
+  font-size:12.5px;color:var(--ink-secondary);white-space:nowrap;overflow:hidden;
+}
+.glab.g{background:var(--surface-sunken);font-weight:700;color:var(--ink);font-size:13px;cursor:pointer}
+.glab.g:hover{color:var(--accent)}
+.glab__tw{
+  width:9px;height:9px;flex-shrink:0;border-right:1.5px solid var(--ink-secondary);border-bottom:1.5px solid var(--ink-secondary);
+  transform:rotate(45deg) translate(-1px,-1px);transition:transform .15s ease-out;
+}
+.glab.g.closed .glab__tw{transform:rotate(-45deg) translate(-1px,1px)}
+.glab__t{overflow:hidden;text-overflow:ellipsis}
+.glab.is-sel{color:var(--accent);font-weight:600}
+.glab__d{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-muted);flex-shrink:0}
+
+.gbar{
+  position:absolute;height:16px;border-radius:4px;cursor:pointer;
+  transition:filter .12s ease-out,opacity .12s ease-out;
+}
+.gbar:hover{filter:brightness(.88)}
+.gbar.p0{background:var(--ink-muted)}
+.gbar.mvp{background:var(--accent)}
+.gbar.full{background:#57554F}
+.gbar.ext{background:repeating-linear-gradient(135deg,var(--warning) 0 4px,transparent 4px 8px);border:var(--border-w) solid var(--warning);border-radius:var(--radius-full);height:12px}
+.gbar.sum{height:8px;border-radius:2px;opacity:.42;cursor:pointer}
+.gbar.crit{box-shadow:inset 0 0 0 2px var(--ink)}
+.gbar.is-sel{box-shadow:0 0 0 2px var(--accent),0 0 0 4px var(--accent-subtle)}
+.gbar.is-rel{box-shadow:0 0 0 2px var(--ink-secondary)}
+.gbar.dim{opacity:.18}
+.gbar__c{
+  position:absolute;left:0;top:0;bottom:0;background:rgb(255 255 255 / .55);border-radius:4px 0 0 4px;pointer-events:none;
+}
+.gms{
+  position:absolute;width:13px;height:13px;transform:rotate(45deg);cursor:pointer;
+  background:var(--graphite);border:2px solid var(--surface);
+}
+.gms.key{background:var(--accent)}
+.gms.is-sel{outline:2px solid var(--accent);outline-offset:3px}
+.gms.dim{opacity:.2}
+.gcap{
+  position:absolute;font-family:var(--font-mono);font-size:10px;color:var(--ink-muted);
+  white-space:nowrap;pointer-events:none;
+}
+
+.gtip{
+  position:fixed;z-index:60;max-width:330px;pointer-events:none;opacity:0;
+  background:var(--graphite);color:var(--dark-text);border-radius:var(--radius-control);
+  padding:10px 12px;font-size:13px;line-height:1.45;transition:opacity .1s ease-out;
+}
+.gtip.on{opacity:1}
+.gtip h5{margin:0 0 6px;font-size:13.5px;font-weight:700;color:var(--dark-text)}
+.gtip dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px}
+.gtip dt{color:var(--dark-text-secondary);white-space:nowrap}
+.gtip dd{margin:0;font-family:var(--font-mono);color:var(--dark-text)}
+.gtip p{margin:7px 0 0;font-size:12px;color:var(--dark-text-secondary);border-top:1px solid rgb(255 255 255 / .12);padding-top:6px}
+.gtip em{font-style:normal;color:var(--accent-on-dark)}
+
+.gdet{border-top:var(--border-w) solid var(--border);padding:var(--space-4);background:var(--surface-sunken);display:none}
+.gdet.on{display:block}
+.gdet h4{font-size:15px;margin-bottom:var(--space-2)}
+.gdet p{font-size:13.5px;color:var(--ink-secondary);margin-bottom:var(--space-3)}
+.gdet__r{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center}
+.gdet__go{
+  min-height:36px;padding:0 14px;border-radius:var(--radius-control);border:0;
+  background:var(--accent);color:var(--accent-on);font:inherit;font-size:13px;font-weight:600;cursor:pointer;
+}
+.gdet__go:hover{background:var(--accent-hover)}
+
+.glegend{
+  display:flex;gap:var(--space-4);flex-wrap:wrap;padding:var(--space-3) var(--space-4);
+  border-top:var(--border-w) solid var(--border);font-size:12px;color:var(--ink-secondary);
+}
+.glegend span{display:inline-flex;align-items:center;gap:6px}
+.glegend i{width:16px;height:9px;border-radius:2px;flex-shrink:0}
+.glegend i.d{width:11px;height:11px;transform:rotate(45deg);border-radius:0}
+.ghint{font-size:12px;color:var(--ink-muted);padding:0 var(--space-4) var(--space-3)}
+
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.001s!important}
   html{scroll-behavior:auto}
@@ -294,6 +431,7 @@ td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary
       <a href="#phase0">Фундамент</a>
       <a href="#mvp">MVP</a>
       <a href="#parity">Паритет</a>
+      <a href="#gantt">График</a>
       <a href="#full">Полная версия</a>
       <a href="#risks">Риски</a>
       <a href="#questions">Вопросы</a>
@@ -878,6 +1016,60 @@ td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary
   </div>
 </section>
 
+<!-- ================= ГАНТ ================= -->
+<section class="sec" id="gantt">
+  <div class="sec__head">
+    <h2>График работ</h2>
+    <span class="chip">75 рабочих вечеров</span>
+  </div>
+  <p class="sec__lead">Работа одного человека по вечерам, поэтому треки идут цепочкой, а не параллельно. Параллельно здесь только то, что действительно независимо: инфраструктура рядом с переносом дизайн-системы и внешние ожидания — ответы владельца, фотографии, переговоры с банком. Один рабочий день диаграммы = один вечер; неделя = пять вечеров. Наведите на полосу, чтобы увидеть даты и связи, нажмите — чтобы подсветить всю цепочку зависимостей.</p>
+
+  <div class="gantt" id="gantt-root">
+    <div class="gantt__tools">
+      <div class="gseg" id="gfocus">
+        <button type="button" data-f="all" class="is-on">Всё</button>
+        <button type="button" data-f="p0">Фаза 0</button>
+        <button type="button" data-f="mvp">MVP</button>
+        <button type="button" data-f="full">Фаза 2</button>
+      </div>
+      <div class="gzoom">
+        <span class="micro">Масштаб</span>
+        <input type="range" id="gz" min="6" max="46" step="1" value="14" aria-label="Масштаб диаграммы">
+        <span class="mono" id="gzv" style="font-size:12px;color:var(--ink-muted);min-width:56px">14 px/д</span>
+      </div>
+      <label class="gtoggle"><input type="checkbox" id="gcrit"> Критический путь</label>
+      <label class="gtoggle"><input type="checkbox" id="glinks" checked> Связи</label>
+      <span class="gdate">Старт <input type="date" id="gstart"></span>
+    </div>
+
+    <div class="gantt__main">
+      <div class="gantt__side"><div class="gside__sp"></div><div class="gside__rows" id="gside" style="position:relative"></div></div>
+      <div class="gantt__scroll" id="gscroll">
+        <div class="gantt__canvas" id="gcanvas">
+          <div class="gaxis" id="gaxis"></div>
+          <div class="gplot" id="gplot">
+            <div class="ggrid" id="ggrid"></div>
+            <svg class="gdeps" id="gdeps"><defs><marker id="gah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="currentColor"/></marker></defs><g id="gdepsg"></g></svg>
+            <div id="gbars" style="position:relative"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gdet" id="gdet"></div>
+
+    <div class="glegend">
+      <span><i style="background:var(--ink-muted)"></i> Фаза 0</span>
+      <span><i style="background:var(--accent)"></i> MVP</span>
+      <span><i style="background:#57554F"></i> Фаза 2</span>
+      <span><i style="background:repeating-linear-gradient(135deg,var(--warning) 0 4px,transparent 4px 8px);border:1px solid var(--warning);border-radius:999px"></i> Внешнее ожидание</span>
+      <span><i class="d" style="background:var(--graphite)"></i> Веха</span>
+      <span><i style="background:var(--surface);box-shadow:inset 0 0 0 2px var(--ink)"></i> Критический путь</span>
+    </div>
+    <p class="ghint">Колесо с Ctrl или ⌘ — масштаб. Клик по полосе — цепочка зависимостей и переход к треку. Esc — снять выделение. Клик по названию фазы — свернуть группу.</p>
+  </div>
+</section>
+
 <!-- ================= РИСКИ ================= -->
 <section class="sec" id="risks">
   <div class="sec__head"><h2>Риски</h2></div>
@@ -1008,7 +1200,8 @@ td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
   }
   var state = load();
-  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]'));
+  /* только чекбоксы задач и паритета — служебные переключатели Ганта в прогресс не входят */
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.task input[type="checkbox"], .pitem input[type="checkbox"]'));
 
   boxes.forEach(function(b){ if (state[b.id]) b.checked = true; });
 
@@ -1083,6 +1276,485 @@ td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary
 
   refresh();
   onScroll();
+})();
+</script>
+<script>
+/* ===== Диаграмма Ганта ===== */
+(function(){
+  'use strict';
+
+  var ROW_H = 26, GROUP_H = 30, BAR_H = 16, SIDE_W = 232, AXIS_H = 44;
+
+  /* s — номер рабочего дня от старта, d — длительность в рабочих днях.
+     kind: task | ms (веха) | ext (внешнее ожидание, не наша работа). */
+  var GROUPS = [
+    { id:'g0', name:'Фаза 0 — Фундамент', open:true, items:[
+      {id:'t01',kind:'task',cls:'p0',n:'0.1 Развести открытые вопросы',s:0,d:1,deps:['x1'],crit:1,href:'#phase0',
+       why:'Языки, четыре типа изделий против пяти, подтверждение прайса. Пока не решены — всё ниже стоит на песке.'},
+      {id:'t02',kind:'task',cls:'p0',n:'0.2 Каркас Next.js и токены',s:1,d:1,deps:['t01'],crit:1,href:'#phase0',
+       why:'Токены «Каркас» переносятся без изменения значений. Шрифты уже лежат локально в assets/fonts.'},
+      {id:'t03',kind:'task',cls:'p0',n:'0.3 Перенос дизайн-системы',s:2,d:2,deps:['t02'],crit:1,href:'#phase0',
+       why:'13 компонентов из _ds_bundle.js в React плюс витрина для визуальной сверки.'},
+      {id:'t04',kind:'task',cls:'p0',n:'0.4 Инфраструктура',s:2,d:1,deps:['t02'],href:'#phase0',
+       why:'Supabase, привязка Vercel, доступ к репозиторию. Идёт параллельно с переносом ДС — независимая работа.'},
+      {id:'m0',kind:'ms',cls:'p0',n:'Фундамент готов',s:4,d:0,deps:['t03','t04'],crit:1,
+       why:'Пустая главная в токенах ДС, три языка переключаются, смоук-тест зелёный.'}
+    ]},
+
+    { id:'g1', name:'M1 — Витрина', open:true, items:[
+      {id:'t11',kind:'task',cls:'mvp',n:'Шапка, навигация, языки',s:4,d:1,deps:['m0'],href:'#mvp',
+       why:'Sticky-шапка с подчёркиванием активного раздела, счётчик корзины, переключатель KA/EN/RU.'},
+      {id:'t12',kind:'task',cls:'mvp',n:'Hero и «как это работает»',s:5,d:1,deps:['t11'],href:'#mvp',
+       why:'Graphite-блок с одной красной кнопкой и три шага процесса.'},
+      {id:'t13',kind:'task',cls:'mvp',n:'Работы и футер',s:6,d:1,deps:['t12','x2'],href:'#mvp',
+       why:'Четыре фото. Те, что вытащены из прототипа, низкого разрешения — нужны оригиналы.'},
+      {id:'t14',kind:'task',cls:'mvp',n:'Адаптив 360 / 768 / 1200',s:7,d:2,deps:['t13'],href:'#mvp',
+       why:'Проверка на грузинском: там заголовок длиннее, в прототипе для него отдельный размер.'},
+      {id:'m1',kind:'ms',cls:'mvp',n:'Витрина совпадает с прототипом',s:9,d:0,deps:['t14'],
+       why:'Скриншот-сверка на трёх брейкпоинтах, ни одной строки текста в коде.'}
+    ]},
+
+    { id:'g2', name:'M2 — 3D-конфигуратор', open:true, items:[
+      {id:'t21',kind:'task',cls:'mvp',n:'Порт Frame3D на react-three-fiber',s:9,d:3,deps:['m1'],crit:1,href:'#mvp',
+       why:'three как локальная зависимость вместо импорта с unpkg. Орбита, зум, тень-контакт.'},
+      {id:'t22',kind:'task',cls:'mvp',n:'Геометрия пяти моделей',s:12,d:3,deps:['t21'],crit:1,href:'#mvp',
+       why:'Cube, Deska, Pats, Chestable с двумя ящиками, Stella на пять полок. Самый объёмный кусок.'},
+      {id:'t23',kind:'task',cls:'mvp',n:'Текстуры ЛДСП: пережать и затайлить',s:15,d:1,deps:['t22'],href:'#mvp',
+       why:'3.7 МБ PNG в webp. cwebp на машине уже есть, ставить ничего не нужно.'},
+      {id:'t24',kind:'task',cls:'mvp',n:'Панель параметров и предупреждения',s:16,d:1,deps:['t22'],href:'#mvp',
+       why:'Слайдеры с числовым вводом, сегменты профиля, свотчи, подсказка про 30×30.'},
+      {id:'t25',kind:'task',cls:'mvp',n:'Деградация и замер на устройстве',s:17,d:1,deps:['t23','t24'],crit:1,href:'#mvp',
+       why:'Фолбэк без WebGL и реальный средний Android, а не эмулятор.'},
+      {id:'m2',kind:'ms',cls:'mvp',n:'Конфигуратор держит 30 fps',s:18,d:0,deps:['t25'],crit:1,
+       why:'Все пять моделей во всех крайних точках диапазонов, вес в бюджете.'}
+    ]},
+
+    { id:'g3', name:'M3 — Деньги', open:true, items:[
+      {id:'t31',kind:'task',cls:'mvp',n:'Модуль расчёта, тесты до кода',s:18,d:2,deps:['m2'],crit:1,href:'#mvp',
+       why:'Чистые функции по формулам из domain-model. Тарифы в конфиге, ни одного числа в компоненте.'},
+      {id:'t32',kind:'task',cls:'mvp',n:'Серверный пересчёт и отказ при расхождении',s:20,d:1,deps:['t31'],crit:1,href:'#mvp',
+       why:'Гейт приёмки, а не «сделаем потом». Без него заказ на 350 ₾ приходит с суммой 1 ₾.'},
+      {id:'t33',kind:'task',cls:'mvp',n:'Корзина, доставка, сроки',s:21,d:1,deps:['t32'],href:'#mvp',
+       why:'Тариф доставки по количеству: 30 / 50 / 80 / 120 ₾. Срок 7–10 / 9–13 / 14–17 дней.'},
+      {id:'m3',kind:'ms',cls:'mvp',n:'Цену нельзя подделать',s:22,d:0,deps:['t33'],crit:1,
+       why:'Есть тест, который подделывает цену в запросе и получает отказ.'}
+    ]},
+
+    { id:'g4', name:'M4 — Заказ и трекинг', open:true, items:[
+      {id:'t41',kind:'task',cls:'mvp',n:'Схема в Supabase',s:22,d:1,deps:['m3'],crit:1,href:'#mvp',
+       why:'Заказы, позиции, снимок конфигурации, история статусов. Снимок хранится целиком: прайс поменяется, старый заказ должен остаться воспроизводимым.'},
+      {id:'t42',kind:'task',cls:'mvp',n:'Приём заказа и идемпотентность',s:23,d:2,deps:['t41'],crit:1,href:'#mvp',
+       why:'Валидация схемой, пересчёт, номер заказа. Двойная отправка формы не создаёт двух заказов.'},
+      {id:'t43',kind:'task',cls:'mvp',n:'Оформление и экран оплаты (стаб)',s:25,d:2,deps:['t42'],href:'#mvp',
+       why:'Поведение прототипа: ожидание, успех, ошибка, повтор. Настоящий провайдер — фаза 2.'},
+      {id:'t44',kind:'task',cls:'mvp',n:'Трекинг и канал в Todoist',s:27,d:1,deps:['t43'],href:'#mvp',
+       why:'Таймлайн пяти статусов. Todoist временно, до админки.'},
+      {id:'m4',kind:'ms',cls:'mvp',n:'Заказ доезжает до мастера',s:28,d:0,deps:['t44'],crit:1,
+       why:'Заказ с сайта в базе, номер открывает трекинг, мастер видит его не заходя в базу.'}
+    ]},
+
+    { id:'g5', name:'M5 — Языки и релиз', open:true, items:[
+      {id:'t51',kind:'task',cls:'mvp',n:'Словари трёх языков',s:28,d:2,deps:['m4'],crit:1,href:'#mvp',
+       why:'Перенос текстов из прототипа, выбор языка запоминается.'},
+      {id:'t52',kind:'task',cls:'mvp',n:'SEO, доступность, 404',s:30,d:1,deps:['t51'],href:'#mvp',
+       why:'hreflang, sitemap, OG, фокус 2px, тач-зоны от 44px, слайдеры с клавиатуры.'},
+      {id:'t53',kind:'task',cls:'mvp',n:'Сквозной Playwright ×3 языка',s:31,d:1,deps:['t51'],crit:1,href:'#mvp',
+       why:'Собрал — в корзину — оформил — трекинг. На каждом языке.'},
+      {id:'t54',kind:'task',cls:'mvp',n:'Чек-лист паритета и выкатка',s:32,d:1,deps:['t52','t53','x5'],crit:1,href:'#parity',
+       why:'21 пункт вручную против прототипа, поднятого рядом. Платные планы Vercel и Supabase до первого реального заказа.'},
+      {id:'mv',kind:'ms',cls:'mvp',n:'MVP готов — паритет закрыт',s:33,d:0,deps:['t54'],crit:1,key:1,
+       why:'Владелец оформляет тестовый заказ на грузинском с телефона и получает его. Ключевая веха проекта.'}
+    ]},
+
+    { id:'g6', name:'F1 — Админка и наряды', open:true, items:[
+      {id:'t61',kind:'task',cls:'full',n:'Список и карточка заказа',s:33,d:5,deps:['mv','x4'],href:'#full',
+       why:'Вход для мастера, тёмный сайдбар, таблица из компонента ДС, история статусов.'},
+      {id:'t62',kind:'task',cls:'full',n:'Наряды сварщикам и ЛДСПшникам',s:38,d:5,deps:['t61'],href:'#full',
+       why:'Два раздельных листа. Основа — STAL Prototype-print из прототипа. Что именно пишется в наряде — знает только владелец.'},
+      {id:'m5',kind:'ms',cls:'full',n:'Мастер печатает наряды',s:43,d:0,deps:['t62'],
+       why:'Оба наряда с одной кнопки, читаются на бумаге. Todoist как канал больше не нужен.'}
+    ]},
+
+    { id:'g7', name:'F2 — Реальная оплата', open:true, items:[
+      {id:'t63',kind:'task',cls:'full',n:'Интерфейс провайдера, стаб → реальный',s:43,d:3,deps:['m5'],href:'#full',
+       why:'Сменный модуль. Стаб из MVP становится одной из реализаций.'},
+      {id:'t64',kind:'task',cls:'full',n:'Эквайринг банка Грузии',s:46,d:7,deps:['t63','x3'],href:'#full',
+       why:'Только официальный SDK. Карточных данных наш сервер не касается. Зависит от того, когда банк даст доступ.'},
+      {id:'t65',kind:'task',cls:'full',n:'Крипто-шлюз',s:53,d:3,deps:['t64'],href:'#full',
+       why:'Второй провайдер. Приём криптовалюты заявлен как обязательный.'},
+      {id:'t66',kind:'task',cls:'full',n:'Вебхуки, сценарии отказа и возврата',s:56,d:2,deps:['t65'],href:'#full',
+       why:'Вебхук — источник истины об оплате. Повторная доставка не создаёт второй оплаты.'},
+      {id:'m6',kind:'ms',cls:'full',n:'Приём реальных денег',s:58,d:0,deps:['t66'],key:1,
+       why:'Боевая оплата проходит, заказ помечается оплаченным только по вебхуку.'}
+    ]},
+
+    { id:'g8', name:'F3–F4 — Оповещения и развитие', open:true, items:[
+      {id:'t67',kind:'task',cls:'full',n:'Telegram, почта, SMS',s:58,d:5,deps:['m6'],href:'#full',
+       why:'Клиент выбирает канал. Шаблоны на трёх языках.'},
+      {id:'t68',kind:'task',cls:'full',n:'Вопрос по заказу и ответ мастера',s:63,d:2,deps:['t67'],href:'#full',
+       why:'Требование бизнес-процесса, в прототипе его нет.'},
+      {id:'m7',kind:'ms',cls:'full',n:'Полная версия',s:65,d:0,deps:['t68'],key:1,
+       why:'Всё, что описано в ТЗ владельца, работает.'},
+      {id:'t69',kind:'task',cls:'full',n:'F4 Развитие: пресеты, ссылка, чертёж, каталог',s:65,d:10,deps:['m7'],href:'#full',
+       why:'Оценка условная. Приоритеты появятся, когда будет заполнена анкета vision.md.'}
+    ]},
+
+    { id:'gx', name:'Внешние ожидания', open:true, items:[
+      {id:'x1',kind:'ext',cls:'ext',n:'Ответы владельца по вопросам',s:0,d:1,deps:[],href:'#questions',
+       why:'Три красных вопроса: языки, типы изделий, подтверждение прайса. Без них трек 0.1 не закрыть.'},
+      {id:'x2',kind:'ext',cls:'ext',n:'Оригиналы фото работ',s:0,d:6,deps:[],href:'#questions',
+       why:'Нужны к шестому дню, когда верстается блок «Наши работы».'},
+      {id:'x5',kind:'ext',cls:'ext',n:'Платные планы Vercel и Supabase',s:29,d:4,deps:[],href:'#risks',
+       why:'Hobby-план запрещает коммерческое использование, бесплатная база засыпает. Нужны до выкатки.'},
+      {id:'x3',kind:'ext',cls:'ext',n:'Переговоры с банком по эквайрингу',s:18,d:28,deps:[],href:'#risks',
+       why:'Начинать в районе M3, а не в фазе 2. Если ждать — оплата станет узким местом на месяц. Сроки банка мы не контролируем.'},
+      {id:'x4',kind:'ext',cls:'ext',n:'Заполненная анкета vision.md',s:0,d:33,deps:[],href:'#questions',
+       why:'Нужна к началу админки: реальные статусы производства и содержание нарядов известны только владельцу.'}
+    ]}
+  ];
+
+  /* ---------- индексы ---------- */
+  var BY = {}, GOF = {}, BLOCKS = {};
+  GROUPS.forEach(function(g){
+    g.items.forEach(function(t){ BY[t.id] = t; GOF[t.id] = g; BLOCKS[t.id] = []; });
+  });
+  GROUPS.forEach(function(g){
+    g.items.forEach(function(t){
+      (t.deps||[]).forEach(function(p){ if (BLOCKS[p]) BLOCKS[p].push(t.id); });
+    });
+  });
+  var TOTAL = 0;
+  GROUPS.forEach(function(g){ g.items.forEach(function(t){ TOTAL = Math.max(TOTAL, t.s + (t.d||0)); }); });
+  TOTAL += 2;
+
+  /* ---------- даты ---------- */
+  var startDate = null;
+  function snapMonday(d){
+    var x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    while (x.getDay() !== 1) x.setDate(x.getDate() + 1);
+    return x;
+  }
+  function dayToDate(i){
+    var d = new Date(startDate.getTime()), added = 0;
+    while (added < i){ d.setDate(d.getDate() + 1); var w = d.getDay(); if (w !== 0 && w !== 6) added++; }
+    return d;
+  }
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function fmt(d){ return pad(d.getDate()) + '.' + pad(d.getMonth() + 1); }
+  function iso(d){ return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function span(t){
+    var a = dayToDate(t.s);
+    if (!t.d) return fmt(a);
+    return fmt(a) + ' — ' + fmt(dayToDate(t.s + t.d - 1));
+  }
+
+  /* ---------- состояние ---------- */
+  var px = 14, sel = null, critOnly = false, showLinks = true;
+  var $ = function(id){ return document.getElementById(id); };
+  var elSide = $('gside'), elAxis = $('gaxis'), elGrid = $('ggrid'),
+      elBars = $('gbars'), elPlot = $('gplot'), elCanvas = $('gcanvas'),
+      elScroll = $('gscroll'), elDeps = $('gdeps'), elDepsG = $('gdepsg'), elDet = $('gdet');
+
+  var tip = document.createElement('div');
+  tip.className = 'gtip';
+  document.body.appendChild(tip);
+
+  /* ---------- раскладка ---------- */
+  function layout(){
+    var rows = [], y = 0;
+    GROUPS.forEach(function(g){
+      rows.push({ kind:'group', g:g, y:y, h:GROUP_H });
+      y += GROUP_H;
+      if (g.open){
+        g.items.forEach(function(t){ rows.push({ kind:'item', t:t, g:g, y:y, h:ROW_H }); y += ROW_H; });
+      }
+    });
+    return { rows:rows, h:y };
+  }
+
+  function yOf(id){
+    var t = BY[id], g = GOF[id];
+    if (!t) return null;
+    var L = CUR;
+    for (var i = 0; i < L.rows.length; i++){
+      var r = L.rows[i];
+      if (g.open && r.kind === 'item' && r.t === t) return r.y + ROW_H / 2;
+      if (!g.open && r.kind === 'group' && r.g === g) return r.y + GROUP_H / 2;
+    }
+    return null;
+  }
+
+  /* ---------- цепочка зависимостей ---------- */
+  function chain(id){
+    var set = {}, stack;
+    set[id] = 1;
+    stack = (BY[id].deps || []).slice();
+    while (stack.length){ var p = stack.pop(); if (set[p]) continue; set[p] = 1; stack = stack.concat(BY[p] && BY[p].deps || []); }
+    stack = (BLOCKS[id] || []).slice();
+    while (stack.length){ var n = stack.pop(); if (set[n]) continue; set[n] = 1; stack = stack.concat(BLOCKS[n] || []); }
+    return set;
+  }
+
+  function directOf(id){
+    var d = {};
+    (BY[id].deps || []).forEach(function(x){ d[x] = 1; });
+    (BLOCKS[id] || []).forEach(function(x){ d[x] = 1; });
+    return d;
+  }
+
+  /* ---------- отрисовка ---------- */
+  var CUR = layout();
+
+  function render(){
+    CUR = layout();
+    var W = TOTAL * px, H = CUR.h;
+    elCanvas.style.width = W + 'px';
+    elPlot.style.height = H + 'px';
+    elSide.style.height = H + 'px';
+    elDeps.setAttribute('width', W); elDeps.setAttribute('height', H);
+    elDeps.style.width = W + 'px'; elDeps.style.height = H + 'px';
+
+    /* левая колонка */
+    var sh = '';
+    CUR.rows.forEach(function(r){
+      if (r.kind === 'group'){
+        sh += '<div class="glab g' + (r.g.open ? '' : ' closed') + '" data-g="' + r.g.id + '" style="top:' + r.y + 'px;height:' + r.h + 'px">' +
+              '<span class="glab__tw"></span><span class="glab__t">' + r.g.name + '</span></div>';
+      } else {
+        var t = r.t;
+        sh += '<div class="glab" data-t="' + t.id + '" style="top:' + r.y + 'px;height:' + r.h + 'px">' +
+              '<span class="glab__t">' + t.n + '</span>' +
+              '<span class="glab__d">' + (t.kind === 'ms' ? '◆' : t.d + 'д') + '</span></div>';
+      }
+    });
+    elSide.innerHTML = sh;
+
+    /* ось */
+    var ah = '', wk = 0;
+    for (var d0 = 0; d0 < TOTAL; d0 += 5){
+      wk++;
+      var wpx = Math.min(5, TOTAL - d0) * px;
+      ah += '<div class="gaxis__w" style="left:' + (d0 * px) + 'px;width:' + wpx + 'px">' +
+            (wpx > 34 ? 'Н' + wk + (wpx > 74 ? ' · ' + fmt(dayToDate(d0)) : '') : '') + '</div>';
+    }
+    if (px >= 17){
+      for (var d1 = 0; d1 < TOTAL; d1++){
+        ah += '<div class="gaxis__d" style="left:' + (d1 * px) + 'px;width:' + px + 'px">' + dayToDate(d1).getDate() + '</div>';
+      }
+    }
+    elAxis.innerHTML = ah;
+
+    /* сетка */
+    var gh = '';
+    for (var d2 = 0; d2 < TOTAL; d2++){
+      if (d2 % 5 === 0) gh += '<i class="w" style="left:' + (d2 * px) + 'px"></i>';
+      else if (px >= 13) gh += '<i style="left:' + (d2 * px) + 'px"></i>';
+    }
+    var today = new Date(), off = 0, cur = new Date(startDate.getTime());
+    if (today >= startDate){
+      while (cur < today && off < TOTAL){ cur.setDate(cur.getDate() + 1); var ww = cur.getDay(); if (ww !== 0 && ww !== 6) off++; }
+      if (off < TOTAL) gh += '<b style="left:' + (off * px) + 'px" title="сегодня"></b>';
+    }
+    elGrid.innerHTML = gh;
+
+    /* полосы */
+    var bh = '', rel = sel ? chain(sel) : null, dir = sel ? directOf(sel) : null;
+    CUR.rows.forEach(function(r, i){
+      if (r.kind === 'group'){
+        var a = 1e9, b = -1e9;
+        r.g.items.forEach(function(t){ a = Math.min(a, t.s); b = Math.max(b, t.s + (t.d || 0)); });
+        bh += '<div class="grow g" style="top:' + r.y + 'px;height:' + r.h + 'px"></div>' +
+              '<div class="gbar sum ' + (r.g.items[0].cls) + '" data-g="' + r.g.id + '" style="left:' + (a * px) +
+              'px;width:' + Math.max(3, (b - a) * px) + 'px;top:' + (r.y + (GROUP_H - 8) / 2) + 'px"></div>';
+        return;
+      }
+      var t = r.t;
+      var dim = (critOnly && !t.crit) ? ' dim' : '';
+      var mark = sel ? (t.id === sel ? ' is-sel' : (dir[t.id] ? ' is-rel' : (rel[t.id] ? '' : ' dim'))) : '';
+      bh += '<div class="grow' + (i % 2 ? ' alt' : '') + '" style="top:' + r.y + 'px;height:' + r.h + 'px"></div>';
+      if (t.kind === 'ms'){
+        bh += '<div class="gms' + (t.key ? ' key' : '') + dim + mark + '" data-t="' + t.id + '" style="left:' +
+              (t.s * px - 6) + 'px;top:' + (r.y + (ROW_H - 13) / 2) + 'px"></div>';
+        if (px >= 11){
+          bh += '<div class="gcap" style="left:' + (t.s * px + 12) + 'px;top:' + (r.y + 7) + 'px">' + fmt(dayToDate(t.s)) + '</div>';
+        }
+      } else {
+        bh += '<div class="gbar ' + t.cls + (t.crit ? ' crit' : '') + dim + mark + '" data-t="' + t.id + '" style="left:' +
+              (t.s * px) + 'px;width:' + Math.max(4, t.d * px) + 'px;top:' + (r.y + (ROW_H - BAR_H) / 2) + 'px"></div>';
+      }
+    });
+    elBars.innerHTML = bh;
+
+    drawDeps(rel);
+  }
+
+  function drawDeps(rel){
+    if (!showLinks){ elDepsG.innerHTML = ''; return; }
+    var out = '';
+    GROUPS.forEach(function(g){
+      g.items.forEach(function(t){
+        (t.deps || []).forEach(function(pid){
+          var p = BY[pid]; if (!p) return;
+          var y1 = yOf(pid), y2 = yOf(t.id);
+          if (y1 === null || y2 === null) return;
+          if (y1 === y2) return;
+          var x1 = (p.s + (p.d || 0)) * px, x2 = t.s * px;
+          var o = x1 + 8, b = x2 - 8, dpath;
+          if (b > o) dpath = 'M' + x1 + ' ' + y1 + ' H' + o + ' V' + y2 + ' H' + (x2 - 4);
+          else {
+            var my = y1 < y2 ? y1 + ROW_H / 2 : y1 - ROW_H / 2;
+            dpath = 'M' + x1 + ' ' + y1 + ' H' + o + ' V' + my + ' H' + Math.min(b, x2 - 8) + ' V' + y2 + ' H' + (x2 - 4);
+          }
+          var direct = sel && ((t.id === sel && (BY[sel].deps || []).indexOf(pid) >= 0) || (pid === sel));
+          var hot = rel && rel[t.id] && rel[pid];
+          var col = direct ? 'var(--accent)' : (hot ? 'var(--ink-secondary)' : 'var(--border-strong)');
+          var op = rel ? (direct ? 1 : (hot ? .5 : .1)) : .45;
+          out += '<path d="' + dpath + '" fill="none" stroke="' + col + '" stroke-width="' + (direct ? 1.8 : 1) +
+                 '" opacity="' + op + '" color="' + col + '" marker-end="url(#gah)"/>';
+        });
+      });
+    });
+    elDepsG.innerHTML = out;
+  }
+
+  /* ---------- подсказка ---------- */
+  function names(ids){
+    if (!ids || !ids.length) return '—';
+    return ids.map(function(i){ return BY[i] ? BY[i].n : i; }).join(', ');
+  }
+  function showTip(t, ev){
+    var kind = t.kind === 'ms' ? 'Веха' : (t.kind === 'ext' ? 'Внешнее ожидание' : 'Задача');
+    var h = '<h5>' + t.n + '</h5><dl>' +
+      '<dt>Тип</dt><dd>' + kind + (t.crit ? ' · <em>крит. путь</em>' : '') + '</dd>' +
+      '<dt>Даты</dt><dd>' + span(t) + '</dd>' +
+      (t.d ? '<dt>Длительность</dt><dd>' + t.d + ' веч. · нед. ' + (Math.floor(t.s / 5) + 1) + '</dd>' : '') +
+      '<dt>Зависит от</dt><dd style="font-family:var(--font-ui);font-size:11.5px">' + names(t.deps) + '</dd>' +
+      '<dt>Блокирует</dt><dd style="font-family:var(--font-ui);font-size:11.5px">' + names(BLOCKS[t.id]) + '</dd>' +
+      '</dl>' + (t.why ? '<p>' + t.why + '</p>' : '');
+    tip.innerHTML = h;
+    tip.classList.add('on');
+    moveTip(ev);
+  }
+  function moveTip(ev){
+    var r = tip.getBoundingClientRect();
+    var x = ev.clientX + 16, y = ev.clientY + 16;
+    if (x + r.width > window.innerWidth - 12) x = ev.clientX - r.width - 16;
+    if (y + r.height > window.innerHeight - 12) y = Math.max(12, ev.clientY - r.height - 16);
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip(){ tip.classList.remove('on'); }
+
+  /* ---------- панель детали ---------- */
+  function detail(t){
+    if (!t){ elDet.classList.remove('on'); elDet.innerHTML = ''; return; }
+    var h = '<h4>' + t.n + '</h4><p>' + (t.why || '') + '</p><div class="gdet__r">' +
+      '<span class="chip">' + span(t) + '</span>' +
+      (t.d ? '<span class="chip">' + t.d + ' вечеров</span>' : '<span class="chip">веха</span>') +
+      (t.crit ? '<span class="chip chip--accent">критический путь</span>' : '') +
+      '<span class="chip">блокирует: ' + (BLOCKS[t.id].length || 0) + '</span>';
+    if (t.href) h += '<button class="gdet__go" data-go="' + t.href + '" type="button">Перейти к треку →</button>';
+    h += '</div>';
+    elDet.innerHTML = h;
+    elDet.classList.add('on');
+  }
+
+  function select(id){
+    sel = (sel === id) ? null : id;
+    render();
+    detail(sel ? BY[sel] : null);
+  }
+
+  /* ---------- события ---------- */
+  function findT(el){
+    while (el && el !== document.body){
+      if (el.dataset && el.dataset.t) return el.dataset.t;
+      if (el.dataset && el.dataset.g) return null;
+      el = el.parentNode;
+    }
+    return null;
+  }
+
+  [elBars, elSide].forEach(function(host){
+    host.addEventListener('mousemove', function(ev){
+      var id = findT(ev.target);
+      if (id && BY[id]) showTip(BY[id], ev); else hideTip();
+    });
+    host.addEventListener('mouseleave', hideTip);
+    host.addEventListener('click', function(ev){
+      var node = ev.target;
+      while (node && node !== host && !(node.dataset && (node.dataset.t || node.dataset.g))) node = node.parentNode;
+      if (!node || node === host) return;
+      if (node.dataset.g){
+        var g = GROUPS.filter(function(x){ return x.id === node.dataset.g; })[0];
+        if (g){ g.open = !g.open; render(); }
+        return;
+      }
+      if (node.dataset.t) select(node.dataset.t);
+    });
+  });
+
+  elDet.addEventListener('click', function(ev){
+    var b = ev.target.closest ? ev.target.closest('[data-go]') : null;
+    if (!b) return;
+    var target = document.querySelector(b.dataset.go);
+    if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+
+  document.addEventListener('keydown', function(ev){
+    if (ev.key === 'Escape' && sel){ sel = null; render(); detail(null); }
+  });
+
+  /* зум */
+  function setZoom(v, anchorX){
+    var old = px;
+    px = Math.max(6, Math.min(46, v));
+    $('gz').value = px;
+    $('gzv').textContent = px + ' px/д';
+    var ratio = px / old;
+    var keep = (typeof anchorX === 'number') ? anchorX : elScroll.clientWidth / 2;
+    var before = elScroll.scrollLeft + keep;
+    render();
+    elScroll.scrollLeft = before * ratio - keep;
+  }
+  $('gz').addEventListener('input', function(){ setZoom(+this.value); });
+
+  elScroll.addEventListener('wheel', function(ev){
+    if (!(ev.ctrlKey || ev.metaKey)) return;
+    ev.preventDefault();
+    setZoom(px + (ev.deltaY < 0 ? 2 : -2), ev.clientX - elScroll.getBoundingClientRect().left);
+  }, { passive:false });
+
+  /* фокус на диапазон */
+  var RANGES = { all:[0, TOTAL], p0:[0, 6], mvp:[4, 34], full:[33, TOTAL] };
+  $('gfocus').addEventListener('click', function(ev){
+    var b = ev.target.closest ? ev.target.closest('button') : null;
+    if (!b) return;
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function(x){ x.classList.remove('is-on'); });
+    b.classList.add('is-on');
+    var r = RANGES[b.dataset.f], w = elScroll.clientWidth;
+    setZoom(Math.round(w / (r[1] - r[0])));
+    elScroll.scrollLeft = r[0] * px;
+  });
+
+  $('gcrit').addEventListener('change', function(){ critOnly = this.checked; render(); });
+  $('glinks').addEventListener('change', function(){ showLinks = this.checked; render(); });
+
+  $('gstart').addEventListener('change', function(){
+    var v = this.value;
+    if (!v) return;
+    var p = v.split('-');
+    startDate = snapMonday(new Date(+p[0], +p[1] - 1, +p[2]));
+    this.value = iso(startDate);
+    render();
+  });
+
+  /* ---------- старт ---------- */
+  startDate = snapMonday(new Date());
+  $('gstart').value = iso(startDate);
+  $('gzv').textContent = px + ' px/д';
+  render();
+
+  window.addEventListener('resize', function(){ render(); });
 })();
 </script>
 </body>
