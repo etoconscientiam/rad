@@ -428,6 +428,7 @@ td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary
   <div class="top__in">
     <div class="top__brand">Ракурс<span>пайплайн</span></div>
     <nav class="top__nav" id="nav">
+      <a href="#sprint">Спринт</a>
       <a href="#phase0">Фундамент</a>
       <a href="#mvp">MVP</a>
       <a href="#parity">Паритет</a>
@@ -454,6 +455,63 @@ td.num{font-family:var(--font-mono);white-space:nowrap;color:var(--ink-secondary
 </section>
 
 <main class="wrap">
+
+<!-- ================= СПРИНТ ================= -->
+<section class="sec" id="sprint">
+  <div class="sec__head">
+    <h2>Спринт до 24.09 — закрытый показ</h2>
+    <span class="chip chip--accent">решение 20.09.2026</span>
+  </div>
+  <p class="sec__lead">Владелец поставил ближнюю цель: к четвергу 24 сентября показать работающий сайт на временном адресе — без рекламы, чтобы собрать замечания на живом. Это не отменяет план ниже, это его срез: треки 0.2, 0.3, M1, M2 и M3 в урезанном объёме за четыре вечера. Подробности — в <code>docs/handoff-prompt.md</code>.</p>
+  <div class="phase phase--mvp">
+    <div class="phase__bar"></div>
+    <div class="phase__head">
+      <span class="phase__no">24<span style="font-size:10px">.09</span></span>
+      <div class="phase__title">
+        <h3>Конфигуратор и заявка</h3>
+        <p>Клиент собирает изделие в 3D, видит цену, оставляет заявку. Заявка падает мастеру в Todoist.</p>
+      </div>
+      <div class="phase__meta"><span class="chip">4 вечера</span></div>
+    </div>
+    <div class="phase__body">
+      <div style="display:grid;grid-template-columns:1fr;gap:var(--space-4)">
+        <div>
+          <div class="micro" style="color:var(--success)">Входит</div>
+          <ul class="tasks" style="margin-top:var(--space-2)">
+            <li class="task" style="min-height:auto"><span style="color:var(--success);font-family:var(--font-mono)">+</span><span style="font-size:14px">Конфигуратор с 3D: <strong>Cube и Deska</strong></span></li>
+            <li class="task" style="min-height:auto"><span style="color:var(--success);font-family:var(--font-mono)">+</span><span style="font-size:14px">Цена, вес, метраж, срок изготовления</span></li>
+            <li class="task" style="min-height:auto"><span style="color:var(--success);font-family:var(--font-mono)">+</span><span style="font-size:14px">Заявка задачей в Todoist</span></li>
+            <li class="task" style="min-height:auto"><span style="color:var(--success);font-family:var(--font-mono)">+</span><span style="font-size:14px">Витрина и адаптив</span></li>
+            <li class="task" style="min-height:auto"><span style="color:var(--success);font-family:var(--font-mono)">+</span><span style="font-size:14px">Два языка: грузинский и русский</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="micro">Переносится</div>
+          <ul class="tasks" style="margin-top:var(--space-2)">
+            <li class="task" style="min-height:auto"><span style="color:var(--ink-muted);font-family:var(--font-mono)">−</span><span style="font-size:14px;color:var(--ink-secondary)">Pats, Stella, Chestable — добавляются данными</span></li>
+            <li class="task" style="min-height:auto"><span style="color:var(--ink-muted);font-family:var(--font-mono)">−</span><span style="font-size:14px;color:var(--ink-secondary)">База, корзина, трекинг, админка</span></li>
+            <li class="task" style="min-height:auto"><span style="color:var(--ink-muted);font-family:var(--font-mono)">−</span><span style="font-size:14px;color:var(--ink-secondary)">Оплата — эквайринг требует договора мерчанта</span></li>
+            <li class="task" style="min-height:auto"><span style="color:var(--ink-muted);font-family:var(--font-mono)">−</span><span style="font-size:14px;color:var(--ink-secondary)">Английский язык</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="done" style="border-left-color:var(--warning)">
+        <div class="micro" style="color:var(--warning)">Обязательное условие</div>
+        <ul>
+          <li>цены показываются с оговоркой «цена ориентировочная, подтверждаем при приёме заказа» — тарифы владельцем письменно не подтверждены;</li>
+          <li>оговорка видна рядом с суммой и попадает в текст заявки, уходящей мастеру.</li>
+        </ul>
+      </div>
+      <div class="done">
+        <div class="micro">Что сделать владельцу параллельно</div>
+        <ul>
+          <li>подать заявку в банк на эквайринг в понедельник: ожидание около месяца, и если начать после запуска — оплата отъедет ровно на этот срок;</li>
+          <li>подтвердить тарифы из <code>docs/02-domain-model.md</code> — тогда оговорку можно снять.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ================= ФАЗА 0 ================= -->
 <section class="sec" id="phase0">
