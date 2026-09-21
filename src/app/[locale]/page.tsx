@@ -1,27 +1,24 @@
-import { Link } from '@/i18n/navigation';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher';
-import { setRequestLocale, getTranslations } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
+import { ConfiguratorClient } from '@/components/configurator/ConfiguratorClient';
+import { Footer } from '@/components/site/Footer';
+import { Header } from '@/components/site/Header';
+import { Hero } from '@/components/site/Hero';
+import { HowItWorks } from '@/components/site/HowItWorks';
+import { Works } from '@/components/site/Works';
 
+/** Главная: витрина и конструктор на одной странице — как в прототипе. */
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations();
 
   return (
-    <main className="mx-auto max-w-page px-4 py-16 md:px-6">
-      <header className="mb-12 flex items-center justify-between gap-4">
-        <span className="microlabel text-ink-secondary">{t('brand.tagline')}</span>
-        <LocaleSwitcher />
-      </header>
-
-      <h1 className="text-display">{t('brand.name')}</h1>
-      <p className="mt-4 max-w-[60ch] text-body text-ink-secondary">{t('price.estimate')}</p>
-
-      <p className="mt-8">
-        <Link href="/ui" className="text-body">
-          {t('nav.ds')}
-        </Link>
-      </p>
-    </main>
+    <>
+      <Header />
+      <Hero />
+      <ConfiguratorClient />
+      <HowItWorks />
+      <Works />
+      <Footer />
+    </>
   );
 }

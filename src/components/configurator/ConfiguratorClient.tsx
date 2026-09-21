@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { ColorSwatches, Input, SegmentControl, SizeSlider } from '@/components/ds';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { cssVar } from '@/lib/cssVar';
 import { calculatePrice, deliveryFee, leadTime } from '@/lib/price';
 import { PriceSummary } from './PriceSummary';
@@ -60,26 +59,31 @@ export function ConfiguratorClient() {
   const fee = deliveryFee(qty, 'pickup');
 
   return (
-    <main className="mx-auto max-w-page px-4 py-8 md:px-6">
-      <header className="mb-6 flex items-center justify-between gap-4">
-        <span className="microlabel text-ink-secondary">{t('brand.tagline')}</span>
-        <LocaleSwitcher />
-      </header>
+    <section id="configurator" className="w-full scroll-mt-16 py-14">
+      <div className="mx-auto max-w-page px-4 md:px-6">
+      <h2 className="mb-6 text-h2">{t('configurator.title')}</h2>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
-        <div className="flex flex-col gap-2 lg:sticky lg:top-6 lg:self-start">
-          <Frame3D
-            className="aspect-[4/3] w-full overflow-hidden rounded-card border border-border lg:aspect-auto lg:h-[560px]"
-            model={model}
-            h={size.h}
-            w={size.w}
-            l={size.l}
-            profile={size.profile}
-            color={cssVar(metalFinish.token)}
-            wood={woodFinish.tint}
-            woodTexture={spec.hasLdsp ? woodFinish.texture : null}
-          />
-          <p className="text-small text-ink-muted">{t('configurator.viewportHint')}</p>
+        <div className="lg:sticky lg:top-20 lg:self-start">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card border border-border bg-surface-sunken lg:aspect-auto lg:h-[560px]">
+            <Frame3D
+              className="size-full"
+              model={model}
+              h={size.h}
+              w={size.w}
+              l={size.l}
+              profile={size.profile}
+              color={cssVar(metalFinish.token)}
+              wood={woodFinish.tint}
+              woodTexture={spec.hasLdsp ? woodFinish.texture : null}
+            />
+            <span className="pointer-events-none absolute left-3 top-3 rounded-full border border-border bg-surface px-2.5 py-1 font-mono text-[12px] font-medium text-ink-secondary">
+              {size.l}×{size.w}×{size.h} {t('configurator.unitMm')}
+            </span>
+            <span className="pointer-events-none absolute bottom-3 left-3 font-mono text-microlabel text-ink-muted">
+              {t('configurator.rotateHint')}
+            </span>
+          </div>
         </div>
 
         <div className="flex flex-col gap-6">
@@ -178,9 +182,18 @@ export function ConfiguratorClient() {
 
           <PriceSummary price={price} deliveryFee={fee} leadTime={leadTime(qty)} qty={qty} />
 
-          <OrderForm item={{ model, ...size, qty, metalColor: metal, ...(spec.hasLdsp ? { ldspColor: wood } : {}) }} />
+          <OrderForm
+            item={{
+              model,
+              ...size,
+              qty,
+              metalColor: metal,
+              ...(spec.hasLdsp ? { ldspColor: wood } : {}),
+            }}
+          />
+          </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

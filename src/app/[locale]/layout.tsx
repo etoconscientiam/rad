@@ -48,7 +48,7 @@ export default async function LocaleLayout({
           />
         ))}
       </head>
-      <body>
+      <body className="flex min-h-dvh flex-col">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

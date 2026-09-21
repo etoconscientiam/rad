@@ -9,8 +9,11 @@ import { cn } from '@/lib/cn';
  *
  * Значения вне шкалы ДС, снятые с прототипа (токенов под них нет):
  * высота пилюли 36, её padding 10 и gap 6, ширина ввода 48, размер единиц 12,
- * высота зоны трека 32, ручка 24, трек 4 / радиус 2.
- * Зона трека 32px меньше --touch-min (44) — проверить на телефоне в среду.
+ * ручка 24, трек 4 / радиус 2.
+ *
+ * Отличие от прототипа: зона касания трека поднята с 32px до --touch-min (44).
+ * Прототип нарушал здесь собственное правило ДС, а это главный контрол
+ * конфигуратора на телефоне. Видимый трек остался 4px.
  */
 
 export type SizeSliderProps = {
@@ -105,7 +108,7 @@ export function SizeSlider({
           else if (e.key === 'End') onChange(clamp(max));
           else onChange(clamp(value + delta));
         }}
-        className="relative flex h-8 cursor-pointer touch-none items-center"
+        className="relative flex h-[var(--touch-min)] cursor-pointer touch-none items-center"
       >
         <div className="absolute inset-x-0 h-1 rounded-[2px] bg-border" />
         <div

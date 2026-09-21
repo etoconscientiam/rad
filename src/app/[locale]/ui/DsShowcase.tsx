@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Button, ColorSwatches, SegmentControl, SizeSlider } from '@/components/ds';
+import { Button, ColorSwatches, Input, SegmentControl, SizeSlider } from '@/components/ds';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { LDSP_FINISHES, METAL_FINISHES, MODELS, PROFILE_OPTIONS, SIZE_STEP } from '@/config/catalog';
 
@@ -60,7 +60,7 @@ export function DsShowcase() {
           </div>
           <div className="mt-4">
             <Button fullWidth price={420}>
-              {t('configurator.order')}
+              {t('order.submit')}
             </Button>
           </div>
           <p className="mt-3 text-small text-ink-muted">{t('price.estimate')}</p>
@@ -85,6 +85,14 @@ export function DsShowcase() {
             value={profile}
             onChange={setProfile}
           />
+        </Section>
+
+        <Section title={t('ds.input')}>
+          <div className="flex flex-col gap-4">
+            <Input label={t('order.phone')} mono placeholder="+995" />
+            <Input label={t('order.name')} placeholder={t('order.namePlaceholder')} />
+            <Input label={t('order.phone')} mono error={t('order.errorPhone')} />
+          </div>
         </Section>
 
         <Section title={t('ds.colorSwatches')}>

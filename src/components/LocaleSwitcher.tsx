@@ -18,7 +18,7 @@ export function LocaleSwitcher() {
           href={pathname}
           locale={locale}
           className={cn(
-            'microlabel rounded-control px-2 py-1 no-underline',
+            'microlabel inline-flex min-h-[var(--touch-min)] items-center rounded-control px-2 no-underline',
             locale === active ? 'bg-ink text-accent-on' : 'text-ink-secondary',
           )}
         >
