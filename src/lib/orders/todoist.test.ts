@@ -38,13 +38,14 @@ const ok = () =>
   });
 
 describe('приёмник Todoist', () => {
-  it('шлёт задачу в REST v2 с авторизацией', async () => {
+  it('шлёт задачу в актуальный API v1 с авторизацией', async () => {
     const { impl, calls } = recordingFetch(ok());
     const sink = new TodoistSink({ token: 'tdst-abc123', projectId: 'P1' }, impl);
     const receipt = await sink.submit(order);
 
     const call = calls[0]!;
-    expect(call.url).toBe('https://api.todoist.com/rest/v2/tasks');
+    // REST v2 отключён и отдаёт 410 — адрес должен быть v1.
+    expect(call.url).toBe('https://api.todoist.com/api/v1/tasks');
     expect(call.init.method).toBe('POST');
     expect(new Headers(call.init.headers).get('authorization')).toBe('Bearer tdst-abc123');
     expect(receipt).toEqual({ ref: '123', url: 'https://todoist.com/showTask?id=123' });
@@ -74,6 +75,21 @@ describe('приёмник Todoist', () => {
     const { impl } = recordingFetch(new Response('нет доступа', { status: 403 }));
     const sink = new TodoistSink({ token: 'tdst-abc123', projectId: 'P1' }, impl);
     await expect(sink.submit(order)).rejects.toThrow(/403/);
+  });
+
+  it('в ошибку попадает ответ сервера — иначе 410 не отличить от 401', async () => {
+    const { impl } = recordingFetch(new Response('This endpoint is deprecated.', { status: 410 }));
+    const sink = new TodoistSink({ token: 'tdst-abc123', projectId: 'P1' }, impl);
+    await expect(sink.submit(order)).rejects.toThrow(/deprecated/);
+  });
+
+  it('ссылка на задачу строится из id, если API её не вернул', async () => {
+    const { impl } = recordingFetch(new Response(JSON.stringify({ id: '777' }), { status: 200 }));
+    const sink = new TodoistSink({ token: 'tdst-abc123', projectId: 'P1' }, impl);
+    await expect(sink.submit(order)).resolves.toEqual({
+      ref: '777',
+      url: 'https://app.todoist.com/app/task/777',
+    });
   });
 
   it('текст ошибки не содержит токен', async () => {

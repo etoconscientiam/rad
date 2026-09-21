@@ -9,7 +9,15 @@
 import { formatOrderTask } from './format';
 import type { Order, OrderReceipt, OrderSink } from './types';
 
-const TODOIST_TASKS_URL = 'https://api.todoist.com/rest/v2/tasks';
+/**
+ * REST v2 отключён: 21.09.2026 отдаёт 410 с текстом «This endpoint is
+ * deprecated ... please update to /api/v1/». Образец из git-наброска
+ * (_source/git-sketch/app/api/order.js) писался под v2 и сейчас нерабочий.
+ */
+const TODOIST_TASKS_URL = 'https://api.todoist.com/api/v1/tasks';
+
+/** Ссылка на задачу, если API её не вернул. */
+const taskUrl = (id: string) => `https://app.todoist.com/app/task/${id}`;
 
 export type TodoistConfig = {
   token: string;
@@ -43,10 +51,16 @@ export class TodoistSink implements OrderSink {
     });
 
     if (!response.ok) {
-      throw new Error(`Todoist ответил ${response.status}`);
+      // Тело ответа — от Todoist, нашего токена в нём нет. Без него отладка
+      // сводится к угадыванию: 410 и 401 выглядят одинаково.
+      const detail = (await response.text().catch(() => '')).slice(0, 200).trim();
+      throw new Error(`Todoist ответил ${response.status}${detail ? `: ${detail}` : ''}`);
     }
 
     const task = (await response.json()) as { id?: string; url?: string };
-    return { ref: task.id, url: task.url };
+    return {
+      ref: task.id,
+      url: task.url ?? (task.id ? taskUrl(task.id) : undefined),
+    };
   }
 }
