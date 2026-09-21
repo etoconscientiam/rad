@@ -25,6 +25,8 @@ const PHI = { min: 0.25, max: 1.45 } as const;
 const ZOOM = { min: 0.45, max: 2.6 } as const;
 /** Один «лист» текстуры ЛДСП ≈ 850 мм. */
 const WOOD_TILE = 0.85;
+/** Насколько ручки темнее ЛДСП. Значение прототипа. */
+const KNOB_SHADE = 0.62;
 
 export type Frame3DProps = FrameParams & {
   /** Цвет металла, hex. */
@@ -212,18 +214,25 @@ function Scene({
     () => new THREE.MeshStandardMaterial({ roughness: 0.75, metalness: 0.05 }),
     [],
   );
+  // Ручки ящиков Chestable: тот же оттенок, что ЛДСП, но темнее.
+  const knob = useMemo(
+    () => new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.1 }),
+    [],
+  );
   useEffect(
     () => () => {
       metal.dispose();
       ldsp.dispose();
+      knob.dispose();
     },
-    [metal, ldsp],
+    [metal, ldsp, knob],
   );
 
   metal.color.set(color);
   ldsp.map = texture;
   ldsp.color.set(texture ? '#FFFFFF' : wood);
   ldsp.needsUpdate = true;
+  knob.color.set(wood).multiplyScalar(KNOB_SHADE);
   if (texture) {
     texture.repeat.set(
       Math.max(0.6, params.w / 1000 / WOOD_TILE),
@@ -239,7 +248,10 @@ function Scene({
         {frame.parts.map((part, i) => (
           <mesh key={i} position={[part.position[0], part.position[1], part.position[2]]}>
             <boxGeometry args={[part.size[0], part.size[1], part.size[2]]} />
-            <primitive object={part.material === 'ldsp' ? ldsp : metal} attach="material" />
+            <primitive
+              object={part.material === 'ldsp' ? ldsp : part.material === 'knob' ? knob : metal}
+              attach="material"
+            />
           </mesh>
         ))}
       </group>

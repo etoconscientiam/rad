@@ -86,10 +86,10 @@ export function StaticFrame({
 }) {
   const { faces, viewBox } = useMemo(() => {
     const frame = buildFrame(params);
+    const colorOf = (material: string) =>
+      material === 'ldsp' ? woodColor : material === 'knob' ? shade(woodColor, 0.62) : metalColor;
     const all = frame.parts
-      .flatMap((part) =>
-        boxFaces(part.size, part.position, part.material === 'ldsp' ? woodColor : metalColor),
-      )
+      .flatMap((part) => boxFaces(part.size, part.position, colorOf(part.material)))
       // Дальние грани рисуем первыми — художникова сортировка вместо буфера глубины.
       .sort((a, b) => a.depth - b.depth);
 

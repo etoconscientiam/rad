@@ -69,6 +69,24 @@ test.describe('языки', () => {
     await expect(page.locator('h1')).toHaveText('ლითონის კარკასის შეკვეთის მარტივი გზა');
   });
 
+  test('грузинский заголовок мельче русского и не расползается', async ({ page }) => {
+    const measure = async (path: string) => {
+      await page.goto(path);
+      await settled(page);
+      return page.locator('h1').evaluate((h) => ({
+        size: parseFloat(getComputedStyle(h).fontSize),
+        lines: Math.round(h.getBoundingClientRect().height / parseFloat(getComputedStyle(h).lineHeight)),
+        width: Math.round(h.getBoundingClientRect().width),
+      }));
+    };
+    const ru = await measure('/ru');
+    const ka = await measure('/ka');
+
+    expect(ka.size, 'грузинский набирается мельче — фраза длиннее').toBeLessThan(ru.size);
+    expect(ka.lines, 'заголовок не должен разъезжаться больше чем на три строки').toBeLessThanOrEqual(3);
+    expect(ka.width).toBeLessThanOrEqual(720);
+  });
+
   test('русских слов на грузинской странице нет', async ({ page }) => {
     await page.goto('/ka');
     const text = await page.locator('main, header, footer').allInnerTexts();
