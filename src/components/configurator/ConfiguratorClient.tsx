@@ -82,9 +82,6 @@ export function ConfiguratorClient() {
             <span className="pointer-events-none absolute left-3 top-3 rounded-full border border-border bg-surface px-2.5 py-1 font-mono text-[12px] font-medium text-ink-secondary">
               {size.l}×{size.w}×{size.h} {t('configurator.unitMm')}
             </span>
-            <span className="pointer-events-none absolute bottom-3 left-3 font-mono text-microlabel text-ink-muted">
-              {t('configurator.rotateHint')}
-            </span>
           </div>
         </div>
 

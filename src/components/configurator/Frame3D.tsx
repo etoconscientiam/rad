@@ -2,9 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useTranslations } from 'next-intl';
 import * as THREE from 'three';
 import { buildFrame, type FrameParams } from '@/lib/geometry';
 import { cssVar } from '@/lib/cssVar';
+import { hasWebGL } from '@/lib/webgl';
+import { StaticFrame } from './StaticFrame';
 
 /**
  * 3D-вьюпорт конфигуратора. Порт `_source/prototype/Frame3D.js` на
@@ -260,32 +263,63 @@ export function Frame3D({
   className,
   ...params
 }: Frame3DProps) {
+  const t = useTranslations();
   const background = cssVar('--surface-sunken', '#EBEAE6');
   const groundLight = useMemo(() => new THREE.Color(cssVar('--border-strong', '#B8B5AD')), []);
 
+  /**
+   * probe — первый кадр до проверки: рисуем схему, чтобы вьюпорт не был пустым.
+   * static — WebGL нет или контекст потерян: остаёмся на схеме навсегда.
+   */
+  const [mode, setMode] = useState<'probe' | 'webgl' | 'static'>('probe');
+  useEffect(() => setMode(hasWebGL() ? 'webgl' : 'static'), []);
+
+  const note = mode === 'webgl' ? t('configurator.rotateHint') : t('configurator.no3d');
+
   return (
-    <div className={className}>
-      <Canvas
-        dpr={[1, 2]}
-        gl={{ antialias: true }}
-        camera={{ fov: 38, near: 0.01, far: 100 }}
-        // pan-y и здесь: touch-action на обёртке действует на всё внутри,
-        // и none на ней перебивал бы pan-y на самом канвасе.
-        style={{ width: '100%', height: '100%', display: 'block', touchAction: 'pan-y' }}
-      >
-        <color attach="background" args={[background]} />
-        <hemisphereLight args={[0xffffff, groundLight.getHex(), 1.1]} />
-        <directionalLight position={[3, 5, 2]} intensity={1.5} />
-        <directionalLight position={[-4, 2.5, -3]} intensity={0.5} />
-        <Scene
-          params={params}
-          color={color}
-          wood={wood}
-          woodTexture={woodTexture}
-          autorotate={autorotate}
-          interactive={interactive}
+    <div className={`relative ${className ?? ''}`}>
+      {mode === 'webgl' ? (
+        <Canvas
+          dpr={[1, 2]}
+          gl={{ antialias: true }}
+          camera={{ fov: 38, near: 0.01, far: 100 }}
+          // pan-y и здесь: touch-action на обёртке действует на всё внутри,
+          // и none на ней перебивал бы pan-y на самом канвасе.
+          style={{ width: '100%', height: '100%', display: 'block', touchAction: 'pan-y' }}
+          onCreated={({ gl }) => {
+            // Контекст могут отобрать: слабое устройство, фоновая вкладка,
+            // слишком много канвасов. Тогда уходим на схему, а не чернеем.
+            gl.domElement.addEventListener('webglcontextlost', () => setMode('static'), {
+              once: true,
+            });
+          }}
+        >
+          <color attach="background" args={[background]} />
+          <hemisphereLight args={[0xffffff, groundLight.getHex(), 1.1]} />
+          <directionalLight position={[3, 5, 2]} intensity={1.5} />
+          <directionalLight position={[-4, 2.5, -3]} intensity={0.5} />
+          <Scene
+            params={params}
+            color={color}
+            wood={wood}
+            woodTexture={woodTexture}
+            autorotate={autorotate}
+            interactive={interactive}
+          />
+        </Canvas>
+      ) : (
+        <StaticFrame
+          {...params}
+          metalColor={color}
+          woodColor={wood}
+          label={t('configurator.modelAlt')}
+          className="size-full"
         />
-      </Canvas>
+      )}
+
+      <span className="pointer-events-none absolute bottom-3 left-3 font-mono text-microlabel text-ink-muted">
+        {note}
+      </span>
     </div>
   );
 }

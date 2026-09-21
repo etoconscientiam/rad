@@ -131,3 +131,46 @@ test.describe('слабая сеть', () => {
     await expect(page.getByRole('radiogroup', { name: 'Модель' })).toBeVisible();
   });
 });
+
+test.describe('без WebGL', () => {
+  test.beforeEach(async ({ page }) => {
+    // Отбираем WebGL до загрузки страницы — как на старом устройстве.
+    await page.addInitScript(() => {
+      const original = HTMLCanvasElement.prototype.getContext;
+      function patched(this: HTMLCanvasElement, type: string, ...rest: unknown[]) {
+        if (type === 'webgl' || type === 'webgl2' || type === 'experimental-webgl') return null;
+        return (original as (...a: unknown[]) => unknown).call(this, type, ...rest);
+      }
+      HTMLCanvasElement.prototype.getContext =
+        patched as unknown as typeof HTMLCanvasElement.prototype.getContext;
+    });
+  });
+
+  test('вместо чёрного экрана показывается схема изделия', async ({ page }) => {
+    await page.goto('/ru#configurator');
+    await page.waitForLoadState('load');
+    await expect(page.getByRole('img', { name: 'Схема изделия' })).toBeVisible();
+    await expect(page.locator('canvas')).toHaveCount(0);
+    await expect(page.getByText('3D недоступно на этом устройстве')).toBeVisible();
+  });
+
+  test('схема перерисовывается при смене параметров', async ({ page }) => {
+    await page.goto('/ru#configurator');
+    await page.waitForLoadState('load');
+    const svg = page.getByRole('img', { name: 'Схема изделия' });
+    await expect(svg).toBeVisible();
+    const before = await svg.innerHTML();
+    await page.getByRole('radio', { name: 'Deska' }).click();
+    await page.waitForTimeout(400);
+    expect(await svg.innerHTML()).not.toBe(before);
+  });
+
+  test('конфигуратор остаётся полностью рабочим', async ({ page }) => {
+    await page.goto('/ru#configurator');
+    await page.waitForLoadState('load');
+    await expect(page.getByTestId('grand-total')).toContainText('350');
+    await page.getByRole('radio', { name: '20×20' }).click();
+    await expect(page.getByTestId('grand-total')).toContainText('273');
+    await expect(page.getByRole('button', { name: 'Отправить заявку' })).toBeVisible();
+  });
+});
