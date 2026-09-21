@@ -112,7 +112,10 @@
     "variantGhost": "Ghost",
     "stateDisabled": "გამორთული",
     "sizeSm": "ზომა sm",
-    "withPrice": "ფასით"
+    "withPrice": "ფასით",
+    "card": "ბარათი",
+    "price": "ფასი",
+    "icon": "ხატულა"
   },
   "notFound": {
     "title": "გვერდი ვერ მოიძებნა",

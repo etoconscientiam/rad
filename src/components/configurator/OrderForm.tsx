@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Button, Input, SegmentControl } from '@/components/ds';
+import { Check, X } from 'lucide-react';
+import { Button, Card, Icon, Input, SegmentControl } from '@/components/ds';
 import type { OrderDraft } from '@/lib/orders/types';
 import { validateDraft } from '@/lib/orders/validate';
 import type { DeliveryMethod } from '@/lib/price';
@@ -96,12 +97,12 @@ export function OrderForm({
       }
       const errors = body.errors ?? [];
       setFieldErrors(errors);
-      // Если 400 пришёл по полю, которого в форме нет, показать нечего —
-      // без общего сообщения кнопка молча ничего не делает.
       if (response.status === 409) {
         setStatus({ kind: 'priceChanged' });
         return;
       }
+      // Если 400 пришёл по полю, которого в форме нет, показать нечего —
+      // без общего сообщения кнопка молча ничего не делает.
       const shown = errors.some((e) => e === 'phone' || e === 'address');
       setStatus(response.status === 400 && shown ? { kind: 'idle' } : { kind: 'failed' });
     } catch {
@@ -112,7 +113,10 @@ export function OrderForm({
   if (status.kind === 'sent') {
     return (
       <div className="flex flex-col items-start gap-4 rounded-card border border-success bg-success-subtle p-6">
-        <p className="text-body text-ink">{t('order.success')}</p>
+        <p className="flex items-start gap-3 text-body text-ink">
+          <Icon icon={Check} size={30} className="text-success" />
+          <span>{t('order.success')}</span>
+        </p>
         {/* Без этого второй заказ можно оформить только перезагрузкой страницы. */}
         <Button variant="secondary" onClick={() => setStatus({ kind: 'idle' })}>
           {t('order.again')}
@@ -122,71 +126,78 @@ export function OrderForm({
   }
 
   return (
-    <form
-      onSubmit={submit}
-      className="flex flex-col gap-4 rounded-card border border-border bg-surface p-6"
-    >
-      <h2 className="text-h3">{t('order.title')}</h2>
+    <Card>
+      <form onSubmit={submit} className="flex flex-col gap-4">
+        <h2 className="text-h3">{t('order.title')}</h2>
 
-      <SegmentControl
-        label={t('order.receiving')}
-        mono={false}
-        options={[methodLabels.pickup, methodLabels.delivery]}
-        value={methodLabels[method]}
-        onChange={(label) => setMethod(label === methodLabels.delivery ? 'delivery' : 'pickup')}
-      />
-
-      {method === 'delivery' && (
-        <Input
-          label={t('order.address')}
-          maxLength={300}
-          placeholder={t('order.addressPlaceholder')}
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          error={fieldErrors.includes('address') ? t('order.errorAddress') : undefined}
+        <SegmentControl
+          label={t('order.receiving')}
+          mono={false}
+          options={[methodLabels.pickup, methodLabels.delivery]}
+          value={methodLabels[method]}
+          onChange={(label) => setMethod(label === methodLabels.delivery ? 'delivery' : 'pickup')}
         />
-      )}
 
-      <Input
-        label={t('order.phone')}
-        type="tel"
-        inputMode="tel"
-        mono
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        placeholder="+995"
-        error={fieldErrors.includes('phone') ? t('order.errorPhone') : undefined}
-      />
-      <Input
-        label={`${t('order.name')} · ${t('order.optional')}`}
-        maxLength={120}
-        placeholder={t('order.namePlaceholder')}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <Input
-        label={`${t('order.email')} · ${t('order.optional')}`}
-        type="email"
-        maxLength={200}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        label={`${t('order.comment')} · ${t('order.optional')}`}
-        maxLength={1000}
-        placeholder={t('order.commentPlaceholder')}
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      />
+        {method === 'delivery' && (
+          <Input
+            label={t('order.address')}
+            maxLength={300}
+            placeholder={t('order.addressPlaceholder')}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            error={fieldErrors.includes('address') ? t('order.errorAddress') : undefined}
+          />
+        )}
 
-      {status.kind === 'failed' && <p className="text-small text-danger">{t('order.failed')}</p>}
-      {status.kind === 'priceChanged' && (
-        <p className="text-small text-danger">{t('order.errorPrice')}</p>
-      )}
+        <Input
+          label={t('order.phone')}
+          type="tel"
+          inputMode="tel"
+          mono
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="+995"
+          error={fieldErrors.includes('phone') ? t('order.errorPhone') : undefined}
+        />
+        <Input
+          label={`${t('order.name')} · ${t('order.optional')}`}
+          maxLength={120}
+          placeholder={t('order.namePlaceholder')}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          label={`${t('order.email')} · ${t('order.optional')}`}
+          type="email"
+          maxLength={200}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          label={`${t('order.comment')} · ${t('order.optional')}`}
+          maxLength={1000}
+          placeholder={t('order.commentPlaceholder')}
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
 
-      <Button type="submit" fullWidth disabled={status.kind === 'sending'}>
-        {status.kind === 'sending' ? t('order.sending') : t('order.submit')}
-      </Button>
-    </form>
+        {status.kind === 'failed' && (
+          <p className="flex items-start gap-2 text-small text-danger">
+            <Icon icon={X} size={18} />
+            <span>{t('order.failed')}</span>
+          </p>
+        )}
+        {status.kind === 'priceChanged' && (
+          <p className="flex items-start gap-2 text-small text-danger">
+            <Icon icon={X} size={18} />
+            <span>{t('order.errorPrice')}</span>
+          </p>
+        )}
+
+          <Button type="submit" fullWidth disabled={status.kind === 'sending'}>
+            {status.kind === 'sending' ? t('order.sending') : t('order.submit')}
+          </Button>
+      </form>
+    </Card>
   );
 }

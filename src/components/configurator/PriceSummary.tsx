@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ds';
+import { Button, Price as PriceTag } from '@/components/ds';
 import type { Price } from '@/lib/price';
 
 /**
@@ -42,8 +42,8 @@ export function PriceSummary({
     >
       <div className="flex items-baseline justify-between gap-4">
         <span className="microlabel text-ink-secondary">{t('configurator.total')}</span>
-        <span data-testid="grand-total" className="font-mono text-price text-ink">
-          {grandTotal} ₾
+        <span data-testid="grand-total">
+          <PriceTag value={grandTotal} />
         </span>
       </div>
 

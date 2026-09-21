@@ -2,7 +2,17 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Button, ColorSwatches, Input, SegmentControl, SizeSlider } from '@/components/ds';
+import { Check, Ruler, Truck, X } from 'lucide-react';
+import {
+  Button,
+  Card,
+  ColorSwatches,
+  Icon,
+  Input,
+  Price,
+  SegmentControl,
+  SizeSlider,
+} from '@/components/ds';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { LDSP_FINISHES, METAL_FINISHES, MODELS, PROFILE_OPTIONS, SIZE_STEP } from '@/config/catalog';
 
@@ -85,6 +95,34 @@ export function DsShowcase() {
             value={profile}
             onChange={setProfile}
           />
+        </Section>
+
+        <Section title={t('ds.price')}>
+          <div className="flex flex-wrap items-baseline gap-6">
+            <Price value={420} />
+            <Price value={12500} />
+            <Price value={420} muted />
+          </div>
+        </Section>
+
+        <Section title={t('ds.icon')}>
+          <div className="flex flex-wrap items-center gap-6">
+            <Icon icon={Check} />
+            <Icon icon={X} />
+            <Icon icon={Ruler} />
+            <Icon icon={Truck} size={30} />
+          </div>
+        </Section>
+
+        <Section title={t('ds.card')}>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Card>
+              <p className="text-body text-ink-secondary">{t('ds.subtitle')}</p>
+            </Card>
+            <Card onClick={() => undefined}>
+              <p className="text-body text-ink-secondary">{t('ds.card')}</p>
+            </Card>
+          </div>
         </Section>
 
         <Section title={t('ds.input')}>

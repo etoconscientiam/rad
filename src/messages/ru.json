@@ -112,7 +112,10 @@
     "variantGhost": "Ghost",
     "stateDisabled": "Выключена",
     "sizeSm": "Размер sm",
-    "withPrice": "С ценой"
+    "withPrice": "С ценой",
+    "card": "Карточка",
+    "price": "Цена",
+    "icon": "Иконка"
   },
   "notFound": {
     "title": "Страница не найдена",
