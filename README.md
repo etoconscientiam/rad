@@ -30,7 +30,9 @@ _source/                  — ИСХОДНИКИ, НЕ РЕДАКТИРОВАТ�
   prototype/              — свежая выгрузка Claude Design (16.09.2026) — рабочий референс
   git-sketch/             — набросок из репозитория Redeace/Rakurs_furniture (07.09.2026)
   *.zip                   — исходные архивы (не в git)
-assets/fonts/             — локальные woff2 (Onest, Manrope, JetBrains Mono, Noto Sans Georgian)
+public/fonts/             — локальные woff2 (Onest, Manrope, JetBrains Mono, Noto Sans Georgian)
+public/textures/          — текстуры ЛДСП, пережатые в webp
+public/works/             — фото работ
 _inbox/                   — сюда класть новые выгрузки из Claude Design
 tools/
   serve-prototype.sh      — поднять прототип локально на :8777
