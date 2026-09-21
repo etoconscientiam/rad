@@ -111,6 +111,10 @@ function CameraRig({
     };
     const up = (e: PointerEvent) => void pts.delete(e.pointerId);
     const wheel = (e: WheelEvent) => {
+      // В прототипе конструктор занимал отдельный экран и колесо можно было
+      // забирать себе. Теперь он посреди главной, и глухой preventDefault
+      // не давал пролистать страницу. Зум — по Ctrl или ⌘, как на картах.
+      if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
       orbit.current.zoom = clamp(orbit.current.zoom * (1 + e.deltaY * 0.001), ZOOM.min, ZOOM.max);
     };

@@ -8,7 +8,7 @@ import { cssVar } from '@/lib/cssVar';
 import { calculatePrice, deliveryFee, leadTime } from '@/lib/price';
 import { MAX_QTY } from '@/config/pricing';
 import { PriceSummary } from './PriceSummary';
-import { OrderForm } from './OrderForm';
+import { OrderForm, type DeliveryChoice } from './OrderForm';
 import {
   ACTIVE_MODELS,
   LDSP_FINISHES,
@@ -33,8 +33,12 @@ export function ConfiguratorClient() {
   const [model, setModel] = useState<ModelCode>('cube');
   const [size, setSize] = useState(MODELS.cube.defaults);
   const [qty, setQty] = useState(1);
+  /** Черновик поля количества: пока не null, показываем набранное. */
+  const [qtyDraft, setQtyDraft] = useState<string | null>(null);
   const [metal, setMetal] = useState<string>(METAL_FINISHES[0].value);
   const [wood, setWood] = useState<string>(LDSP_FINISHES[0].value);
+  // Способ получения нужен и форме, и расчёту: доставка входит в итог.
+  const [delivery, setDelivery] = useState<DeliveryChoice>({ method: 'pickup', address: '' });
 
   const spec = MODELS[model];
 
@@ -54,7 +58,7 @@ export function ConfiguratorClient() {
 
   // Цена на клиенте — только чтобы её показать. Сервер считает заново.
   const price = calculatePrice({ model, ...size, qty });
-  const fee = deliveryFee(qty, 'pickup');
+  const fee = deliveryFee(qty, delivery.method);
 
   return (
     <section id="configurator" className="w-full scroll-mt-16 py-14">
@@ -170,15 +174,23 @@ export function ConfiguratorClient() {
               mono
               inputMode="numeric"
               suffix={t('configurator.pcs')}
-              value={qty}
-              onChange={(e) => {
-                const n = Number.parseInt(e.target.value, 10);
-                setQty(Number.isNaN(n) ? 1 : Math.min(MAX_QTY, Math.max(1, n)));
+              value={qtyDraft ?? qty}
+              onChange={(e) => setQtyDraft(e.target.value)}
+              onBlur={() => {
+                const n = Number.parseInt(qtyDraft ?? '', 10);
+                if (!Number.isNaN(n)) setQty(Math.min(MAX_QTY, Math.max(1, n)));
+                setQtyDraft(null);
               }}
+              onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
             />
           </section>
 
-          <PriceSummary price={price} deliveryFee={fee} leadTime={leadTime(qty)} qty={qty} />
+          <PriceSummary
+            price={price}
+            deliveryFee={fee}
+            leadTime={leadTime(qty)}
+            qty={qty}
+          />
 
           <OrderForm
             item={{
@@ -188,6 +200,8 @@ export function ConfiguratorClient() {
               metalColor: metal,
               ...(spec.hasLdsp ? { ldspColor: wood } : {}),
             }}
+            delivery={delivery}
+            onDeliveryChange={setDelivery}
           />
           </div>
         </div>

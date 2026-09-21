@@ -91,6 +91,21 @@ describe('поля, которым нельзя верить с клиента',
     );
   });
 
+  it('свойство прототипа вместо сечения профиля не принимаем', () => {
+    // PROFILE_RATES — обычный объект, поэтому 'constructor' и 'toString'
+    // проходили проверку и уводили цену в NaN.
+    for (const bogus of ['constructor', 'toString', 'valueOf', '__proto__']) {
+      expect(validateDraft({ ...valid, profile: bogus as never }).errors, bogus).toContain(
+        'profile',
+      );
+    }
+  });
+
+  it('у модели со столешницей цвет ЛДСП обязателен', () => {
+    const table = { ...valid, model: 'deska' as const, ...MODELS.deska.defaults };
+    expect(validateDraft(table).errors).toContain('ldspColor');
+  });
+
   it('длинное имя и адрес не принимаем', () => {
     expect(
       validateDraft({ ...valid, customer: { ...valid.customer, name: 'я'.repeat(500) } }).errors,

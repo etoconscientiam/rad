@@ -16,12 +16,28 @@ type Item = Omit<OrderDraft, 'customer' | 'delivery' | 'locale'>;
 
 type Status = { kind: 'idle' | 'sending' | 'sent' } | { kind: 'failed' };
 
-export function OrderForm({ item }: { item: Item }) {
+/**
+ * Способ получения живёт снаружи: от него зависит доставка, а её обязан
+ * видеть расчёт над формой. Иначе клиент соглашается на одну сумму,
+ * а мастер получает другую.
+ */
+export type DeliveryChoice = { method: DeliveryMethod; address: string };
+
+export function OrderForm({
+  item,
+  delivery,
+  onDeliveryChange,
+}: {
+  item: Item;
+  delivery: DeliveryChoice;
+  onDeliveryChange: (next: DeliveryChoice) => void;
+}) {
   const t = useTranslations();
   const locale = useLocale() as Locale;
 
-  const [method, setMethod] = useState<DeliveryMethod>('pickup');
-  const [address, setAddress] = useState('');
+  const { method, address } = delivery;
+  const setMethod = (next: DeliveryMethod) => onDeliveryChange({ ...delivery, method: next });
+  const setAddress = (next: string) => onDeliveryChange({ ...delivery, address: next });
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -62,8 +78,12 @@ export function OrderForm({ item }: { item: Item }) {
         setStatus({ kind: 'sent' });
         return;
       }
-      setFieldErrors(body.errors ?? []);
-      setStatus(response.status === 400 ? { kind: 'idle' } : { kind: 'failed' });
+      const errors = body.errors ?? [];
+      setFieldErrors(errors);
+      // Если 400 пришёл по полю, которого в форме нет, показать нечего —
+      // без общего сообщения кнопка молча ничего не делает.
+      const shown = errors.some((e) => e === 'phone' || e === 'address');
+      setStatus(response.status === 400 && shown ? { kind: 'idle' } : { kind: 'failed' });
     } catch {
       setStatus({ kind: 'failed' });
     }
@@ -95,6 +115,8 @@ export function OrderForm({ item }: { item: Item }) {
       {method === 'delivery' && (
         <Input
           label={t('order.address')}
+          maxLength={300}
+          placeholder={t('order.addressPlaceholder')}
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           error={fieldErrors.includes('address') ? t('order.errorAddress') : undefined}
@@ -113,17 +135,22 @@ export function OrderForm({ item }: { item: Item }) {
       />
       <Input
         label={`${t('order.name')} · ${t('order.optional')}`}
+        maxLength={120}
+        placeholder={t('order.namePlaceholder')}
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
       <Input
         label={`${t('order.email')} · ${t('order.optional')}`}
         type="email"
+        maxLength={200}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <Input
         label={`${t('order.comment')} · ${t('order.optional')}`}
+        maxLength={1000}
+        placeholder={t('order.commentPlaceholder')}
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />

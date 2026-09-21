@@ -44,6 +44,7 @@ export function PriceSummary({
 
       <div className="flex flex-col gap-2 border-t border-border pt-3">
         {qty > 1 && <Row label={t('configurator.perUnit')} value={`${price.unitPrice} ₾`} />}
+        {deliveryFee > 0 && <Row label={t('order.delivery')} value={`${deliveryFee} ₾`} />}
         <Row label={t('configurator.profileMeters')} value={`${price.profileMeters.toFixed(2)} ${t('configurator.unitM')}`} />
         <Row label={t('configurator.weight')} value={`${price.weightKg.toFixed(1)} ${t('configurator.unitKg')}`} />
         <Row

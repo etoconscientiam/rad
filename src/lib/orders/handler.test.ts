@@ -89,6 +89,24 @@ describe('приём заявки', () => {
     await expect(res.json()).resolves.toMatchObject({ ok: false });
   });
 
+  it.each([
+    ['null', 'null'],
+    ['строка', '"привет"'],
+    ['массив', '[]'],
+    ['число', '42'],
+  ])('тело «%s» — это 400, а не падение сервера', async (_name, body) => {
+    const { sink, received } = fakeSink();
+    const res = await createOrderHandler(sink)(
+      new Request('http://localhost/api/orders', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body,
+      }),
+    );
+    expect(res.status).toBe(400);
+    expect(received).toHaveLength(0);
+  });
+
   it('битый JSON не роняет обработчик', async () => {
     const { sink } = fakeSink();
     const res = await createOrderHandler(sink)(

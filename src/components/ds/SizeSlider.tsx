@@ -95,6 +95,10 @@ export function SizeSlider({
         onPointerDown={onPointerDown}
         onPointerMove={(e) => dragging && setFromX(e.clientX)}
         onPointerUp={() => setDragging(false)}
+        // Без этих двух отменённый драг оставляет dragging === true,
+        // и потом обычное наведение мышью переписывает размер и цену.
+        onPointerCancel={() => setDragging(false)}
+        onLostPointerCapture={() => setDragging(false)}
         onKeyDown={(e) => {
           const delta =
             e.key === 'ArrowLeft' || e.key === 'ArrowDown'

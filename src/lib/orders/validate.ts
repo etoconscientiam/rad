@@ -5,7 +5,7 @@
 
 import { LDSP_FINISHES, METAL_FINISHES, MODELS, type ModelCode } from '@/config/catalog';
 import { isLocale } from '@/config/locales';
-import { MAX_QTY, PROFILE_RATES } from '@/config/pricing';
+import { MAX_QTY, PROFILES } from '@/config/pricing';
 import type { OrderDraft } from './types';
 
 /** Минимум цифр в телефоне: короче — это не номер. */
@@ -26,6 +26,12 @@ export type ValidationResult = { errors: string[] };
 export function validateDraft(draft: OrderDraft): ValidationResult {
   const errors: string[] = [];
 
+  // null, строка, массив — тоже валидный JSON. Без этой проверки обработчик
+  // падал на чтении полей и отдавал 500 вместо 400.
+  if (typeof draft !== 'object' || draft === null || Array.isArray(draft)) {
+    return { errors: ['body'] };
+  }
+
   const spec = MODELS[draft.model as ModelCode] as (typeof MODELS)[ModelCode] | undefined;
   if (!spec || !spec.enabled) {
     errors.push('model');
@@ -39,13 +45,16 @@ export function validateDraft(draft: OrderDraft): ValidationResult {
     if (!Number.isFinite(value) || value < min || value > max) errors.push(axis);
   }
 
-  if (!PROFILE_RATES[draft.profile]) errors.push('profile');
+  // Именно членство в списке, а не поиск по объекту: 'constructor' и 'toString'
+  // проходили проверку как ключи прототипа и уводили цену в NaN.
+  if (!(PROFILES as readonly unknown[]).includes(draft.profile)) errors.push('profile');
   if (!Number.isInteger(draft.qty) || draft.qty < 1 || draft.qty > MAX_QTY) errors.push('qty');
 
   // Отделка приходит строкой и попадает в наряд — принимаем только из каталога.
   if (!METAL_VALUES.includes(draft.metalColor)) errors.push('metalColor');
   if (spec.hasLdsp) {
-    if (draft.ldspColor !== undefined && !LDSP_VALUES.includes(draft.ldspColor)) {
+    // Без цвета наряд уедет мастеру без строки «ЛДСП» — резать нечего.
+    if (draft.ldspColor === undefined || !LDSP_VALUES.includes(draft.ldspColor)) {
       errors.push('ldspColor');
     }
   } else if (draft.ldspColor !== undefined) {
