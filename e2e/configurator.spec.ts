@@ -150,4 +150,24 @@ test.describe('расчёт', () => {
     await page.getByRole('radio', { name: '30×30' }).click();
     await expect(page.getByTestId('thin-profile')).toHaveCount(0);
   });
+
+  test('предупреждение само меняет сечение и пересчитывает цену', async ({ page }) => {
+    await page.getByRole('radio', { name: '20×20' }).click();
+    const input = sizeInput(page, 'Высота');
+    await input.fill('1600');
+    await input.blur();
+
+    const warning = page.getByTestId('thin-profile');
+    await expect(warning).toBeVisible();
+    const before = await total(page);
+
+    await warning.getByRole('button', { name: 'Сменить' }).click();
+
+    await expect(warning).toHaveCount(0);
+    await expect(page.getByRole('radio', { name: '30×30' })).toHaveAttribute(
+      'aria-checked',
+      'true',
+    );
+    expect(await total(page), 'цена обязана пересчитаться').toBeGreaterThan(before);
+  });
 });

@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { ColorSwatches, Input, SegmentControl, SizeSlider } from '@/components/ds';
 import { cssVar } from '@/lib/cssVar';
 import { calculatePrice, deliveryFee, leadTime } from '@/lib/price';
-import { MAX_QTY } from '@/config/pricing';
+import { MAX_QTY, THIN_PROFILE_WARNING } from '@/config/pricing';
 import { PriceSummary } from './PriceSummary';
 import { OrderForm, type DeliveryChoice } from './OrderForm';
 import {
@@ -187,6 +187,9 @@ export function ConfiguratorClient() {
             deliveryFee={fee}
             leadTime={leadTime(qty)}
             qty={qty}
+            onApplyThickerProfile={() =>
+              setSize((s) => ({ ...s, profile: THIN_PROFILE_WARNING.recommend }))
+            }
           />
 
           <OrderForm
@@ -199,6 +202,7 @@ export function ConfiguratorClient() {
             }}
             delivery={delivery}
             onDeliveryChange={setDelivery}
+            quotedTotal={price.total + fee}
           />
           </div>
         </div>

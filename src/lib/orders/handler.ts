@@ -60,6 +60,16 @@ export function createOrderHandler(sink: OrderSink) {
 
     const order = priceOrder(draft);
 
+    // Клиентскую сумму не берём в заказ, но сверяем с ней свою. Расхождение
+    // значит, что человек видел не ту цену, на которую соглашается, —
+    // это отказ, а не повод тихо подставить другое число.
+    if (draft.quotedTotal !== undefined && draft.quotedTotal !== order.price.grandTotal) {
+      console.warn(
+        `[orders] цена разошлась: клиент показал ${draft.quotedTotal}, сервер насчитал ${order.price.grandTotal}`,
+      );
+      return json({ ok: false, errors: ['price'], total: order.price.grandTotal }, 409);
+    }
+
     try {
       const receipt = await sink.submit(order);
       return json({ ok: true, ...receipt, total: order.price.grandTotal }, 200);

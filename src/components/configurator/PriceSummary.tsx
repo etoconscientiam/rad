@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ds';
 import type { Price } from '@/lib/price';
 
 /**
@@ -22,11 +23,14 @@ export function PriceSummary({
   deliveryFee,
   leadTime,
   qty,
+  onApplyThickerProfile,
 }: {
   price: Price;
   deliveryFee: number;
   leadTime: { fromDays: number; toDays: number };
   qty: number;
+  /** Применить рекомендованное сечение прямо из предупреждения. */
+  onApplyThickerProfile: () => void;
 }) {
   const t = useTranslations();
   const grandTotal = price.total + deliveryFee;
@@ -72,12 +76,15 @@ export function PriceSummary({
       </div>
 
       {price.suggestThickerProfile && (
-        <p
+        <div
           data-testid="thin-profile"
-          className="rounded-control bg-accent-subtle p-3 text-small text-ink"
+          className="flex flex-wrap items-center justify-between gap-3 rounded-control bg-accent-subtle p-3"
         >
-          {t('configurator.thinProfile')}
-        </p>
+          <p className="flex-1 text-small text-ink">{t('configurator.thinProfile')}</p>
+          <Button size="sm" variant="secondary" onClick={onApplyThickerProfile}>
+            {t('configurator.applyProfile')}
+          </Button>
+        </div>
       )}
     </div>
   );

@@ -61,6 +61,29 @@ describe('приём заявки', () => {
     expect(order.price.grandTotal).toBe(542);
   });
 
+  it('подделанная цена получает отказ, а не молчаливое согласие', async () => {
+    const { sink, received } = fakeSink();
+    // deska 730×600×1400, профиль 20, 2 шт → 542 ₾. Клиент прислал 1.
+    const res = await createOrderHandler(sink)(post({ ...draft, quotedTotal: 1 }));
+    expect(res.status).toBe(409);
+    await expect(res.json()).resolves.toMatchObject({ ok: false, errors: ['price'] });
+    expect(received, 'заявка с чужой ценой не должна уходить мастеру').toHaveLength(0);
+  });
+
+  it('совпавшая цена проходит', async () => {
+    const { sink, received } = fakeSink();
+    const res = await createOrderHandler(sink)(post({ ...draft, quotedTotal: 542 }));
+    expect(res.status).toBe(200);
+    expect(received).toHaveLength(1);
+  });
+
+  it('без присланной цены проверять нечего', async () => {
+    const { sink, received } = fakeSink();
+    const res = await createOrderHandler(sink)(post(draft));
+    expect(res.status).toBe(200);
+    expect(received).toHaveLength(1);
+  });
+
   it('доставка попадает в итог', async () => {
     const { sink, received } = fakeSink();
     await createOrderHandler(sink)(

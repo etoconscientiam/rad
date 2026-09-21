@@ -37,7 +37,12 @@ export const DRAWER = { framePricePerMeter: 14, assembly: 25 } as const;
  * Профиль 20×20 на габарите крупнее порога — рекомендуем 30×30.
  * Это рекомендация, а не запрет: выбор остаётся за клиентом.
  */
-export const THIN_PROFILE_WARNING = { profile: 20, maxDimensionMm: 1500 } as const;
+export const THIN_PROFILE_WARNING = {
+  profile: 20,
+  maxDimensionMm: 1500,
+  /** Что предлагаем взамен. */
+  recommend: 30,
+} as const;
 
 /** Доставка по Тбилиси: базовый тариф и надбавки по количеству позиций. */
 export const DELIVERY = {

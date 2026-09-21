@@ -15,7 +15,7 @@ import type { Locale } from '@/config/locales';
 
 type Item = Omit<OrderDraft, 'customer' | 'delivery' | 'locale'>;
 
-type Status = { kind: 'idle' | 'sending' | 'sent' } | { kind: 'failed' };
+type Status = { kind: 'idle' | 'sending' | 'sent' | 'failed' | 'priceChanged' };
 
 /**
  * Способ получения живёт снаружи: от него зависит доставка, а её обязан
@@ -28,10 +28,13 @@ export function OrderForm({
   item,
   delivery,
   onDeliveryChange,
+  quotedTotal,
 }: {
   item: Item;
   delivery: DeliveryChoice;
   onDeliveryChange: (next: DeliveryChoice) => void;
+  /** Сумма, показанная человеку. Сервер сверит её со своей. */
+  quotedTotal: number;
 }) {
   const t = useTranslations();
   const locale = useLocale() as Locale;
@@ -64,6 +67,7 @@ export function OrderForm({
       },
       delivery: { method, ...(method === 'delivery' ? { address } : {}) },
       locale,
+      quotedTotal,
     };
 
     // Тот же модуль, что и на сервере. Гонять его здесь — не «доверять клиенту»,
@@ -94,6 +98,10 @@ export function OrderForm({
       setFieldErrors(errors);
       // Если 400 пришёл по полю, которого в форме нет, показать нечего —
       // без общего сообщения кнопка молча ничего не делает.
+      if (response.status === 409) {
+        setStatus({ kind: 'priceChanged' });
+        return;
+      }
       const shown = errors.some((e) => e === 'phone' || e === 'address');
       setStatus(response.status === 400 && shown ? { kind: 'idle' } : { kind: 'failed' });
     } catch {
@@ -172,6 +180,9 @@ export function OrderForm({
       />
 
       {status.kind === 'failed' && <p className="text-small text-danger">{t('order.failed')}</p>}
+      {status.kind === 'priceChanged' && (
+        <p className="text-small text-danger">{t('order.errorPrice')}</p>
+      )}
 
       <Button type="submit" fullWidth disabled={status.kind === 'sending'}>
         {status.kind === 'sending' ? t('order.sending') : t('order.submit')}

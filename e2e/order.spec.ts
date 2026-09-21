@@ -78,6 +78,29 @@ test.describe('форма заявки', () => {
     await expect(page.getByText('Не удалось отправить заявку')).toBeVisible();
   });
 
+  test('в заявку уходит показанная человеку сумма', async ({ page }) => {
+    let body: Record<string, unknown> | null = null;
+    await page.route('**/api/orders', async (route) => {
+      body = route.request().postDataJSON();
+      return route.fulfill({ status: 200, json: { ok: true } });
+    });
+    const shown = await total(page);
+    await page.getByRole('textbox', { name: 'Телефон' }).fill('+995 555 12 34 56');
+    await page.getByRole('button', { name: 'Отправить заявку' }).click();
+    await expect(page.getByText('Заявка принята')).toBeVisible();
+    expect(body).toMatchObject({ quotedTotal: shown });
+  });
+
+  test('расхождение цены показывается человеку, а не проглатывается', async ({ page }) => {
+    await page.route('**/api/orders', (route) =>
+      route.fulfill({ status: 409, json: { ok: false, errors: ['price'], total: 999 } }),
+    );
+    await page.getByRole('textbox', { name: 'Телефон' }).fill('+995 555 12 34 56');
+    await page.getByRole('button', { name: 'Отправить заявку' }).click();
+    await expect(page.getByText('Цена на экране разошлась')).toBeVisible();
+    await expect(page.getByText('Заявка принята')).toHaveCount(0);
+  });
+
   test('в заявку уходит то, что собрано в конфигураторе', async ({ page }) => {
     let body: Record<string, unknown> | null = null;
     await page.route('**/api/orders', async (route) => {
@@ -151,6 +174,14 @@ test.describe('приём заявки на сервере', () => {
       expect(res.status()).toBe(400);
     });
   }
+
+  test('подделанная сумма отвергается настоящим сервером', async ({ request }) => {
+    const res = await request.post('/api/orders', { data: { ...draft, quotedTotal: 1 } });
+    expect(res.status()).toBe(409);
+    const body = await res.json();
+    expect(body.errors).toContain('price');
+    expect(body.total, 'сервер сообщает свою сумму').toBe(350);
+  });
 
   test('GET не принимается', async ({ request }) => {
     expect((await request.get('/api/orders')).status()).toBe(405);
