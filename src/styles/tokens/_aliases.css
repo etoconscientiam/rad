@@ -1,0 +1,12 @@
+/* Псевдонимы токенов. Ни одного нового значения — только вторые имена для тех
+   переменных, чьи имена совпадают с пространствами имён темы Tailwind v4
+   (--font-*, --radius-*, --shadow-*). Без этого @theme получил бы
+   самоссылку вида --font-mono: var(--font-mono). */
+:root{
+--ds-font-ui:var(--font-ui);
+--ds-font-mono:var(--font-mono);
+--ds-radius-control:var(--radius-control);
+--ds-radius-card:var(--radius-card);
+--ds-radius-full:var(--radius-full);
+--ds-shadow-sticky:var(--shadow-sticky);
+}

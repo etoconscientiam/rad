@@ -1,0 +1,52 @@
+{
+  "brand": {
+    "name": "Ракурс",
+    "tagline": "Мастерская стальной мебели, Тбилиси"
+  },
+  "nav": {
+    "configurator": "Конфигуратор",
+    "showcase": "Витрина",
+    "ds": "Компоненты"
+  },
+  "price": {
+    "estimate": "Цена ориентировочная, подтверждаем при приёме заказа"
+  },
+  "configurator": {
+    "height": "Высота",
+    "width": "Ширина",
+    "length": "Длина",
+    "profileSection": "Сечение профиля",
+    "metalColor": "Цвет металла",
+    "ldsp": "Столешница, ЛДСП",
+    "unitMm": "мм",
+    "order": "Заказать"
+  },
+  "models": {
+    "cube": "Cube",
+    "deska": "Deska"
+  },
+  "colors": {
+    "black": "Чёрный",
+    "gray": "Серый",
+    "white": "Белый"
+  },
+  "woods": {
+    "light": "Орех",
+    "grey": "Серый дуб",
+    "dark": "Тёмный дуб"
+  },
+  "ds": {
+    "title": "Компоненты дизайн-системы",
+    "subtitle": "Сверка с прототипом. Страница рабочая, в продакшен не идёт.",
+    "button": "Кнопка",
+    "sizeSlider": "Слайдер размера",
+    "segmentControl": "Сегмент-контрол",
+    "colorSwatches": "Свотчи отделки",
+    "variantPrimary": "Primary",
+    "variantSecondary": "Secondary",
+    "variantGhost": "Ghost",
+    "stateDisabled": "Выключена",
+    "sizeSm": "Размер sm",
+    "withPrice": "С ценой"
+  }
+}

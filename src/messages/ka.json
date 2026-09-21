@@ -1,0 +1,52 @@
+{
+  "brand": {
+    "name": "რაკურსი",
+    "tagline": "ფოლადის ავეჯის სახელოსნო, თბილისი"
+  },
+  "nav": {
+    "configurator": "კონფიგურატორი",
+    "showcase": "ნამუშევრები",
+    "ds": "კომპონენტები"
+  },
+  "price": {
+    "estimate": "ფასი სავარაუდოა, ზუსტდება შეკვეთის მიღებისას"
+  },
+  "configurator": {
+    "height": "სიმაღლე",
+    "width": "სიგანე",
+    "length": "სიგრძე",
+    "profileSection": "პროფილის კვეთა",
+    "metalColor": "ლითონის ფერი",
+    "ldsp": "სამუშაო ზედაპირი, ლდსპ",
+    "unitMm": "მმ",
+    "order": "შეკვეთა"
+  },
+  "models": {
+    "cube": "Cube",
+    "deska": "Deska"
+  },
+  "colors": {
+    "black": "შავი",
+    "gray": "ნაცრისფერი",
+    "white": "თეთრი"
+  },
+  "woods": {
+    "light": "კაკალი",
+    "grey": "ნაცრისფერი მუხა",
+    "dark": "მუქი მუხა"
+  },
+  "ds": {
+    "title": "დიზაინ-სისტემის კომპონენტები",
+    "subtitle": "პროტოტიპთან შედარება. სამუშაო გვერდი, პროდაქშენში არ მიდის.",
+    "button": "ღილაკი",
+    "sizeSlider": "ზომის სლაიდერი",
+    "segmentControl": "სეგმენტ-კონტროლი",
+    "colorSwatches": "ფერის ნიმუშები",
+    "variantPrimary": "Primary",
+    "variantSecondary": "Secondary",
+    "variantGhost": "Ghost",
+    "stateDisabled": "გამორთული",
+    "sizeSm": "ზომა sm",
+    "withPrice": "ფასით"
+  }
+}

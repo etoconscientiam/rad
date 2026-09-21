@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+/* Дизайн-система «Каркас». tokens/colors|typography|spacing|base.css скопированы
+   из _source/prototype/_ds/.../tokens/ побайтово — их не править.
+   tokens/fonts.css заменён на локальный fonts.css: оригинал тянул шрифты с
+   fonts.googleapis.com, внешних запросов у нас быть не должно.
+   Порядок подключения повторяет styles.css дизайн-системы. */
+@import "./fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/_font-family.css";
+@import "./tokens/spacing.css";
+@import "./tokens/_aliases.css";
+/* Именно layer(base): без слоя правила из base.css (a, h1-h3, body) перебивали
+   бы любые утилиты Tailwind — неслоёный CSS сильнее слоёного. */
+@import "./tokens/base.css" layer(base);
+
+/* Тема Tailwind — только отображение имён утилит на токены.
+   Значения живут в tokens/*.css, здесь их нет и быть не должно. */
+@theme inline {
+  /* Нейтральные */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-muted: var(--ink-muted);
+  --color-graphite: var(--graphite);
+
+  /* Акцент */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-on: var(--accent-on);
+
+  /* Семантические */
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  /* Цвета изделия — только для свотчей конфигуратора, не для UI */
+  --color-product-black: var(--product-black);
+  --color-product-gray: var(--product-gray);
+  --color-product-white: var(--product-white);
+
+  /* Тёмные зоны */
+  --color-dark-text: var(--dark-text);
+  --color-dark-text-secondary: var(--dark-text-secondary);
+  --color-accent-on-dark: var(--accent-on-dark);
+
+  /* Шрифты */
+  --font-sans: var(--ds-font-ui);
+  --font-mono: var(--ds-font-mono);
+
+  /* Типографические роли */
+  --text-display: var(--display-size);
+  --text-display--line-height: var(--display-lh);
+  --text-display--font-weight: var(--display-weight);
+  --text-display--letter-spacing: var(--display-tracking);
+  --text-h1: var(--h1-size);
+  --text-h1--line-height: var(--h1-lh);
+  --text-h1--font-weight: var(--h1-weight);
+  --text-h2: var(--h2-size);
+  --text-h2--line-height: var(--h2-lh);
+  --text-h2--font-weight: var(--h2-weight);
+  --text-h3: var(--h3-size);
+  --text-h3--line-height: var(--h3-lh);
+  --text-h3--font-weight: var(--h3-weight);
+  --text-body: var(--body-size);
+  --text-body--line-height: var(--body-lh);
+  --text-small: var(--small-size);
+  --text-small--line-height: var(--small-lh);
+  --text-price: var(--price-size);
+  --text-price--font-weight: var(--price-weight);
+  --text-param: var(--param-size);
+  --text-param--font-weight: var(--param-weight);
+  --text-microlabel: var(--microlabel-size);
+  --text-microlabel--letter-spacing: var(--microlabel-tracking);
+  --text-microlabel--font-weight: var(--microlabel-weight);
+
+  /* Отступы: шкала ДС 4/8/12/16/24/32/48/64 — база 4px */
+  --spacing: var(--space-1);
+  --container-page: var(--container);
+
+  /* Скругления и единственная тень */
+  --radius-control: var(--ds-radius-control);
+  --radius-card: var(--ds-radius-card);
+  --radius-full: var(--ds-radius-full);
+  --shadow-sticky: var(--ds-shadow-sticky);
+}
+
+/* Микролейбл — единственный допустимый капс в системе */
+@utility microlabel {
+  font-size: var(--microlabel-size);
+  font-weight: var(--microlabel-weight);
+  letter-spacing: var(--microlabel-tracking);
+  text-transform: uppercase;
+}
