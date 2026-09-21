@@ -75,9 +75,11 @@ test.describe('соблюдение токенов дизайн-системы',
     'rgba(0, 0, 0, 0)', // прозрачный
   ];
 
-  test('цвета текста и фона берутся только из токенов', async ({ page }) => {
-    await page.goto('/ru');
-    await settled(page, { withCanvas: true });
+  for (const path of ['/ru', '/ru/ui']) {
+  test(`${path}: цвета текста и фона берутся только из токенов`, async ({ page }) => {
+    await page.goto(path);
+    // На витрине компонентов 3D нет — ждать канвас там бессмысленно.
+    await settled(page, { withCanvas: path === '/ru' });
     const strays = await page.evaluate((palette) => {
       const found: string[] = [];
       for (const el of document.querySelectorAll('body *')) {
@@ -95,6 +97,7 @@ test.describe('соблюдение токенов дизайн-системы',
     }, PALETTE);
     expect(strays).toEqual([]);
   });
+  }
 
   test('скругления только из шкалы ДС', async ({ page }) => {
     await page.goto('/ru');

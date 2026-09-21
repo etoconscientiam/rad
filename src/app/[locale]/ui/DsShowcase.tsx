@@ -2,16 +2,21 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Check, Ruler, Truck, X } from 'lucide-react';
+import { Check, Minus, Plus, RotateCcw, Ruler, Truck, X } from 'lucide-react';
 import {
   Button,
   Card,
   ColorSwatches,
   Icon,
+  IconButton,
   Input,
+  OrderTimeline,
   Price,
   SegmentControl,
   SizeSlider,
+  StatusChip,
+  Toast,
+  type OrderStatus,
 } from '@/components/ds';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { LDSP_FINISHES, METAL_FINISHES, MODELS, PROFILE_OPTIONS, SIZE_STEP } from '@/config/catalog';
@@ -42,8 +47,8 @@ export function DsShowcase() {
 
   const woodOptions = LDSP_FINISHES.map((f) => ({
     value: f.value,
-    // Текстур ещё нет — до понедельника показываем оттенок из каталога.
-    background: f.tint,
+    // Как в настоящем конфигураторе: текстура, а не плоский оттенок.
+    background: `url("${f.texture}") center/cover`,
     name: t(`woods.${f.value}`),
   }));
 
@@ -112,6 +117,52 @@ export function DsShowcase() {
             <Icon icon={Ruler} />
             <Icon icon={Truck} size={30} />
           </div>
+        </Section>
+
+        <Section title={t('ds.iconButton')}>
+          <div className="flex flex-wrap items-center gap-3">
+            <IconButton icon={Minus} label="−" />
+            <IconButton icon={Plus} label="+" />
+            <IconButton icon={RotateCcw} label={t('configurator.rotateHint')} active />
+          </div>
+        </Section>
+
+        <Section title={t('ds.statusChip')}>
+          <div className="flex flex-wrap items-center gap-3">
+            {(
+              [
+                'awaiting-payment',
+                'received',
+                'production',
+                'ready',
+                'delivery',
+                'done',
+                'cancelled',
+              ] as OrderStatus[]
+            ).map((status) => (
+              <StatusChip key={status} status={status}>
+                {t(`statuses.${status}`)}
+              </StatusChip>
+            ))}
+          </div>
+        </Section>
+
+        <Section title={t('ds.orderTimeline')}>
+          <OrderTimeline
+            steps={[
+              { label: t('statuses.received'), date: '21.09', state: 'done' },
+              { label: t('statuses.production'), date: '23.09', state: 'current' },
+              { label: t('statuses.ready'), state: 'future' },
+              { label: t('statuses.delivery'), state: 'future' },
+              { label: t('statuses.done'), state: 'future' },
+            ]}
+          />
+        </Section>
+
+        <Section title={t('ds.toast')}>
+          <Toast action={t('configurator.applyProfile')} onAction={() => undefined}>
+            {t('configurator.thinProfile')}
+          </Toast>
         </Section>
 
         <Section title={t('ds.card')}>
