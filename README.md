@@ -48,9 +48,13 @@ CLAUDE.md                 — правила работы в этом репоз
 ```
 npm install
 npm run dev     # http://localhost:3000/ka — грузинский, /ru — русский
-npm run check   # typecheck + lint + тесты
+npm run check   # typecheck + lint + юнит-тесты
+npm run e2e     # Playwright по продакшен-сборке (нужен npm run build)
 npm run build
 ```
+
+`npm run e2e` сам поднимает `next start` на порту 3100. Прогоняется в трёх
+раскладках: 1280, 768 и 360 с эмуляцией касаний.
 
 Конфигуратор с 3D — на главной, якорь `#configurator`.
 Витрина компонентов дизайн-системы для визуальной сверки с прототипом — `/ka/ui`, `/ru/ui`.

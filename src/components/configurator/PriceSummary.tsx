@@ -8,9 +8,9 @@ import type { Price } from '@/lib/price';
  * к сумме — это условие владельца, а не оформление.
  */
 
-function Row({ label, value }: { label: string; value: string }) {
+function Row({ label, value, testId }: { label: string; value: string; testId: string }) {
   return (
-    <div className="flex items-baseline justify-between gap-4">
+    <div data-testid={testId} className="flex items-baseline justify-between gap-4">
       <span className="text-small text-ink-secondary">{label}</span>
       <span className="font-mono text-param text-ink">{value}</span>
     </div>
@@ -32,10 +32,15 @@ export function PriceSummary({
   const grandTotal = price.total + deliveryFee;
 
   return (
-    <div className="flex flex-col gap-3 rounded-card border border-border bg-surface-sunken p-6">
+    <div
+      data-testid="price-summary"
+      className="flex flex-col gap-3 rounded-card border border-border bg-surface-sunken p-6"
+    >
       <div className="flex items-baseline justify-between gap-4">
         <span className="microlabel text-ink-secondary">{t('configurator.total')}</span>
-        <span className="font-mono text-price text-ink">{grandTotal} ₾</span>
+        <span data-testid="grand-total" className="font-mono text-price text-ink">
+          {grandTotal} ₾
+        </span>
       </div>
 
       {price.isEstimate && (
@@ -43,18 +48,34 @@ export function PriceSummary({
       )}
 
       <div className="flex flex-col gap-2 border-t border-border pt-3">
-        {qty > 1 && <Row label={t('configurator.perUnit')} value={`${price.unitPrice} ₾`} />}
-        {deliveryFee > 0 && <Row label={t('order.delivery')} value={`${deliveryFee} ₾`} />}
-        <Row label={t('configurator.profileMeters')} value={`${price.profileMeters.toFixed(2)} ${t('configurator.unitM')}`} />
-        <Row label={t('configurator.weight')} value={`${price.weightKg.toFixed(1)} ${t('configurator.unitKg')}`} />
+        {qty > 1 && (
+          <Row testId="unit-price" label={t('configurator.perUnit')} value={`${price.unitPrice} ₾`} />
+        )}
+        {deliveryFee > 0 && (
+          <Row testId="delivery-fee" label={t('order.delivery')} value={`${deliveryFee} ₾`} />
+        )}
         <Row
+          testId="profile-meters"
+          label={t('configurator.profileMeters')}
+          value={`${price.profileMeters.toFixed(2)} ${t('configurator.unitM')}`}
+        />
+        <Row
+          testId="weight"
+          label={t('configurator.weight')}
+          value={`${price.weightKg.toFixed(1)} ${t('configurator.unitKg')}`}
+        />
+        <Row
+          testId="lead-time"
           label={t('configurator.leadTime')}
           value={`${leadTime.fromDays}–${leadTime.toDays} ${t('configurator.days')}`}
         />
       </div>
 
       {price.suggestThickerProfile && (
-        <p className="rounded-control bg-accent-subtle p-3 text-small text-ink">
+        <p
+          data-testid="thin-profile"
+          className="rounded-control bg-accent-subtle p-3 text-small text-ink"
+        >
           {t('configurator.thinProfile')}
         </p>
       )}

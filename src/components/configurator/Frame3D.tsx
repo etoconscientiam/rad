@@ -77,10 +77,13 @@ function CameraRig({
   useEffect(() => {
     if (!interactive) return;
     const cv = gl.domElement;
-    // touch-action ставим на сам canvas: style у <Canvas> уходит на обёртку,
-    // а без этого перетаскивание модели на телефоне скроллит страницу.
+    // touch-action ставим на сам canvas: style у <Canvas> уходит на обёртку.
+    // pan-y, а не none: конструктор стоит посреди главной, и при none
+    // вертикальный жест по модели запирал страницу — пролистать мимо было
+    // нельзя. Браузер сам разводит жесты: горизонтальный остаётся нам
+    // и вращает модель, вертикальный уходит на прокрутку страницы.
     const prevTouchAction = cv.style.touchAction;
-    cv.style.touchAction = 'none';
+    cv.style.touchAction = 'pan-y';
     const pts = new Map<number, [number, number]>();
     let pinch = 0;
 
@@ -266,7 +269,9 @@ export function Frame3D({
         dpr={[1, 2]}
         gl={{ antialias: true }}
         camera={{ fov: 38, near: 0.01, far: 100 }}
-        style={{ width: '100%', height: '100%', display: 'block', touchAction: 'none' }}
+        // pan-y и здесь: touch-action на обёртке действует на всё внутри,
+        // и none на ней перебивал бы pan-y на самом канвасе.
+        style={{ width: '100%', height: '100%', display: 'block', touchAction: 'pan-y' }}
       >
         <color attach="background" args={[background]} />
         <hemisphereLight args={[0xffffff, groundLight.getHex(), 1.1]} />

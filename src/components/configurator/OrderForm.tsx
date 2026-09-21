@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Button, Input, SegmentControl } from '@/components/ds';
 import type { OrderDraft } from '@/lib/orders/types';
+import { validateDraft } from '@/lib/orders/validate';
 import type { DeliveryMethod } from '@/lib/price';
 import type { Locale } from '@/config/locales';
 
@@ -52,8 +53,6 @@ export function OrderForm({
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
-    setStatus({ kind: 'sending' });
-    setFieldErrors([]);
 
     const draft: OrderDraft = {
       ...item,
@@ -66,6 +65,19 @@ export function OrderForm({
       delivery: { method, ...(method === 'delivery' ? { address } : {}) },
       locale,
     };
+
+    // Тот же модуль, что и на сервере. Гонять его здесь — не «доверять клиенту»,
+    // а не заставлять человека ждать ответ ради ошибки, видной сразу.
+    // Решение всё равно принимает сервер: он проверяет заново.
+    const local = validateDraft(draft);
+    if (local.errors.length) {
+      setFieldErrors(local.errors);
+      setStatus({ kind: 'idle' });
+      return;
+    }
+
+    setStatus({ kind: 'sending' });
+    setFieldErrors([]);
 
     try {
       const response = await fetch('/api/orders', {
@@ -91,8 +103,12 @@ export function OrderForm({
 
   if (status.kind === 'sent') {
     return (
-      <div className="rounded-card border border-success bg-success-subtle p-6">
+      <div className="flex flex-col items-start gap-4 rounded-card border border-success bg-success-subtle p-6">
         <p className="text-body text-ink">{t('order.success')}</p>
+        {/* Без этого второй заказ можно оформить только перезагрузкой страницы. */}
+        <Button variant="secondary" onClick={() => setStatus({ kind: 'idle' })}>
+          {t('order.again')}
+        </Button>
       </div>
     );
   }
