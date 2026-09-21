@@ -8,7 +8,7 @@ const config = [
   {
     // Оригиналы заказчика и артефакты сборки линтер не трогает.
     // next-env.d.ts генерируется сборкой — правится не он, а конфиг Next.
-    ignores: ['_source/**', '_inbox/**', '.next/**', '.scratch/**', 'node_modules/**', 'next-env.d.ts'],
+    ignores: ['_source/**', '_inbox/**', '.next/**', '.next-build/**', '.scratch/**', 'node_modules/**', 'next-env.d.ts'],
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
 ];

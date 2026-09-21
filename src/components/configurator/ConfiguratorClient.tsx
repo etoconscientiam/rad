@@ -3,9 +3,12 @@
 import dynamic from 'next/dynamic';
 import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { ColorSwatches, SegmentControl, SizeSlider } from '@/components/ds';
+import { ColorSwatches, Input, SegmentControl, SizeSlider } from '@/components/ds';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { cssVar } from '@/lib/cssVar';
+import { calculatePrice, deliveryFee, leadTime } from '@/lib/price';
+import { PriceSummary } from './PriceSummary';
+import { OrderForm } from './OrderForm';
 import {
   ACTIVE_MODELS,
   LDSP_FINISHES,
@@ -24,11 +27,15 @@ const Frame3D = dynamic(() => import('./Frame3D').then((m) => m.Frame3D), {
   loading: () => <div className="size-full bg-surface-sunken" />,
 });
 
+/** Сколько штук разумно заказать одной заявкой без корзины. */
+const MAX_QTY = 200;
+
 export function ConfiguratorClient() {
   const t = useTranslations();
 
   const [model, setModel] = useState<ModelCode>('cube');
   const [size, setSize] = useState(MODELS.cube.defaults);
+  const [qty, setQty] = useState(1);
   const [metal, setMetal] = useState<string>(METAL_FINISHES[0].value);
   const [wood, setWood] = useState<string>(LDSP_FINISHES[0].value);
 
@@ -48,6 +55,10 @@ export function ConfiguratorClient() {
     [t],
   );
 
+  // Цена на клиенте — только чтобы её показать. Сервер считает заново.
+  const price = calculatePrice({ model, ...size, qty });
+  const fee = deliveryFee(qty, 'pickup');
+
   return (
     <main className="mx-auto max-w-page px-4 py-8 md:px-6">
       <header className="mb-6 flex items-center justify-between gap-4">
@@ -56,7 +67,7 @@ export function ConfiguratorClient() {
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 lg:sticky lg:top-6 lg:self-start">
           <Frame3D
             className="aspect-[4/3] w-full overflow-hidden rounded-card border border-border lg:aspect-auto lg:h-[560px]"
             model={model}
@@ -71,90 +82,104 @@ export function ConfiguratorClient() {
           <p className="text-small text-ink-muted">{t('configurator.viewportHint')}</p>
         </div>
 
-        <aside className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6">
-          <SegmentControl
-            label={t('configurator.model')}
-            mono={false}
-            options={modelNames.map((m) => m.name)}
-            value={t(`models.${model}`)}
-            onChange={(name) => {
-              const found = modelNames.find((m) => m.name === name);
-              if (found) selectModel(found.code);
-            }}
-          />
-
-          <SizeSlider
-            label={t('configurator.height')}
-            unit={t('configurator.unitMm')}
-            min={spec.ranges.h.min}
-            max={spec.ranges.h.max}
-            step={SIZE_STEP}
-            value={size.h}
-            onChange={(h) => setSize((s) => ({ ...s, h }))}
-          />
-          <SizeSlider
-            label={t('configurator.width')}
-            unit={t('configurator.unitMm')}
-            min={spec.ranges.w.min}
-            max={spec.ranges.w.max}
-            step={SIZE_STEP}
-            value={size.w}
-            onChange={(w) => setSize((s) => ({ ...s, w }))}
-          />
-          <SizeSlider
-            label={t('configurator.length')}
-            unit={t('configurator.unitMm')}
-            min={spec.ranges.l.min}
-            max={spec.ranges.l.max}
-            step={SIZE_STEP}
-            value={size.l}
-            onChange={(l) => setSize((s) => ({ ...s, l }))}
-          />
-
-          <SegmentControl
-            label={t('configurator.profileSection')}
-            options={PROFILE_OPTIONS}
-            value={profileLabel(size.profile)}
-            onChange={(label) => {
-              const profile = profileFromLabel(label);
-              if (profile) setSize((s) => ({ ...s, profile }));
-            }}
-          />
-
-          <div className="flex flex-col gap-2">
-            <span className="microlabel text-ink-secondary">{t('configurator.metalColor')}</span>
-            <ColorSwatches
-              label={t('configurator.metalColor')}
-              ringOffsetColor="var(--surface)"
-              options={METAL_FINISHES.map((f) => ({
-                value: f.value,
-                background: `var(${f.token})`,
-                name: t(`colors.${f.value}`),
-              }))}
-              value={metal}
-              onChange={setMetal}
+        <div className="flex flex-col gap-6">
+          <section className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6">
+            <SegmentControl
+              label={t('configurator.model')}
+              mono={false}
+              options={modelNames.map((m) => m.name)}
+              value={t(`models.${model}`)}
+              onChange={(name) => {
+                const found = modelNames.find((m) => m.name === name);
+                if (found) selectModel(found.code);
+              }}
             />
-          </div>
 
-          {spec.hasLdsp && (
+            <SizeSlider
+              label={t('configurator.height')}
+              unit={t('configurator.unitMm')}
+              min={spec.ranges.h.min}
+              max={spec.ranges.h.max}
+              step={SIZE_STEP}
+              value={size.h}
+              onChange={(h) => setSize((s) => ({ ...s, h }))}
+            />
+            <SizeSlider
+              label={t('configurator.width')}
+              unit={t('configurator.unitMm')}
+              min={spec.ranges.w.min}
+              max={spec.ranges.w.max}
+              step={SIZE_STEP}
+              value={size.w}
+              onChange={(w) => setSize((s) => ({ ...s, w }))}
+            />
+            <SizeSlider
+              label={t('configurator.length')}
+              unit={t('configurator.unitMm')}
+              min={spec.ranges.l.min}
+              max={spec.ranges.l.max}
+              step={SIZE_STEP}
+              value={size.l}
+              onChange={(l) => setSize((s) => ({ ...s, l }))}
+            />
+
+            <SegmentControl
+              label={t('configurator.profileSection')}
+              options={PROFILE_OPTIONS}
+              value={profileLabel(size.profile)}
+              onChange={(label) => {
+                const profile = profileFromLabel(label);
+                if (profile) setSize((s) => ({ ...s, profile }));
+              }}
+            />
+
             <div className="flex flex-col gap-2">
-              <span className="microlabel text-ink-secondary">{t('configurator.ldsp')}</span>
+              <span className="microlabel text-ink-secondary">{t('configurator.metalColor')}</span>
               <ColorSwatches
-                label={t('configurator.ldsp')}
-                ringOffsetColor="var(--surface)"
-                options={LDSP_FINISHES.map((f) => ({
+                label={t('configurator.metalColor')}
+                options={METAL_FINISHES.map((f) => ({
                   value: f.value,
-                  background: `url("${f.texture}") center/cover`,
-                  name: t(`woods.${f.value}`),
+                  background: `var(${f.token})`,
+                  name: t(`colors.${f.value}`),
                 }))}
-                value={wood}
-                onChange={setWood}
+                value={metal}
+                onChange={setMetal}
               />
             </div>
-          )}
 
-          <p className="text-small text-ink-muted">{t('price.estimate')}</p>
-        </aside>
+            {spec.hasLdsp && (
+              <div className="flex flex-col gap-2">
+                <span className="microlabel text-ink-secondary">{t('configurator.ldsp')}</span>
+                <ColorSwatches
+                  label={t('configurator.ldsp')}
+                  options={LDSP_FINISHES.map((f) => ({
+                    value: f.value,
+                    background: `url("${f.texture}") center/cover`,
+                    name: t(`woods.${f.value}`),
+                  }))}
+                  value={wood}
+                  onChange={setWood}
+                />
+              </div>
+            )}
+
+            <Input
+              label={t('configurator.quantity')}
+              mono
+              inputMode="numeric"
+              suffix={t('configurator.pcs')}
+              value={qty}
+              onChange={(e) => {
+                const n = Number.parseInt(e.target.value, 10);
+                setQty(Number.isNaN(n) ? 1 : Math.min(MAX_QTY, Math.max(1, n)));
+              }}
+            />
+          </section>
+
+          <PriceSummary price={price} deliveryFee={fee} leadTime={leadTime(qty)} qty={qty} />
+
+          <OrderForm item={{ model, ...size, qty, metalColor: metal, ...(spec.hasLdsp ? { ldspColor: wood } : {}) }} />
+        </div>
       </div>
     </main>
   );
