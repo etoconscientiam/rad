@@ -95,13 +95,17 @@ export const ACTIVE_MODELS = MODEL_CODES.filter((code) => MODELS[code].enabled);
 /** Шаг слайдеров размера, мм. В прототипе он везде один. */
 export const SIZE_STEP = 10;
 
-export const PROFILE_OPTIONS = PROFILES.map((p) => `${p}×${p}`);
+export const PROFILE_OPTIONS = PROFILES.map((p) => profileLabel(p));
 
-/** Цвет металла. Значения совпадают с токенами --product-*. */
+/**
+ * Цвет металла. Храним ИМЯ токена, а не готовое значение: в CSS оно уходит как
+ * var(--product-black), а в three.js — резолвится через cssVar(), потому что
+ * сцена CSS-переменных не понимает. Своей палитры у 3D нет.
+ */
 export const METAL_FINISHES = [
-  { value: 'black', token: 'var(--product-black)' },
-  { value: 'gray', token: 'var(--product-gray)' },
-  { value: 'white', token: 'var(--product-white)' },
+  { value: 'black', token: '--product-black' },
+  { value: 'gray', token: '--product-gray' },
+  { value: 'white', token: '--product-white' },
 ] as const;
 
 /**
@@ -113,3 +117,13 @@ export const LDSP_FINISHES = [
   { value: 'grey', tint: '#6C625B', texture: '/textures/wood-grey.webp' },
   { value: 'dark', tint: '#4B3B34', texture: '/textures/wood-dark.webp' },
 ] as const;
+
+/** Подпись сечения профиля: 30 → «30×30». */
+export function profileLabel(p: Profile): string {
+  return `${p}×${p}`;
+}
+
+/** Обратное преобразование подписи в сечение. */
+export function profileFromLabel(label: string): Profile | undefined {
+  return PROFILES.find((p) => profileLabel(p) === label);
+}

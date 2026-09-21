@@ -44,3 +44,4 @@ _inbox/*
 
 # --- генерируется Next.js ---
 next-env.d.ts
+.next-build/

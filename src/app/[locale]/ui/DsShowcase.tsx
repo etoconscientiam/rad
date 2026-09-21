@@ -26,7 +26,7 @@ export function DsShowcase() {
 
   const metalOptions = METAL_FINISHES.map((f) => ({
     value: f.value,
-    background: f.token,
+    background: `var(${f.token})`,
     name: t(`colors.${f.value}`),
   }));
 
