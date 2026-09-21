@@ -48,10 +48,14 @@ CLAUDE.md                 — правила работы в этом репоз
 ```
 npm install
 npm run dev     # http://localhost:3000/ka — грузинский, /ru — русский
-npm run check   # typecheck + lint + юнит-тесты
-npm run e2e     # Playwright по продакшен-сборке (нужен npm run build)
+npm run check   # быстрый цикл: typecheck + lint + юнит-тесты
+npm run verify  # всё разом: check + сборка + Playwright
 npm run build
 ```
+
+`npm run verify` — единственная команда, которой проверяется всё. `check`
+оставлен отдельно для быстрого цикла: он идёт полсекунды, а `verify` около двух
+минут, потому что собирает проект и гоняет браузер.
 
 `npm run e2e` сам поднимает `next start` на порту 3100. Прогоняется в трёх
 раскладках: 1280, 768 и 360 с эмуляцией касаний.
