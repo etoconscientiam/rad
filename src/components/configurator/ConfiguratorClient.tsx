@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { ColorSwatches, Input, SegmentControl, SizeSlider } from '@/components/ds';
 import { cssVar } from '@/lib/cssVar';
 import { calculatePrice, deliveryFee, leadTime } from '@/lib/price';
+import { MAX_QTY } from '@/config/pricing';
 import { PriceSummary } from './PriceSummary';
 import { OrderForm } from './OrderForm';
 import {
@@ -25,9 +26,6 @@ const Frame3D = dynamic(() => import('./Frame3D').then((m) => m.Frame3D), {
   ssr: false,
   loading: () => <div className="size-full bg-surface-sunken" />,
 });
-
-/** Сколько штук разумно заказать одной заявкой без корзины. */
-const MAX_QTY = 200;
 
 export function ConfiguratorClient() {
   const t = useTranslations();

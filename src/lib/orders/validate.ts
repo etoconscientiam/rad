@@ -3,12 +3,23 @@
  * подсвечивать поля, но доверяем только серверному прогону.
  */
 
-import { MODELS, type ModelCode } from '@/config/catalog';
-import { PROFILE_RATES } from '@/config/pricing';
+import { LDSP_FINISHES, METAL_FINISHES, MODELS, type ModelCode } from '@/config/catalog';
+import { isLocale } from '@/config/locales';
+import { MAX_QTY, PROFILE_RATES } from '@/config/pricing';
 import type { OrderDraft } from './types';
 
 /** Минимум цифр в телефоне: короче — это не номер. */
 const MIN_PHONE_DIGITS = 7;
+
+/**
+ * Потолки свободного текста. Всё это уезжает в задачу мастеру, поэтому длина
+ * ограничена: иначе одна заявка превращает наряд в нечитаемую простыню.
+ */
+const MAX_LENGTH = { name: 120, email: 200, comment: 1000, address: 300 } as const;
+
+const METAL_VALUES: readonly string[] = METAL_FINISHES.map((f) => f.value);
+const LDSP_VALUES: readonly string[] = LDSP_FINISHES.map((f) => f.value);
+const DELIVERY_METHODS: readonly string[] = ['pickup', 'delivery'];
 
 export type ValidationResult = { errors: string[] };
 
@@ -29,14 +40,34 @@ export function validateDraft(draft: OrderDraft): ValidationResult {
   }
 
   if (!PROFILE_RATES[draft.profile]) errors.push('profile');
-  if (!Number.isInteger(draft.qty) || draft.qty < 1) errors.push('qty');
+  if (!Number.isInteger(draft.qty) || draft.qty < 1 || draft.qty > MAX_QTY) errors.push('qty');
+
+  // Отделка приходит строкой и попадает в наряд — принимаем только из каталога.
+  if (!METAL_VALUES.includes(draft.metalColor)) errors.push('metalColor');
+  if (spec.hasLdsp) {
+    if (draft.ldspColor !== undefined && !LDSP_VALUES.includes(draft.ldspColor)) {
+      errors.push('ldspColor');
+    }
+  } else if (draft.ldspColor !== undefined) {
+    errors.push('ldspColor');
+  }
+
+  if (typeof draft.locale !== 'string' || !isLocale(draft.locale)) errors.push('locale');
+
+  const method = draft.delivery?.method;
+  if (!DELIVERY_METHODS.includes(method)) {
+    errors.push('method');
+  } else if (method === 'delivery' && !draft.delivery.address?.trim()) {
+    errors.push('address');
+  }
 
   const digits = (draft.customer?.phone ?? '').replace(/\D/g, '');
   if (digits.length < MIN_PHONE_DIGITS) errors.push('phone');
 
-  if (draft.delivery?.method === 'delivery' && !draft.delivery.address?.trim()) {
-    errors.push('address');
-  }
+  if ((draft.customer?.name?.length ?? 0) > MAX_LENGTH.name) errors.push('name');
+  if ((draft.customer?.email?.length ?? 0) > MAX_LENGTH.email) errors.push('email');
+  if ((draft.customer?.comment?.length ?? 0) > MAX_LENGTH.comment) errors.push('comment');
+  if ((draft.delivery?.address?.length ?? 0) > MAX_LENGTH.address) errors.push('address');
 
   return { errors };
 }
