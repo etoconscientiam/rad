@@ -84,6 +84,14 @@ describe('поля, которым нельзя верить с клиента',
     expect(validateDraft({ ...valid, locale: 'hy' as never }).errors).toContain('locale');
   });
 
+  it('ключ повтора либо UUID, либо отсутствует — старые клиенты не ломаются', () => {
+    expect(validateDraft(valid).errors).toEqual([]);
+    expect(
+      validateDraft({ ...valid, requestId: '1a945b6a-7d1d-4aa8-b6d1-492d2d1a9d23' }).errors,
+    ).toEqual([]);
+    expect(validateDraft({ ...valid, requestId: 'повтори' }).errors).toContain('requestId');
+  });
+
   it('простыню текста в комментарии не принимаем — она уедет мастеру в задачу', () => {
     const comment = 'а'.repeat(5000);
     expect(validateDraft({ ...valid, customer: { ...valid.customer, comment } }).errors).toContain(

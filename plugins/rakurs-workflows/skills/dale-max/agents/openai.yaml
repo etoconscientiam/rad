@@ -1,0 +1,5 @@
+interface:
+  display_name: "Dale Max"
+  short_description: "Independent gate for high-risk work"
+policy:
+  allow_implicit_invocation: false

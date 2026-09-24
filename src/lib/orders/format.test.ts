@@ -4,6 +4,7 @@ import type { Order } from './types';
 import { MODELS } from '@/config/catalog';
 
 const order: Order = {
+  requestId: '1a945b6a-7d1d-4aa8-b6d1-492d2d1a9d23',
   model: 'deska',
   ...MODELS.deska.defaults,
   qty: 2,

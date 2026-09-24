@@ -3,7 +3,7 @@
  * не может экспортировать ничего, кроме обработчиков, а это надо проверять.
  */
 
-import { TodoistSink } from './todoist';
+import { SupabaseOrdersSink } from './supabase';
 import type { OrderSink } from './types';
 
 /**
@@ -13,17 +13,19 @@ import type { OrderSink } from './types';
 const notConfigured: OrderSink = {
   name: 'не настроен',
   submit: async () => {
-    throw new Error('TODOIST_TOKEN не задан — заявку отправлять некуда');
+    throw new Error('Supabase не настроен — заявку хранить негде');
   },
 };
 
-/** Разрешается на каждый запрос: токен читается из окружения, не из сборки. */
+/** Разрешается на каждый запрос: серверный ключ не попадает в сборку. */
 export function resolveSink(): OrderSink {
-  const token = process.env.TODOIST_TOKEN;
-  if (!token) return notConfigured;
-  return new TodoistSink({
-    token,
-    projectId: process.env.TODOIST_PROJECT_ID,
-    sectionId: process.env.TODOIST_SECTION_ID,
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  // SUPABASE_SERVICE_ROLE_KEY оставлен как временная совместимость с
+  // устаревшими JWT-ключами Supabase. Для новых проектов используем secret.
+  const secretKey = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !secretKey) return notConfigured;
+  return new SupabaseOrdersSink({
+    url,
+    secretKey,
   });
 }

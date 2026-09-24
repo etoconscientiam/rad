@@ -47,6 +47,7 @@ export function OrderForm({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
+  const [requestId, setRequestId] = useState(() => crypto.randomUUID());
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
@@ -60,6 +61,7 @@ export function OrderForm({
 
     const draft: OrderDraft = {
       ...item,
+      requestId,
       customer: {
         phone,
         ...(name.trim() ? { name } : {}),
@@ -118,7 +120,13 @@ export function OrderForm({
           <span>{t('order.success')}</span>
         </p>
         {/* Без этого второй заказ можно оформить только перезагрузкой страницы. */}
-        <Button variant="secondary" onClick={() => setStatus({ kind: 'idle' })}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setRequestId(crypto.randomUUID());
+            setStatus({ kind: 'idle' });
+          }}
+        >
           {t('order.again')}
         </Button>
       </div>

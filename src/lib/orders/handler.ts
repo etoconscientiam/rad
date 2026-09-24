@@ -33,6 +33,7 @@ export function priceOrder(draft: OrderDraft): Order {
 
   return {
     ...draft,
+    requestId: draft.requestId ?? crypto.randomUUID(),
     price: {
       unitPrice: price.unitPrice,
       total: price.total,

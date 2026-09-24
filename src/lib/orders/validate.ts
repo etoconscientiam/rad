@@ -20,6 +20,7 @@ const MAX_LENGTH = { name: 120, email: 200, comment: 1000, address: 300 } as con
 const METAL_VALUES: readonly string[] = METAL_FINISHES.map((f) => f.value);
 const LDSP_VALUES: readonly string[] = LDSP_FINISHES.map((f) => f.value);
 const DELIVERY_METHODS: readonly string[] = ['pickup', 'delivery'];
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export type ValidationResult = { errors: string[] };
 
@@ -62,6 +63,9 @@ export function validateDraft(draft: OrderDraft): ValidationResult {
   }
 
   if (typeof draft.locale !== 'string' || !isLocale(draft.locale)) errors.push('locale');
+  if (draft.requestId !== undefined && (typeof draft.requestId !== 'string' || !UUID.test(draft.requestId))) {
+    errors.push('requestId');
+  }
 
   const method = draft.delivery?.method;
   if (!DELIVERY_METHODS.includes(method)) {

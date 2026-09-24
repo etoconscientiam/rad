@@ -10,6 +10,8 @@ import type { Profile } from '@/config/pricing';
 
 /** То, что присылает клиент. Цену отсюда не берём — пересчитываем на сервере. */
 export type OrderDraft = {
+  /** Ключ одной попытки отправки: защищает от дубля при повторе запроса. */
+  requestId?: string;
   model: ModelCode;
   h: number;
   w: number;
@@ -36,7 +38,9 @@ export type OrderDraft = {
 };
 
 /** Заявка с ценой, пересчитанной на сервере. Только её и отправляем мастеру. */
-export type Order = OrderDraft & {
+export type Order = Omit<OrderDraft, 'requestId'> & {
+  /** Всегда есть после серверного приёма, даже для старого клиента без поля. */
+  requestId: string;
   price: {
     unitPrice: number;
     total: number;
